@@ -22,6 +22,7 @@ const refs = {
   editModalTitle: document.getElementById("edit-modal-title"),
   editName: document.getElementById("edit-name"),
   editRepeats: document.getElementById("edit-repeats"),
+  editTrackMoves: document.getElementById("edit-track-moves"),
   editSteps: document.getElementById("edit-steps"),
   deleteModal: document.getElementById("delete-modal"),
   deleteMacroName: document.getElementById("delete-macro-name"),
@@ -87,7 +88,12 @@ async function readMacrosFromStorage() {
       return [];
     }
 
-    return storedMacros.filter((item) => item && typeof item.id === "string" && typeof item.name === "string");
+    return storedMacros
+      .filter((item) => item && typeof item.id === "string" && typeof item.name === "string")
+      .map((item) => ({
+        ...item,
+        trackMoves: Boolean(item.trackMoves)
+      }));
   } catch {
     return [];
   }
@@ -120,6 +126,10 @@ async function loadMacros() {
     defaultMacroId = null;
     await persistDefaultMacroId();
   }
+}
+
+async function cleanupLegacyTrackMovesSetting() {
+  await chrome.storage.local.remove("track_moves_enabled");
 }
 
 function getDefaultMacro() {
@@ -245,7 +255,8 @@ async function startExecution(macroId) {
     macroName: macro.name,
     repeats: macro.repeats,
     tabId: activeTab.id,
-    steps
+    steps,
+    trackMoves: Boolean(macro.trackMoves)
   });
 
   if (!response?.ok) {
@@ -343,6 +354,7 @@ function openEditModal(macroId) {
     refs.editModalTitle.textContent = "Редактирование macros";
     refs.editName.value = macro.name;
     refs.editRepeats.value = String(macro.repeats ?? 1);
+    refs.editTrackMoves.checked = Boolean(macro.trackMoves);
     renderEditSteps(Array.isArray(macro.steps) ? macro.steps : []);
     refs.editModal.classList.remove("hidden");
     syncPopupHeight();
@@ -354,6 +366,7 @@ function openEditModal(macroId) {
   refs.editModalTitle.textContent = "Создание macros";
   refs.editName.value = buildDefaultMacroName();
   refs.editRepeats.value = "1";
+  refs.editTrackMoves.checked = false;
   renderEditSteps([]);
   refs.editModal.classList.remove("hidden");
   syncPopupHeight();
@@ -501,6 +514,7 @@ async function completeCreateModeIfNeeded() {
     id: createMacroId(),
     name: typeof response.macroName === "string" && response.macroName.trim() ? response.macroName : buildDefaultMacroName(),
     repeats: 1,
+    trackMoves: false,
     steps: Array.isArray(response.steps) ? response.steps.filter((step) => typeof step === "string") : []
   };
 
@@ -586,6 +600,7 @@ refs.saveEditBtn.addEventListener("click", async () => {
 
   const repeats = Number(refs.editRepeats.value);
   const validRepeats = Number.isFinite(repeats) && repeats > 0 ? repeats : 1;
+  const trackMoves = Boolean(refs.editTrackMoves.checked);
 
   if (state.modalMode === "edit" && state.editMacroId) {
     const macro = macros.find((item) => item.id === state.editMacroId);
@@ -597,6 +612,7 @@ refs.saveEditBtn.addEventListener("click", async () => {
 
     macro.name = name;
     macro.repeats = validRepeats;
+    macro.trackMoves = trackMoves;
     if (!Array.isArray(macro.steps)) {
       macro.steps = [];
     }
@@ -616,6 +632,7 @@ refs.saveEditBtn.addEventListener("click", async () => {
     id: createMacroId(),
     name,
     repeats: validRepeats,
+    trackMoves,
     steps: []
   });
   await persistMacros();
@@ -695,6 +712,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 async function init() {
+  await cleanupLegacyTrackMovesSetting();
   await loadMacros();
   const createdMacro = await completeCreateModeIfNeeded();
   render();

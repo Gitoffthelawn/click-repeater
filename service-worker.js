@@ -244,6 +244,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const repeatsRaw = Number(message.repeats);
       const repeats = Number.isFinite(repeatsRaw) && repeatsRaw > 0 ? Math.floor(repeatsRaw) : 1;
       const tabId = Number.isInteger(message.tabId) ? message.tabId : null;
+      const trackMoves = Boolean(message.trackMoves);
       const steps = Array.isArray(message.steps) ? message.steps.filter((step) => typeof step === "string" && step.trim()) : [];
       if (tabId === null) {
         sendResponse({ ok: false, error: "tab_id_required" });
@@ -276,7 +277,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           macroId,
           macroName,
           repeats,
-          steps
+          steps,
+          trackMoves
         });
         if (!tabResponse?.ok) {
           await clearExecutionState();

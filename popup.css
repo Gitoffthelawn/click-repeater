@@ -216,11 +216,20 @@ body {
   font-size: 13px;
 }
 
-.field input {
+.field input:not([type="checkbox"]) {
   border: 1px solid #c8ccdb;
   border-radius: 8px;
   padding: 8px 10px;
   font-size: 13px;
+}
+
+.field-checkbox {
+  flex-direction: row;
+  align-items: center;
+}
+
+.field-checkbox input {
+  margin: 0;
 }
 
 .field select {
