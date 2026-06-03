@@ -1,22 +1,86 @@
 # Canonical rules: lib/extension.gitignore (catalog layout)
+
+# Dependencies
 node_modules/
-.DS_Store
+.pnp
+.pnp.js
+
+# Build / dist
 dist/
+# esbuild bundles (+ blocked-notice copy from lib) — edit src/, load from dist/
 /background.js
 /content.js
 /welcome.js
 /blocked-notice.js
 *.zip
+
+# Store publication assets (screenshots etc.)
 PUBLICATION/*.png
 PUBLICATION/**/*.png
 PUBLICATION/*.jpeg
 PUBLICATION/**/*.jpeg
 PUBLICATION/*.jpg
 PUBLICATION/**/*.jpg
+
 build/
 out/
+.next/
+.nuxt/
+.output/
 *.tsbuildinfo
+
+# Environment & secrets
 .env
 .env.*
+!.env.example
+*.pem
+!public-key.pem
+*.key
+!public-key.key
+credentials.json
+secrets.json
+
+# Logs & debug
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# Python (if used later)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.envrc
+
+# OS & editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Cursor / local tooling
 .cursor/
-TEMP*
+
+# Playwright / browser artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Misc
+.cache/
+tmp/
+temp/
+*.local

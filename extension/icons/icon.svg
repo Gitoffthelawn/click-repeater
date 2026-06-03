@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24" role="img" aria-label="Macros Repeater icon">
-  <rect width="24" height="24" fill="#012292" />
-  <path
-    fill="#ffffff"
-    d="M1.5 22.5V1.5h4.5L12 12.5 18 1.5h4.5v21H18V9.5L12 20 6 9.5v13H1.5z"
-  />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="m-boxed.svg">
+  <rect width="24" height="24" fill="#012292"/>
+  <g transform="translate(0 0)" color="#ffffff" fill="none">
+<path d="M21 19L21 5C21 3.89543 20.1046 3 19 3L5 3C3.89543 3 3 3.89543 3 5L3 19C3 20.1046 3.89543 21 5 21L19 21C20.1046 21 21 20.1046 21 19Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17 16.5L17 8L12 12L7 8L7 16.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 </svg>
