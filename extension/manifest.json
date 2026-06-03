@@ -30,6 +30,7 @@
         "<all_urls>"
       ],
       "js": [
+        "lib/icons/lucide/icons.js",
         "app/content/selectors.js",
         "app/content/state.js",
         "app/content/tracker.js",

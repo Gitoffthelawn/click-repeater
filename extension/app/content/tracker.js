@@ -1,10 +1,10 @@
 
 function trackerDefaultIconSvg() {
-  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 4 7.07 17 2.51-7.39L21 11.07z"/></svg>';
+  return globalThis.macrosRepeaterLucideIcons.trackerDefault;
 }
 
 function trackerClickIconSvg() {
-  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 9 5 12 1.8-5.2L21 14Z"/><path d="M7.2 2.2 8 5.1"/><path d="m5.1 8-2.9-.8"/><path d="M14 4.1 12 6"/></svg>';
+  return globalThis.macrosRepeaterLucideIcons.trackerClick;
 }
 
 function applyTrackerStyle({ size, color }) {
