@@ -4,15 +4,15 @@
   "description": "Minimal dev skeleton for macros repeater extension.",
   "version": "0.0.1",
   "background": {
-    "service_worker": "service-worker.js"
+    "service_worker": "app/background/main.js"
   },
   "action": {
     "default_title": "Macros Repeater",
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icon-16.png",
-      "48": "icon-48.png",
-      "128": "icon-128.png"
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
     }
   },
   "permissions": [
@@ -30,14 +30,20 @@
         "<all_urls>"
       ],
       "js": [
-        "content-script.js"
+        "app/content/selectors.js",
+        "app/content/state.js",
+        "app/content/tracker.js",
+        "app/content/mouse.js",
+        "app/content/listeners.js",
+        "app/content/runner.js",
+        "app/content/main.js"
       ],
       "run_at": "document_start"
     }
   ],
   "icons": {
-    "16": "icon-16.png",
-    "48": "icon-48.png",
-    "128": "icon-128.png"
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
   }
 }

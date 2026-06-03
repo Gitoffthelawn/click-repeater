@@ -1,0 +1,140 @@
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.macro-name {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.macro-name.default {
+  font-weight: 700;
+}
+
+.macro-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-btn {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #c8ccdb;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-btn.display-moves-off {
+  color: #8f96b3;
+}
+
+.status-line {
+  min-height: 16px;
+  margin: 0;
+  font-size: 12px;
+  color: #4f5570;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(19, 25, 48, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal {
+  width: 100%;
+  max-height: calc(100% - 24px);
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #d8dcec;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.modal-description {
+  margin: 0;
+  font-size: 13px;
+  color: #4f5570;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.field input:not([type="checkbox"]) {
+  border: 1px solid #c8ccdb;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.display-moves-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  border: 1px solid #c8ccdb;
+  border-radius: 8px;
+  background: #fff;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.display-moves-toggle:hover {
+  background: #f0f2fa;
+}
+
+.display-moves-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.display-moves-toggle-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.display-moves-toggle.display-moves-off {
+  color: #8f96b3;
