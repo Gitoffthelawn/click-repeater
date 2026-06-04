@@ -30,8 +30,8 @@ function createMacroId() {
 
 function sendRuntimeMessage(message) {
   return new Promise((resolve) => {
-    chrome.runtime.sendMessage(message, (response) => {
-      if (chrome.runtime.lastError) {
+    ext.runtime.sendMessage(message, (response) => {
+      if (ext.runtime.lastError) {
         resolve({ ok: false });
         return;
       }
@@ -42,13 +42,13 @@ function sendRuntimeMessage(message) {
 }
 
 async function getActiveTab() {
-  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+  const tabs = await ext.tabs.query({ active: true, currentWindow: true });
   return tabs[0] ?? null;
 }
 
 async function readMacrosFromStorage() {
   try {
-    const data = await chrome.storage.local.get(STORAGE_KEY);
+    const data = await ext.storage.local.get(STORAGE_KEY);
     const storedMacros = data?.[STORAGE_KEY];
     if (!Array.isArray(storedMacros)) {
       return [];
@@ -68,7 +68,7 @@ async function readMacrosFromStorage() {
 
 async function readDefaultMacroIdFromStorage() {
   try {
-    const data = await chrome.storage.local.get(DEFAULT_MACRO_ID_KEY);
+    const data = await ext.storage.local.get(DEFAULT_MACRO_ID_KEY);
     return typeof data?.[DEFAULT_MACRO_ID_KEY] === "string" ? data[DEFAULT_MACRO_ID_KEY] : null;
   } catch {
     return null;
@@ -76,11 +76,11 @@ async function readDefaultMacroIdFromStorage() {
 }
 
 async function persistMacros() {
-  await chrome.storage.local.set({ [STORAGE_KEY]: macros });
+  await ext.storage.local.set({ [STORAGE_KEY]: macros });
 }
 
 async function persistDefaultMacroId() {
-  await chrome.storage.local.set({ [DEFAULT_MACRO_ID_KEY]: defaultMacroId });
+  await ext.storage.local.set({ [DEFAULT_MACRO_ID_KEY]: defaultMacroId });
 }
 
 async function loadMacros() {
@@ -96,7 +96,7 @@ async function loadMacros() {
 }
 
 async function cleanupLegacyTrackMovesSetting() {
-  await chrome.storage.local.remove("track_moves_enabled");
+  await ext.storage.local.remove("track_moves_enabled");
 }
 
 function getDefaultMacro() {

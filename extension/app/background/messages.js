@@ -1,5 +1,5 @@
 void syncActionBadge();
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (!message || typeof message.type !== "string") {
     sendResponse({ ok: false, error: "invalid_message" });
     return;
@@ -128,7 +128,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
       if (Number.isInteger(currentState.tabId)) {
         try {
-          await chrome.tabs.sendMessage(currentState.tabId, { type: "execution-stop" });
+          await ext.tabs.sendMessage(currentState.tabId, { type: "execution-stop" });
         } catch {
           // Ignore: tab may be closed or unavailable.
         }
@@ -257,7 +257,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
       if (Number.isInteger(currentState.tabId)) {
         try {
-          await chrome.tabs.sendMessage(currentState.tabId, { type: "execution-stop" });
+          await ext.tabs.sendMessage(currentState.tabId, { type: "execution-stop" });
         } catch {
           // Ignore: tab may be closed or unavailable.
         }

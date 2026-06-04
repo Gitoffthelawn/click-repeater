@@ -26,10 +26,10 @@ async function showShortcutHintBadge() {
   }
 
   clearShortcutHintTimer();
-  await chrome.action.setBadgeText({ text: SHORTCUT_HINT_BADGE_TEXT });
-  await chrome.action.setBadgeBackgroundColor({ color: SHORTCUT_HINT_BADGE_BACKGROUND_COLOR });
-  if (typeof chrome.action.setBadgeTextColor === "function") {
-    await chrome.action.setBadgeTextColor({ color: SHORTCUT_HINT_BADGE_TEXT_COLOR });
+  await ext.action.setBadgeText({ text: SHORTCUT_HINT_BADGE_TEXT });
+  await ext.action.setBadgeBackgroundColor({ color: SHORTCUT_HINT_BADGE_BACKGROUND_COLOR });
+  if (typeof ext.action.setBadgeTextColor === "function") {
+    await ext.action.setBadgeTextColor({ color: SHORTCUT_HINT_BADGE_TEXT_COLOR });
   }
   shortcutHintTimerId = setTimeout(() => {
     shortcutHintTimerId = null;

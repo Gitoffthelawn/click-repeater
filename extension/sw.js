@@ -1,3 +1,5 @@
+"use strict";
+
 importScripts(
   "lib/our/api.js",
   "lib/our/safe-extension-api.js",

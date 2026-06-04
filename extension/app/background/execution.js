@@ -29,7 +29,7 @@ async function startExecutionOnTab({ tabId, macroId, macroName, repeats, trackMo
   await syncActionBadge();
 
   try {
-    const tabResponse = await chrome.tabs.sendMessage(tabId, {
+    const tabResponse = await ext.tabs.sendMessage(tabId, {
       type: "execution-run",
       macroId,
       macroName,
@@ -65,11 +65,11 @@ async function startExecutionOnTab({ tabId, macroId, macroName, repeats, trackMo
 }
 
 async function setActionBadgeText(text) {
-  await chrome.action.setBadgeText({ text });
+  await ext.action.setBadgeText({ text });
   if (text) {
-    await chrome.action.setBadgeBackgroundColor({ color: BADGE_BACKGROUND_COLOR });
-    if (typeof chrome.action.setBadgeTextColor === "function") {
-      await chrome.action.setBadgeTextColor({ color: BADGE_TEXT_COLOR });
+    await ext.action.setBadgeBackgroundColor({ color: BADGE_BACKGROUND_COLOR });
+    if (typeof ext.action.setBadgeTextColor === "function") {
+      await ext.action.setBadgeTextColor({ color: BADGE_TEXT_COLOR });
     }
   }
 }
@@ -112,7 +112,7 @@ async function sendRecordingListenerMessage(tabId, message) {
   }
 
   try {
-    const response = await chrome.tabs.sendMessage(tabId, message);
+    const response = await ext.tabs.sendMessage(tabId, message);
     return response?.ok ? { ok: true } : { ok: false, error: response?.error ?? "listener_message_failed" };
   } catch {
     return { ok: false, error: "tab_unreachable" };
@@ -120,12 +120,12 @@ async function sendRecordingListenerMessage(tabId, message) {
 }
 
 async function openPopupWithCompletionMessage() {
-  if (!chrome.action || typeof chrome.action.openPopup !== "function") {
+  if (!ext.action || typeof ext.action.openPopup !== "function") {
     return false;
   }
 
   try {
-    await chrome.action.openPopup();
+    await ext.action.openPopup();
     return true;
   } catch {
     return false;
