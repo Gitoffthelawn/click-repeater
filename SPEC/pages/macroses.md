@@ -12,8 +12,8 @@
 - Выравнены справа:
    - star (дефолтный)
    - eye / eye-off
-      - eye-off если "Display moves" = off, SVG серый (отличается от других)
-      - eye если  "Display moves" = on
+      - eye-off если "Display moves" = off
+      - eye если "Display moves" = on
       - Клик по кнопке меняет эту настройку
    - Поле числа повторов (шириной как кнопки)
    - lucide square-pen (открывает модальное окно редактирования)
