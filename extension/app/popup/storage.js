@@ -129,6 +129,34 @@ async function loadMacros() {
   }
 }
 
+async function readSettingsFromStorage() {
+  try {
+    const data = await ext.storage.local.get(SETTINGS_KEY);
+    const stored = data?.[SETTINGS_KEY];
+    if (stored && typeof stored === "object") {
+      if (typeof stored.skipNewMacroExplanation === "boolean") {
+        settings.skipNewMacroExplanation = stored.skipNewMacroExplanation;
+      }
+      if (typeof stored.skipDisplayMovesExplanation === "boolean") {
+        settings.skipDisplayMovesExplanation = stored.skipDisplayMovesExplanation;
+      }
+      if (typeof stored.skipModeExplanation === "boolean") {
+        settings.skipModeExplanation = stored.skipModeExplanation;
+      }
+    }
+  } catch {}
+}
+
+async function persistSettings() {
+  await ext.storage.local.set({ [SETTINGS_KEY]: { ...settings } });
+}
+
+function syncSettingsUI() {
+  refs.settingSkipNewMacro.checked = settings.skipNewMacroExplanation;
+  refs.settingSkipDisplayMoves.checked = settings.skipDisplayMovesExplanation;
+  refs.settingSkipMode.checked = settings.skipModeExplanation;
+}
+
 async function cleanupLegacyTrackMovesSetting() {
   await ext.storage.local.remove("track_moves_enabled");
 }

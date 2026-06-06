@@ -34,6 +34,29 @@
         <section class="popup-page hidden" data-page-content="settings">
           <h1 class="page-title">SETTINGS</h1>
           <div class="page-divider"></div>
+          <div class="settings-list">
+            <label class="settings-row" for="setting-skip-new-macro">
+              <span class="settings-row-label">Skip explanations for new macros</span>
+              <span class="settings-toggle-wrap">
+                <input type="checkbox" id="setting-skip-new-macro" class="visually-hidden" />
+                <span class="toggle-switch-visual" aria-hidden="true"></span>
+              </span>
+            </label>
+            <label class="settings-row" for="setting-skip-display-moves">
+              <span class="settings-row-label">Skip explanations for Visible / Stealth setting</span>
+              <span class="settings-toggle-wrap">
+                <input type="checkbox" id="setting-skip-display-moves" class="visually-hidden" />
+                <span class="toggle-switch-visual" aria-hidden="true"></span>
+              </span>
+            </label>
+            <label class="settings-row" for="setting-skip-mode">
+              <span class="settings-row-label">Skip explanations for Position / Element setting</span>
+              <span class="settings-toggle-wrap">
+                <input type="checkbox" id="setting-skip-mode" class="visually-hidden" />
+                <span class="toggle-switch-visual" aria-hidden="true"></span>
+              </span>
+            </label>
+          </div>
         </section>
 
         <section class="popup-page shortcuts-page hidden" data-page-content="shortcuts">
@@ -119,21 +142,66 @@
       </div>
     </div>
 
+    <div id="new-macro-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="new-macro-modal-title">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="new-macro-modal-title">Новый макрос</h3>
+          <button id="close-new-macro-modal-btn" class="modal-close-btn" type="button" title="Закрыть" aria-label="Закрыть"></button>
+        </div>
+        <p class="modal-description">Когда запустите режим записи, то будет мигать красная точка, значит запись идёт. Просто нажимайте то, что вам нужно, расширение запомнит все клики. Когда закончите, ещё раз нажмите на кнопку расширения.</p>
+        <label class="dont-show-row" for="new-macro-dont-show">
+          <input type="checkbox" id="new-macro-dont-show" class="visually-hidden" />
+          <span class="toggle-switch-visual" aria-hidden="true"></span>
+          <span class="dont-show-label">Don't show me again</span>
+        </label>
+        <div class="modal-actions explanation-modal-actions">
+          <button id="new-macro-start-btn" class="btn btn-primary" type="button">Start</button>
+          <button id="new-macro-cancel-btn" class="btn" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="display-moves-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="display-moves-modal-title">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="display-moves-modal-title">Visible / Stealth</h3>
+          <button id="close-display-moves-modal-btn" class="modal-close-btn" type="button" title="Закрыть" aria-label="Закрыть"></button>
+        </div>
+        <ul class="explanation-list">
+          <li><strong>Visible</strong> будет показывать перемещение виртуальной мышки. Это удобнее в большинстве случаев.</li>
+          <li><strong>Stealth</strong> будет делать клики точно так же, но без визуализации.</li>
+          <li>В любом случае любой ваш клик (во время воспроизведения) прервёт исполнение даже в таком режиме.</li>
+        </ul>
+        <label class="dont-show-row" for="display-moves-dont-show">
+          <input type="checkbox" id="display-moves-dont-show" class="visually-hidden" />
+          <span class="toggle-switch-visual" aria-hidden="true"></span>
+          <span class="dont-show-label">Don't show me again</span>
+        </label>
+        <div class="modal-actions explanation-modal-actions">
+          <button id="display-moves-visible-btn" class="btn btn-primary" type="button">Visible</button>
+          <button id="display-moves-stealth-btn" class="btn" type="button">Stealth</button>
+        </div>
+      </div>
+    </div>
+
     <div id="mode-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="mode-modal-title">
       <div class="modal">
         <div class="modal-header">
           <h3 id="mode-modal-title">Режим шагов</h3>
           <button id="close-mode-modal-btn" class="modal-close-btn" type="button" title="Закрыть" aria-label="Закрыть"></button>
         </div>
-        <div class="record-mode-options">
-          <div class="record-mode-option">
-            <button id="mode-position-btn" class="btn btn-primary" type="button">Position</button>
-            <p>Запоминает точное положение кликов. При изменении размера окна браузера или положения элементов макрос может промахнуться.</p>
-          </div>
-          <div class="record-mode-option">
-            <button id="mode-element-btn" class="btn" type="button">Element</button>
-            <p>Находит цель клика по элементу страницы. При изменении элемента макрос может перестать работать. Рекомендуется только разработчикам.</p>
-          </div>
+        <ul class="explanation-list">
+          <li><strong>Position</strong> использует точное положение кликов на сайте. В процессе воспроизведения, окно браузера должен быть таким же как при записи! Иначе макрос может промахнуться.</li>
+          <li><strong>Element</strong> находит цель клика по элементу страницы. При изменении элемента макрос может перестать работать. Рекомендуется <strong>только для IT специалистов</strong> (или если вы уверены, что вам нужно именно так).</li>
+        </ul>
+        <label class="dont-show-row" for="mode-dont-show">
+          <input type="checkbox" id="mode-dont-show" class="visually-hidden" />
+          <span class="toggle-switch-visual" aria-hidden="true"></span>
+          <span class="dont-show-label">Don't show me again</span>
+        </label>
+        <div class="modal-actions explanation-modal-actions">
+          <button id="mode-position-btn" class="btn btn-primary" type="button">Position</button>
+          <button id="mode-element-btn" class="btn" type="button">Element</button>
         </div>
       </div>
     </div>

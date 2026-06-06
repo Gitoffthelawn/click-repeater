@@ -1,6 +1,8 @@
 
 async function init() {
   await cleanupLegacyTrackMovesSetting();
+  await readSettingsFromStorage();
+  syncSettingsUI();
   await loadMacros();
   const createdMacro = await completeCreateModeIfNeeded();
   render();

@@ -1,7 +1,14 @@
 const STORAGE_KEY = "macros_list";
 const DEFAULT_MACRO_ID_KEY = "default_macro_id";
+const SETTINGS_KEY = "popup_settings";
 const macros = [];
 let defaultMacroId = null;
+
+const settings = {
+  skipNewMacroExplanation: false,
+  skipDisplayMovesExplanation: false,
+  skipModeExplanation: false
+};
 
 const state = {
   modalMode: null,
@@ -39,10 +46,24 @@ const refs = {
   editModeLabel: document.getElementById("edit-mode-label"),
   saveEditBtn: document.getElementById("save-edit-btn"),
   cancelEditBtn: document.getElementById("cancel-edit-btn"),
+  newMacroModal: document.getElementById("new-macro-modal"),
+  closeNewMacroModalBtn: document.getElementById("close-new-macro-modal-btn"),
+  newMacroDontShow: document.getElementById("new-macro-dont-show"),
+  newMacroStartBtn: document.getElementById("new-macro-start-btn"),
+  newMacroCancelBtn: document.getElementById("new-macro-cancel-btn"),
+  displayMovesModal: document.getElementById("display-moves-modal"),
+  closeDisplayMovesModalBtn: document.getElementById("close-display-moves-modal-btn"),
+  displayMovesDontShow: document.getElementById("display-moves-dont-show"),
+  displayMovesVisibleBtn: document.getElementById("display-moves-visible-btn"),
+  displayMovesStealthBtn: document.getElementById("display-moves-stealth-btn"),
   modeModal: document.getElementById("mode-modal"),
   closeModeModalBtn: document.getElementById("close-mode-modal-btn"),
+  modeDontShow: document.getElementById("mode-dont-show"),
   modePositionBtn: document.getElementById("mode-position-btn"),
-  modeElementBtn: document.getElementById("mode-element-btn")
+  modeElementBtn: document.getElementById("mode-element-btn"),
+  settingSkipNewMacro: document.getElementById("setting-skip-new-macro"),
+  settingSkipDisplayMoves: document.getElementById("setting-skip-display-moves"),
+  settingSkipMode: document.getElementById("setting-skip-mode")
 };
 
 const iconSet = globalThis.macrosRepeaterLucideIcons;

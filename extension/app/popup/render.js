@@ -195,7 +195,30 @@ function closeEditModal() {
   syncPopupHeight();
 }
 
+function openNewMacroModal() {
+  refs.newMacroDontShow.checked = false;
+  refs.newMacroModal.classList.remove("hidden");
+  syncPopupHeight();
+}
+
+function closeNewMacroModal() {
+  refs.newMacroModal.classList.add("hidden");
+  syncPopupHeight();
+}
+
+function openDisplayMovesModal() {
+  refs.displayMovesDontShow.checked = false;
+  refs.displayMovesModal.classList.remove("hidden");
+  syncPopupHeight();
+}
+
+function closeDisplayMovesModal() {
+  refs.displayMovesModal.classList.add("hidden");
+  syncPopupHeight();
+}
+
 function openModeModal() {
+  refs.modeDontShow.checked = false;
   refs.modeModal.classList.remove("hidden");
   syncPopupHeight();
 }

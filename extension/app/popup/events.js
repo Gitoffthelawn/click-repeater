@@ -82,7 +82,11 @@ refs.list.addEventListener("change", (event) => {
 });
 
 refs.newMacroBtn.addEventListener("click", () => {
-  void startCreateMode();
+  if (settings.skipNewMacroExplanation) {
+    void startCreateMode();
+  } else {
+    openNewMacroModal();
+  }
 });
 
 refs.stopExecutionBtn.addEventListener("click", () => {
@@ -90,7 +94,11 @@ refs.stopExecutionBtn.addEventListener("click", () => {
 });
 
 refs.editDisplayMovesToggle.addEventListener("click", () => {
-  setEditDisplayMoves(!refs.editDisplayMoves.checked);
+  if (settings.skipDisplayMovesExplanation) {
+    setEditDisplayMoves(!refs.editDisplayMoves.checked);
+  } else {
+    openDisplayMovesModal();
+  }
 });
 
 refs.editDefaultToggle.addEventListener("click", () => {
@@ -196,16 +204,31 @@ refs.editModal.addEventListener("click", (event) => {
 });
 
 refs.editModeToggle.addEventListener("click", () => {
-  openModeModal();
+  if (settings.skipModeExplanation) {
+    setEditMode(state.editMode === "position" ? "element" : "position");
+    renderEditSteps(getCurrentEditSteps());
+  } else {
+    openModeModal();
+  }
 });
 
-refs.modePositionBtn.addEventListener("click", () => {
+refs.modePositionBtn.addEventListener("click", async () => {
+  if (refs.modeDontShow.checked) {
+    settings.skipModeExplanation = true;
+    syncSettingsUI();
+    await persistSettings();
+  }
   setEditMode("position");
   closeModeModal();
   renderEditSteps(getCurrentEditSteps());
 });
 
-refs.modeElementBtn.addEventListener("click", () => {
+refs.modeElementBtn.addEventListener("click", async () => {
+  if (refs.modeDontShow.checked) {
+    settings.skipModeExplanation = true;
+    syncSettingsUI();
+    await persistSettings();
+  }
   setEditMode("element");
   closeModeModal();
   renderEditSteps(getCurrentEditSteps());
@@ -219,6 +242,75 @@ refs.modeModal.addEventListener("click", (event) => {
   if (event.target === refs.modeModal) {
     closeModeModal();
   }
+});
+
+refs.closeNewMacroModalBtn.addEventListener("click", () => {
+  closeNewMacroModal();
+});
+
+refs.newMacroModal.addEventListener("click", (event) => {
+  if (event.target === refs.newMacroModal) {
+    closeNewMacroModal();
+  }
+});
+
+refs.newMacroStartBtn.addEventListener("click", async () => {
+  if (refs.newMacroDontShow.checked) {
+    settings.skipNewMacroExplanation = true;
+    syncSettingsUI();
+    await persistSettings();
+  }
+  closeNewMacroModal();
+  void startCreateMode();
+});
+
+refs.newMacroCancelBtn.addEventListener("click", () => {
+  closeNewMacroModal();
+});
+
+refs.closeDisplayMovesModalBtn.addEventListener("click", () => {
+  closeDisplayMovesModal();
+});
+
+refs.displayMovesModal.addEventListener("click", (event) => {
+  if (event.target === refs.displayMovesModal) {
+    closeDisplayMovesModal();
+  }
+});
+
+refs.displayMovesVisibleBtn.addEventListener("click", async () => {
+  if (refs.displayMovesDontShow.checked) {
+    settings.skipDisplayMovesExplanation = true;
+    syncSettingsUI();
+    await persistSettings();
+  }
+  setEditDisplayMoves(true);
+  closeDisplayMovesModal();
+});
+
+refs.displayMovesStealthBtn.addEventListener("click", async () => {
+  if (refs.displayMovesDontShow.checked) {
+    settings.skipDisplayMovesExplanation = true;
+    syncSettingsUI();
+    await persistSettings();
+  }
+  setEditDisplayMoves(false);
+  closeDisplayMovesModal();
+});
+
+refs.settingSkipNewMacro.addEventListener("change", async () => {
+  settings.skipNewMacroExplanation = refs.settingSkipNewMacro.checked;
+  await persistSettings();
+});
+
+refs.settingSkipDisplayMoves.addEventListener("change", async () => {
+  settings.skipDisplayMovesExplanation = refs.settingSkipDisplayMoves.checked;
+  await persistSettings();
+});
+
+refs.settingSkipMode.addEventListener("change", async () => {
+  settings.skipModeExplanation = refs.settingSkipMode.checked;
+  await persistSettings();
 });
 
 document.addEventListener("keydown", (event) => {
@@ -236,6 +328,16 @@ document.addEventListener("keydown", (event) => {
 function closeModalByEscape() {
   if (!refs.modeModal.classList.contains("hidden")) {
     closeModeModal();
+    return true;
+  }
+
+  if (!refs.displayMovesModal.classList.contains("hidden")) {
+    closeDisplayMovesModal();
+    return true;
+  }
+
+  if (!refs.newMacroModal.classList.contains("hidden")) {
+    closeNewMacroModal();
     return true;
   }
 
