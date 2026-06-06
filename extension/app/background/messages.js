@@ -6,7 +6,6 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   if (message.type === "recording-start") {
     (async () => {
-      const mode = message.mode === "selectors" ? "selectors" : "coordinates";
       const tabId = Number.isInteger(message.tabId) ? message.tabId : null;
       if (tabId === null) {
         sendResponse({ ok: false, error: "tab_id_required" });
@@ -18,7 +17,6 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
       const session = {
         isActive: true,
-        mode,
         tabId,
         domain: getDomainFromUrl(message.url),
         steps: []
@@ -26,8 +24,7 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
       await writeSession(session);
       await syncActionBadge();
       const listenerResponse = await sendRecordingListenerMessage(tabId, {
-        type: "recording-listener-start",
-        mode
+        type: "recording-listener-start"
       });
       if (!listenerResponse.ok) {
         await clearSession();
@@ -72,21 +69,15 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
         return;
       }
       const steps = Array.isArray(session.steps) ? session.steps : [];
-      if (session.mode === "selectors") {
-        if (typeof message.selector !== "string" || !message.selector.trim()) {
-          sendResponse({ ok: true, ignored: true, reason: "invalid_selector" });
-          return;
-        }
-        steps.push(message.selector.trim());
-      } else {
-        const x = Number(message.x);
-        const y = Number(message.y);
-        if (!Number.isFinite(x) || !Number.isFinite(y)) {
-          sendResponse({ ok: true, ignored: true, reason: "invalid_coords" });
-          return;
-        }
-        steps.push(`${Math.round(x)},${Math.round(y)}`);
+      const x = Number(message.x);
+      const y = Number(message.y);
+      const position = Number.isFinite(x) && Number.isFinite(y) ? `${Math.round(x)},${Math.round(y)}` : "";
+      const selector = typeof message.selector === "string" ? message.selector.trim() : "";
+      if (!position && !selector) {
+        sendResponse({ ok: true, ignored: true, reason: "invalid_data" });
+        return;
       }
+      steps.push({ position, selector });
       await writeSession({ ...session, steps });
       sendResponse({ ok: true });
     })().catch(() => sendResponse({ ok: false, error: "record_failed" }));
@@ -98,8 +89,7 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const isSenderTab = Number.isInteger(sender?.tab?.id) && sender.tab.id === session?.tabId;
       sendResponse({
         ok: true,
-        isActive: Boolean(session?.isActive && isSenderTab),
-        mode: session?.mode === "selectors" ? "selectors" : "coordinates"
+        isActive: Boolean(session?.isActive && isSenderTab)
       });
     })().catch(() => sendResponse({ ok: false, isActive: false }));
     return true;

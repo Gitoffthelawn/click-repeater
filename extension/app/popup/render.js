@@ -138,6 +138,7 @@ function openEditModal(macroId) {
     refs.editRepeats.value = String(macro.repeats ?? 1);
     setEditDisplayMoves(getDisplayMovesValue(macro));
     setEditDefault(macro.id === defaultMacroId);
+    setEditMode(macro.mode ?? "position");
     renderEditSteps(Array.isArray(macro.steps) ? macro.steps : []);
     refs.editModal.classList.remove("hidden");
     focusEditNameAtEnd();
@@ -152,6 +153,7 @@ function openEditModal(macroId) {
   refs.editRepeats.value = "1";
   setEditDisplayMoves(true);
   setEditDefault(false);
+  setEditMode("position");
   renderEditSteps([]);
   refs.editModal.classList.remove("hidden");
   focusEditNameAtEnd();
@@ -193,32 +195,17 @@ function closeEditModal() {
   syncPopupHeight();
 }
 
-function openRecordModeModal() {
-  refs.recordModeModal.classList.remove("hidden");
+function openModeModal() {
+  refs.modeModal.classList.remove("hidden");
   syncPopupHeight();
 }
 
-function closeRecordModeModal() {
-  refs.recordModeModal.classList.add("hidden");
+function closeModeModal() {
+  refs.modeModal.classList.add("hidden");
   syncPopupHeight();
 }
 
-function closeModalByEscape() {
-  if (!refs.editModal.classList.contains("hidden")) {
-    requestCloseEditModal();
-    return true;
-  }
-
-  if (!refs.recordModeModal.classList.contains("hidden")) {
-    closeRecordModeModal();
-    setStatus("Создание macros отменено.");
-    return true;
-  }
-
-  return false;
-}
-
-async function startCreateMode(mode) {
+async function startCreateMode() {
   const activeTab = await getActiveTab();
   if (!activeTab || !Number.isInteger(activeTab.id)) {
     setStatus("Активная вкладка не найдена.");
@@ -227,7 +214,6 @@ async function startCreateMode(mode) {
 
   const response = await sendRuntimeMessage({
     type: "recording-start",
-    mode,
     tabId: activeTab.id,
     url: activeTab.url
   });
@@ -237,7 +223,6 @@ async function startCreateMode(mode) {
     return;
   }
 
-  closeRecordModeModal();
   window.close();
 }
 
@@ -247,18 +232,32 @@ async function completeCreateModeIfNeeded() {
     return null;
   }
 
+  const steps = Array.isArray(response.steps)
+    ? response.steps.filter((step) => step && typeof step === "object" && (step.position || step.selector))
+    : [];
+
   const createdMacro = {
     id: createMacroId(),
     name: typeof response.macroName === "string" && response.macroName.trim() ? response.macroName : buildDefaultMacroName(),
     repeats: 1,
     displayMoves: true,
     trackMoves: true,
-    steps: Array.isArray(response.steps) ? response.steps.filter((step) => typeof step === "string") : []
+    mode: "position",
+    steps
   };
 
   macros.unshift(createdMacro);
   await persistMacros();
   return createdMacro;
+}
+
+function getCurrentEditSteps() {
+  if (!state.editMacroId) {
+    return [];
+  }
+
+  const macro = macros.find((item) => item.id === state.editMacroId);
+  return Array.isArray(macro?.steps) ? macro.steps : [];
 }
 
 function renderEditSteps(steps) {
@@ -276,7 +275,11 @@ function renderEditSteps(steps) {
   steps.forEach((step) => {
     const li = document.createElement("li");
     li.className = "step-row";
-    li.textContent = step;
+    if (step && typeof step === "object") {
+      li.textContent = state.editMode === "element" ? (step.selector ?? "") : (step.position ?? "");
+    } else {
+      li.textContent = typeof step === "string" ? step : "";
+    }
     refs.editSteps.append(li);
   });
 

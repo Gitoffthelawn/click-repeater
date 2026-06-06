@@ -6,6 +6,7 @@ let defaultMacroId = null;
 const state = {
   modalMode: null,
   editMacroId: null,
+  editMode: "position",
   pendingDeleteMacroId: null,
   executionPollTimer: null
 };
@@ -28,17 +29,20 @@ const refs = {
   editRepeats: document.getElementById("edit-repeats"),
   editDisplayMovesToggle: document.getElementById("edit-display-moves-toggle"),
   editDisplayMovesIcon: document.getElementById("edit-display-moves-icon"),
+  editDisplayMovesLabel: document.getElementById("edit-display-moves-label"),
   editDisplayMoves: document.getElementById("edit-display-moves"),
   editDefaultToggle: document.getElementById("edit-default-toggle"),
   editDefaultIcon: document.getElementById("edit-default-icon"),
   editDefault: document.getElementById("edit-default"),
   editSteps: document.getElementById("edit-steps"),
+  editModeToggle: document.getElementById("edit-mode-toggle"),
+  editModeLabel: document.getElementById("edit-mode-label"),
   saveEditBtn: document.getElementById("save-edit-btn"),
   cancelEditBtn: document.getElementById("cancel-edit-btn"),
-  recordModeModal: document.getElementById("record-mode-modal"),
-  closeRecordModeBtn: document.getElementById("close-record-mode-btn"),
-  recordCoordsBtn: document.getElementById("record-coords-btn"),
-  recordSelectorsBtn: document.getElementById("record-selectors-btn")
+  modeModal: document.getElementById("mode-modal"),
+  closeModeModalBtn: document.getElementById("close-mode-modal-btn"),
+  modePositionBtn: document.getElementById("mode-position-btn"),
+  modeElementBtn: document.getElementById("mode-element-btn")
 };
 
 const iconSet = globalThis.macrosRepeaterLucideIcons;

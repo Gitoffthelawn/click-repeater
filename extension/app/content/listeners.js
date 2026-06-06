@@ -32,26 +32,18 @@ function handleRecordingClick(event) {
     return;
   }
 
-  if (recordingState.mode === "selectors") {
-    const target = getEventElement(event);
-    const selector = target ? buildSelector(target) : "";
-    void chrome.runtime.sendMessage({
-      type: "recording-click",
-      selector
-    });
-    return;
-  }
-
+  const target = getEventElement(event);
+  const selector = target ? buildSelector(target) : "";
   void chrome.runtime.sendMessage({
     type: "recording-click",
     x: event.clientX,
-    y: event.clientY
+    y: event.clientY,
+    selector
   });
 }
 
-function startRecordingClickListener(mode) {
+function startRecordingClickListener() {
   recordingState.isActive = true;
-  recordingState.mode = mode === "selectors" ? "selectors" : "coordinates";
 
   if (isRecordingClickListenerAttached) {
     return;

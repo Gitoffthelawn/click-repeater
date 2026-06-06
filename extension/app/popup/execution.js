@@ -3,12 +3,12 @@ function syncPopupHeight() {
   const minHeightPx = parseFloat(window.getComputedStyle(document.body).minHeight) || 0;
   const popupHeight = refs.popup ? refs.popup.scrollHeight : 0;
   const editModalHeight = refs.editModal.classList.contains("hidden") ? 0 : refs.editModal.scrollHeight;
-  const recordModeModalHeight = refs.recordModeModal.classList.contains("hidden") ? 0 : refs.recordModeModal.scrollHeight;
+  const modeModalHeight = refs.modeModal.classList.contains("hidden") ? 0 : refs.modeModal.scrollHeight;
   const targetHeight = Math.max(
     minHeightPx,
     popupHeight,
     editModalHeight,
-    recordModeModalHeight
+    modeModalHeight
   );
 
   if (!targetHeight) {
@@ -89,7 +89,18 @@ async function startExecution(macroId) {
     return;
   }
 
-  const steps = Array.isArray(macro.steps) ? macro.steps.filter((step) => typeof step === "string" && step.trim()) : [];
+  const macroMode = macro.mode === "element" ? "element" : "position";
+  const steps = Array.isArray(macro.steps)
+    ? macro.steps
+      .map((step) => {
+        if (typeof step === "string") return step;
+        if (step && typeof step === "object") {
+          return macroMode === "element" ? (step.selector ?? "") : (step.position ?? "");
+        }
+        return "";
+      })
+      .filter((step) => step && step.trim())
+    : [];
   if (steps.length === 0) {
     setStatus("В macros нет шагов для выполнения.");
     return;

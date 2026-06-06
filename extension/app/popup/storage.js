@@ -19,12 +19,21 @@ function setEditDisplayMoves(enabled) {
   const displayMovesEnabled = Boolean(enabled);
   refs.editDisplayMoves.checked = displayMovesEnabled;
   refs.editDisplayMovesIcon.innerHTML = displayMovesEnabled ? iconSet.eye : iconSet.eyeOff;
+  refs.editDisplayMovesLabel.textContent = displayMovesEnabled ? "Visible" : "Stealth";
   refs.editDisplayMovesToggle.classList.toggle("display-moves-on", displayMovesEnabled);
   refs.editDisplayMovesToggle.classList.toggle("display-moves-off", !displayMovesEnabled);
-  const displayMovesTitle = displayMovesEnabled ? "Display moves: on" : "Display moves: off";
+  const displayMovesTitle = displayMovesEnabled ? "Visualisation: Visible" : "Visualisation: Stealth";
   refs.editDisplayMovesToggle.setAttribute("title", displayMovesTitle);
   refs.editDisplayMovesToggle.setAttribute("aria-label", displayMovesTitle);
   refs.editDisplayMovesToggle.setAttribute("aria-pressed", String(displayMovesEnabled));
+}
+
+function setEditMode(mode) {
+  state.editMode = mode === "element" ? "element" : "position";
+  refs.editModeLabel.textContent = state.editMode === "element" ? "Element" : "Position";
+  const modeTitle = state.editMode === "element" ? "Mode: Element" : "Mode: Position";
+  refs.editModeToggle.setAttribute("title", modeTitle);
+  refs.editModeToggle.setAttribute("aria-label", modeTitle);
 }
 
 function setEditDefault(enabled) {

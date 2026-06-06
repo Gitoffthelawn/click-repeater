@@ -87,7 +87,7 @@
         <div class="edit-settings">
           <button id="edit-display-moves-toggle" class="setting-toggle display-moves-toggle" type="button" aria-pressed="false">
             <span id="edit-display-moves-icon" class="display-moves-toggle-icon" aria-hidden="true"></span>
-            <span class="display-moves-toggle-label">Display moves</span>
+            <span id="edit-display-moves-label" class="display-moves-toggle-label">Visible</span>
           </button>
           <input id="edit-display-moves" type="checkbox" class="visually-hidden" />
 
@@ -96,6 +96,10 @@
             <span class="setting-toggle-label">Default</span>
           </button>
           <input id="edit-default" type="checkbox" class="visually-hidden" />
+
+          <button id="edit-mode-toggle" class="setting-toggle mode-toggle" type="button">
+            <span id="edit-mode-label" class="setting-toggle-label">Position</span>
+          </button>
 
           <label class="edit-repeat-setting">
             <span class="repeat-prefix">Repeat</span>
@@ -115,20 +119,20 @@
       </div>
     </div>
 
-    <div id="record-mode-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="record-mode-modal-title">
+    <div id="mode-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="mode-modal-title">
       <div class="modal">
         <div class="modal-header">
-          <h3 id="record-mode-modal-title">Создание макроса</h3>
-          <button id="close-record-mode-btn" class="modal-close-btn" type="button" title="Закрыть" aria-label="Закрыть"></button>
+          <h3 id="mode-modal-title">Режим шагов</h3>
+          <button id="close-mode-modal-btn" class="modal-close-btn" type="button" title="Закрыть" aria-label="Закрыть"></button>
         </div>
         <div class="record-mode-options">
           <div class="record-mode-option">
-            <button id="record-selectors-btn" class="btn" type="button">По элементам</button>
-            <p>Находит цель клика по элементу страницы. При изменении элемента макрос может перестать работать. Рекомендуется только разработчикам.</p>
+            <button id="mode-position-btn" class="btn btn-primary" type="button">Position</button>
+            <p>Запоминает точное положение кликов. При изменении размера окна браузера или положения элементов макрос может промахнуться.</p>
           </div>
           <div class="record-mode-option">
-            <button id="record-coords-btn" class="btn btn-primary" type="button">По координатам</button>
-            <p>Запоминает точное положение кликов. Используйте тот же размер окна браузера: при изменении размера или положения элементов макрос может промахнуться.</p>
+            <button id="mode-element-btn" class="btn" type="button">Element</button>
+            <p>Находит цель клика по элементу страницы. При изменении элемента макрос может перестать работать. Рекомендуется только разработчикам.</p>
           </div>
         </div>
       </div>

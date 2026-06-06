@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 
   if (message.type === "recording-listener-start") {
-    startRecordingClickListener(message.mode);
+    startRecordingClickListener();
     sendResponse({ ok: true });
     return;
   }
@@ -65,7 +65,7 @@ document.addEventListener(
 
 void sendRuntimeMessage({ type: "recording-status" }).then((response) => {
   if (response?.ok && response.isActive) {
-    startRecordingClickListener(response.mode);
+    startRecordingClickListener();
   }
 });
 

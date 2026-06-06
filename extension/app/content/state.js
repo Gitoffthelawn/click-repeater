@@ -43,8 +43,7 @@ const shortcutState = {
 };
 
 const recordingState = {
-  isActive: false,
-  mode: "coordinates"
+  isActive: false
 };
 
 let isRecordingClickListenerAttached = false;

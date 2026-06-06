@@ -82,7 +82,7 @@ refs.list.addEventListener("change", (event) => {
 });
 
 refs.newMacroBtn.addEventListener("click", () => {
-  openRecordModeModal();
+  void startCreateMode();
 });
 
 refs.stopExecutionBtn.addEventListener("click", () => {
@@ -140,6 +140,7 @@ refs.saveEditBtn.addEventListener("click", async () => {
     macro.repeats = validRepeats;
     macro.displayMoves = displayMoves;
     macro.trackMoves = displayMoves;
+    macro.mode = state.editMode;
     if (!Array.isArray(macro.steps)) {
       macro.steps = [];
     }
@@ -166,6 +167,7 @@ refs.saveEditBtn.addEventListener("click", async () => {
     repeats: validRepeats,
     displayMoves,
     trackMoves: displayMoves,
+    mode: state.editMode,
     steps: []
   };
   macros.unshift(createdMacro);
@@ -193,23 +195,29 @@ refs.editModal.addEventListener("click", (event) => {
   }
 });
 
-refs.recordCoordsBtn.addEventListener("click", () => {
-  void startCreateMode("coordinates");
+refs.editModeToggle.addEventListener("click", () => {
+  openModeModal();
 });
 
-refs.recordSelectorsBtn.addEventListener("click", () => {
-  void startCreateMode("selectors");
+refs.modePositionBtn.addEventListener("click", () => {
+  setEditMode("position");
+  closeModeModal();
+  renderEditSteps(getCurrentEditSteps());
 });
 
-refs.closeRecordModeBtn.addEventListener("click", () => {
-  closeRecordModeModal();
-  setStatus("Создание macros отменено.");
+refs.modeElementBtn.addEventListener("click", () => {
+  setEditMode("element");
+  closeModeModal();
+  renderEditSteps(getCurrentEditSteps());
 });
 
-refs.recordModeModal.addEventListener("click", (event) => {
-  if (event.target === refs.recordModeModal) {
-    closeRecordModeModal();
-    setStatus("Создание macros отменено.");
+refs.closeModeModalBtn.addEventListener("click", () => {
+  closeModeModal();
+});
+
+refs.modeModal.addEventListener("click", (event) => {
+  if (event.target === refs.modeModal) {
+    closeModeModal();
   }
 });
 
@@ -224,3 +232,17 @@ document.addEventListener("keydown", (event) => {
     event.stopPropagation();
   }
 });
+
+function closeModalByEscape() {
+  if (!refs.modeModal.classList.contains("hidden")) {
+    closeModeModal();
+    return true;
+  }
+
+  if (!refs.editModal.classList.contains("hidden")) {
+    requestCloseEditModal();
+    return true;
+  }
+
+  return false;
+}
