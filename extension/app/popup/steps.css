@@ -1,5 +1,3 @@
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -21,6 +19,7 @@
 
 .steps-list {
   list-style: none;
+  counter-reset: edit-step;
   margin: 0;
   padding: 0;
   display: flex;
@@ -29,18 +28,28 @@
 }
 
 .step-row {
-  border: 1px solid #d8dcec;
-  border-radius: 8px;
-  padding: 6px 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
+  counter-increment: edit-step;
+  display: grid;
+  grid-template-columns: 3ch minmax(0, 1fr);
+  column-gap: 8px;
+  padding: 2px 0;
+  overflow-wrap: anywhere;
 }
 
-.step-actions {
-  display: inline-flex;
-  gap: 4px;
+.step-row::before {
+  content: counter(edit-step) ".";
+  color: #6b7280;
+  text-align: right;
+}
+
+.step-row-empty {
+  counter-increment: none;
+  display: block;
+  color: #6b7280;
+}
+
+.step-row-empty::before {
+  content: none;
 }
 
 .modal-actions {
@@ -54,6 +63,30 @@
   flex-wrap: wrap;
 }
 
-.danger-text {
-  color: #d03b3b;
+.record-mode-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.record-mode-option {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.record-mode-option .btn {
+  width: 100%;
+}
+
+.record-mode-option p {
+  margin: 0;
+  color: #4f5570;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.edit-modal-actions > .btn {
+  flex: 1 1 0;
 }

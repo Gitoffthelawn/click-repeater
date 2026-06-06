@@ -13,6 +13,12 @@ for (const icon of document.querySelectorAll("[data-about-icon]")) {
   icon.innerHTML = icon.dataset.aboutIcon === "heart" ? iconSet.heart : iconSet.shieldCheck;
 }
 
+for (const button of document.querySelectorAll(".modal-close-btn")) {
+  button.innerHTML = iconSet.x;
+}
+
+refs.clearEditNameBtn.innerHTML = iconSet.x;
+
 function selectPopupPage(pageName) {
   for (const page of refs.pages) {
     page.classList.toggle("hidden", page.dataset.pageContent !== pageName);

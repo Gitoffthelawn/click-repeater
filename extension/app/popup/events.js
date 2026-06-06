@@ -44,8 +44,41 @@ refs.list.addEventListener("click", (event) => {
   }
 
   if (action === "delete") {
-    openDeleteModal(macroId);
+    if (state.pendingDeleteMacroId === macroId) {
+      void deleteMacro(macroId);
+      return;
+    }
+
+    armDeleteButton(target, macroId);
   }
+});
+
+refs.list.addEventListener("pointerout", (event) => {
+  const button = event.target.closest(".delete-btn-armed");
+  if (!button || button.contains(event.relatedTarget)) {
+    return;
+  }
+
+  clearDeleteConfirmation();
+});
+
+refs.list.addEventListener("change", (event) => {
+  const input = event.target.closest("input[data-action='set-repeats']");
+  if (!input) {
+    return;
+  }
+
+  const macro = macros.find((item) => item.id === input.dataset.id);
+  if (!macro) {
+    setStatus("Macros не найден.");
+    return;
+  }
+
+  normalizeRepeatInput(input);
+  macro.repeats = Number(input.value);
+  void persistMacros().then(() => {
+    setStatus(`Repeat для "${macro.name}": ${macro.repeats}.`);
+  });
 });
 
 refs.newMacroBtn.addEventListener("click", () => {
@@ -64,15 +97,35 @@ refs.editDefaultToggle.addEventListener("click", () => {
   setEditDefault(!refs.editDefault.checked);
 });
 
+refs.editRepeats.addEventListener("change", () => {
+  normalizeRepeatInput(refs.editRepeats);
+});
+
+refs.editName.addEventListener("input", () => {
+  if (refs.editName.value.trim()) {
+    refs.editNameField.classList.remove("invalid");
+  }
+});
+
+refs.clearEditNameBtn.addEventListener("click", () => {
+  refs.editName.value = "";
+  refs.editName.focus();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.target.matches(".repeat-input") && ["e", "E", "+", "-", ".", ","].includes(event.key)) {
+    event.preventDefault();
+  }
+});
+
 refs.saveEditBtn.addEventListener("click", async () => {
   const name = refs.editName.value.trim();
   if (!name) {
-    setStatus("Введите название macros.");
+    validateEditName();
     return;
   }
 
-  const repeats = Number(refs.editRepeats.value);
-  const validRepeats = Number.isFinite(repeats) && repeats > 0 ? repeats : 1;
+  const validRepeats = normalizeRepeats(refs.editRepeats.value);
   const displayMoves = Boolean(refs.editDisplayMoves.checked);
 
   if (state.modalMode === "edit" && state.editMacroId) {
@@ -127,31 +180,17 @@ refs.saveEditBtn.addEventListener("click", async () => {
 });
 
 refs.cancelEditBtn.addEventListener("click", () => {
-  closeEditModal();
-  setStatus("Редактирование отменено.");
+  requestCloseEditModal();
 });
 
-refs.confirmDeleteBtn.addEventListener("click", async () => {
-  const idx = macros.findIndex((item) => item.id === state.deleteMacroId);
-  if (idx < 0) {
-    return;
-  }
-
-  const deletedMacro = macros[idx];
-  macros.splice(idx, 1);
-  if (deletedMacro && deletedMacro.id === defaultMacroId) {
-    defaultMacroId = null;
-    await persistDefaultMacroId();
-  }
-  await persistMacros();
-  closeDeleteModal();
-  render();
-  setStatus("Macros удален.");
+refs.closeEditBtn.addEventListener("click", () => {
+  requestCloseEditModal();
 });
 
-refs.cancelDeleteBtn.addEventListener("click", () => {
-  closeDeleteModal();
-  setStatus("Удаление отменено.");
+refs.editModal.addEventListener("click", (event) => {
+  if (event.target === refs.editModal) {
+    requestCloseEditModal();
+  }
 });
 
 refs.recordCoordsBtn.addEventListener("click", () => {
@@ -162,9 +201,16 @@ refs.recordSelectorsBtn.addEventListener("click", () => {
   void startCreateMode("selectors");
 });
 
-refs.recordCancelBtn.addEventListener("click", () => {
+refs.closeRecordModeBtn.addEventListener("click", () => {
   closeRecordModeModal();
   setStatus("Создание macros отменено.");
+});
+
+refs.recordModeModal.addEventListener("click", (event) => {
+  if (event.target === refs.recordModeModal) {
+    closeRecordModeModal();
+    setStatus("Создание macros отменено.");
+  }
 });
 
 document.addEventListener("keydown", (event) => {

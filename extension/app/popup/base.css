@@ -1,11 +1,12 @@
 :root {
   color-scheme: light;
   font-family: Arial, sans-serif;
+  --popup-width: 14cm;
 }
 
 html,
 body {
-  width: 10cm;
+  width: var(--popup-width);
   min-height: 10cm;
 }
 
@@ -21,7 +22,7 @@ body {
 }
 
 .popup {
-  width: 10cm;
+  width: var(--popup-width);
   min-height: 10cm;
   padding: 12px;
   display: flex;
@@ -32,7 +33,8 @@ body {
 .btn {
   border: 1px solid #c8ccdb;
   border-radius: 8px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(6px);
   color: #1a1a1a;
   padding: 8px 10px;
   font-size: 13px;
@@ -43,14 +45,16 @@ body {
   background: #f0f2fa;
 }
 
-.btn-primary {
+.btn.btn-primary {
   background: #012292;
   border-color: #012292;
   color: #fff;
+  box-shadow: none;
 }
 
-.btn-primary:hover {
+.btn.btn-primary:hover {
   background: #001d7c;
+  box-shadow: none;
 }
 
 .btn-danger {
@@ -79,10 +83,73 @@ body {
   justify-content: space-between;
   gap: 8px;
   align-items: center;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.82);
   border: 1px solid #d8dcec;
   border-radius: 8px;
   padding: 6px 8px;
+  box-shadow: 0 0 5px rgba(19, 25, 48, 0.07);
+}
+
+.macro-row button {
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.macro-row button:hover {
+  transform: translateY(-1px) scale(1.025);
+  box-shadow:
+    0 0 6px rgba(19, 25, 48, 0.12),
+    inset 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.macro-row .run-btn {
+  border-color: #012292;
+  color: #fff;
+  background: #012292;
+  box-shadow: none;
+}
+
+.macro-row .run-btn:hover {
+  box-shadow: none;
+}
+
+.macro-row .delete-btn {
+  flex-shrink: 0;
+  gap: 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition:
+    width 140ms ease-in,
+    color 140ms ease-in,
+    background-color 140ms ease-in,
+    border-color 140ms ease-in,
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.macro-row .delete-btn.delete-btn-armed {
+  transition:
+    width 140ms ease-out,
+    color 140ms ease-out,
+    background-color 140ms ease-out,
+    border-color 140ms ease-out,
+    transform 120ms ease,
+    box-shadow 120ms ease;
+  color: #fff;
+  border-color: #c83232;
+  background: #c83232;
+}
+
+.macro-row .delete-btn.delete-btn-armed:hover {
+  color: #fff;
+  border-color: #ad2424;
+  background: #ad2424;
 }
 
 .macro-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}

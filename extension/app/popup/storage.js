@@ -2,10 +2,24 @@ function getDisplayMovesValue(macro) {
   return Boolean(macro?.displayMoves ?? macro?.trackMoves);
 }
 
+function normalizeRepeats(value) {
+  const repeats = Number(value);
+  if (!Number.isFinite(repeats)) {
+    return 1;
+  }
+
+  return Math.min(999, Math.max(1, Math.floor(repeats)));
+}
+
+function normalizeRepeatInput(input) {
+  input.value = String(normalizeRepeats(input.value));
+}
+
 function setEditDisplayMoves(enabled) {
   const displayMovesEnabled = Boolean(enabled);
   refs.editDisplayMoves.checked = displayMovesEnabled;
   refs.editDisplayMovesIcon.innerHTML = displayMovesEnabled ? iconSet.eye : iconSet.eyeOff;
+  refs.editDisplayMovesToggle.classList.toggle("display-moves-on", displayMovesEnabled);
   refs.editDisplayMovesToggle.classList.toggle("display-moves-off", !displayMovesEnabled);
   const displayMovesTitle = displayMovesEnabled ? "Display moves: on" : "Display moves: off";
   refs.editDisplayMovesToggle.setAttribute("title", displayMovesTitle);
@@ -18,6 +32,9 @@ function setEditDefault(enabled) {
   refs.editDefault.checked = isDefault;
   refs.editDefaultIcon.innerHTML = iconSet.star;
   refs.editDefaultToggle.classList.toggle("active", isDefault);
+  const defaultTitle = isDefault ? "Default: on" : "Default: off";
+  refs.editDefaultToggle.setAttribute("title", defaultTitle);
+  refs.editDefaultToggle.setAttribute("aria-label", defaultTitle);
   refs.editDefaultToggle.setAttribute("aria-pressed", String(isDefault));
 }
 

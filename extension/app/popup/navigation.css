@@ -1,5 +1,5 @@
 .popup-shell {
-  width: 10cm;
+  width: var(--popup-width);
   min-height: 10cm;
   display: flex;
 }
