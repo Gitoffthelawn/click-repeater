@@ -132,7 +132,7 @@ async function deleteMacro(macroId) {
   setStatus(t("macroDeleted"));
 }
 
-function openEditModal(macroId) {
+function openEditModal(macroId, { selectAll = false } = {}) {
   if (macroId !== null) {
     const macro = macros.find((item) => item.id === macroId);
     if (!macro) {
@@ -150,7 +150,11 @@ function openEditModal(macroId) {
     setEditMode(macro.mode ?? "position");
     renderEditSteps(Array.isArray(macro.steps) ? macro.steps : []);
     refs.editModal.classList.remove("hidden");
-    focusEditNameAtEnd();
+    if (selectAll) {
+      focusEditNameSelectAll();
+    } else {
+      focusEditNameAtEnd();
+    }
     syncPopupHeight();
     return;
   }
@@ -165,7 +169,7 @@ function openEditModal(macroId) {
   setEditMode("position");
   renderEditSteps([]);
   refs.editModal.classList.remove("hidden");
-  focusEditNameAtEnd();
+  focusEditNameSelectAll();
   syncPopupHeight();
 }
 
@@ -174,6 +178,12 @@ function focusEditNameAtEnd() {
   refs.editName.focus();
   const end = refs.editName.value.length;
   refs.editName.setSelectionRange(end, end);
+}
+
+function focusEditNameSelectAll() {
+  refs.editNameField.classList.remove("invalid");
+  refs.editName.focus();
+  refs.editName.select();
 }
 
 function validateEditName() {

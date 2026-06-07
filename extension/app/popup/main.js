@@ -10,7 +10,7 @@ async function init() {
   render();
   const executionStatus = await refreshExecutionStatus();
   if (createdMacro) {
-    openEditModal(createdMacro.id);
+    openEditModal(createdMacro.id, { selectAll: true });
     setStatus(t("createCompleted"));
     return;
   }
