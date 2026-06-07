@@ -224,6 +224,11 @@
   overflow-y: auto;
 }
 
+#edit-modal .modal {
+  width: min(13cm, 100%);
+  max-width: none;
+}
+
 .modal h3 {
   margin: 0;
   font-size: 16px;

@@ -238,7 +238,7 @@ const TRANSLATIONS = {
     toStop: "<strong>Zum Stoppen:</strong> <kbd>Esc</kbd>", noNetwork: "Verwendet kein Netzwerk", noCollection: "Sammelt keine Daten",
     credits: "Danksagung (MIT): Lucide", close: "Schließen", name: "Name", clearName: "Name löschen",
     default: "Standard", visible: "Sichtbar", stealth: "Unsichtbar", position: "Position", element: "Element",
-    repeat: "Wiederholen", save: "Speichern", cancel: "Abbrechen", stepsList: "Schritte", newMacroTitle: "Neues Makro",
+    repeat: "Wdh.", save: "Speichern", cancel: "Abbrechen", stepsList: "Schritte", newMacroTitle: "Neues Makro",
     newMacroDescription: "Beim Start der Aufnahme blinkt ein roter Punkt. Klicken Sie die gewünschten Elemente an und klicken Sie zum Abschluss erneut auf die Erweiterung.",
     dontShowAgain: "Nicht mehr anzeigen", start: "Starten", displayMovesTitle: "Sichtbar / Unsichtbar",
     visibleDescription: "<strong>Sichtbar</strong> zeigt die Bewegung der virtuellen Maus.",
