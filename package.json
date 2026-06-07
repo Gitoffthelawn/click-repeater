@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "canvas": "^3.2.3",
+    "playwright": "^1.60.0"
+  }
+}
