@@ -16,7 +16,9 @@ The goal is to show every click and movement of the virtual pointer:
 
 - Minimal overlay using a filled Lucide mouse-pointer icon, `#f00`, 24x24 px
 - Represents virtual cursor movement
-- On click, changes for 50 ms to mouse-pointer-click, `#f00`, 36x36 px, then returns to the default state
+- On click:
+   - Mouse-pointer changes for 50 ms to 36x36 px, then returns to the default state
+   - From the click spot, there should be diverging red circles
 
 ## STEALTH
 

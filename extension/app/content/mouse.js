@@ -218,7 +218,7 @@ async function dispatchMouseClick(token, target, point) {
   }
 
   target.dispatchEvent(buildMouseEvent("click", { ...init, buttons: 0 }));
-  pulseTracker();
+  pulseTracker(normalized);
 }
 
 function applyClickOffset(point) {

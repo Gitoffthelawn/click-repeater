@@ -13,11 +13,7 @@ const BG = "#012292";
 const FG = "#ffffff";
 
 const ICON_PATHS = [
-  "M14 4.1 12 6",
-  "m5.1 8-2.9-.8",
-  "m6 12-1.9 2",
-  "M7.2 2.2 8 5.1",
-  "M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z",
+  "m4 4 7.07 17 2.51-7.39L21 11.07z",
 ];
 
 function renderIcon(size: number): { size: number; data: Buffer } {
@@ -30,13 +26,16 @@ function renderIcon(size: number): { size: number; data: Buffer } {
 
   ctx.save();
   ctx.scale(scale, scale);
+  ctx.fillStyle = FG;
   ctx.strokeStyle = FG;
   ctx.lineWidth = 2;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
 
   for (const d of ICON_PATHS) {
-    ctx.stroke(new Path2D(d));
+    const p = new Path2D(d);
+    ctx.fill(p);
+    ctx.stroke(p);
   }
 
   ctx.restore();

@@ -88,7 +88,38 @@ function moveTracker(point) {
   trackerState.element.style.top = `${normalized.y}px`;
 }
 
-function pulseTracker() {
+function spawnClickRipple(point) {
+  const normalized = normalizeViewportPoint(point);
+  for (let i = 0; i < 3; i += 1) {
+    const circle = document.createElement("div");
+    circle.style.cssText = [
+      "position:fixed",
+      `left:${normalized.x}px`,
+      `top:${normalized.y}px`,
+      "width:0px",
+      "height:0px",
+      "border-radius:50%",
+      "border:2px solid #ff0000",
+      "transform:translate(-50%,-50%)",
+      "pointer-events:none",
+      "user-select:none",
+      `z-index:2147483647`,
+      "box-sizing:border-box"
+    ].join(";");
+    document.documentElement.append(circle);
+    const delay = i * 60;
+    const size = 60 + i * 10;
+    circle.animate(
+      [
+        { width: "0px", height: "0px", opacity: 0.7 },
+        { width: `${size}px`, height: `${size}px`, opacity: 0 }
+      ],
+      { duration: 500, delay, easing: "ease-out", fill: "forwards" }
+    ).finished.then(() => circle.remove());
+  }
+}
+
+function pulseTracker(point) {
   if (!executionState.trackMoves || !(trackerState.element instanceof HTMLElement)) {
     return;
   }
@@ -104,6 +135,10 @@ function pulseTracker() {
     setTrackerDefaultState();
     trackerState.pulseTimerId = null;
   }, TRACKER_ACTIVE_DURATION_MS);
+
+  if (point) {
+    spawnClickRipple(point);
+  }
 }
 
 function normalizeViewportPoint(point) {

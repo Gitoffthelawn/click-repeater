@@ -4,7 +4,7 @@
 
 ## ICON
 - Background: `#012292`
-- mouse-pointer-click, `#fff`
+- mouse-pointer, `#fff`
 
 ---
 

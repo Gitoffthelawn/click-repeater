@@ -1,7 +1,7 @@
 # PAGE ABOUT
 
 - Header "MACROS REPEATER"
-- (mouse-pointer-click) Records clicks on a page
+- (mouse-pointer) Records clicks on a page
 - (play) Repeats recorded clicks
 - (crosshair) Position mode: clicks recorded coordinates
 - (code) Element mode: clicks page elements
