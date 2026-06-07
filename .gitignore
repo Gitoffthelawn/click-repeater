@@ -1,36 +1,40 @@
-# Canonical rules: lib/extension.gitignore (catalog layout)
+# Canonical gitignore: ALL-PRJ-REQ/.gitignore
 
-# Dependencies
-node_modules/
-.pnp
-.pnp.js
+# --- PROJECT-SPECIFIC RULES ---------------------------------------------------
 
-# Build / dist
-dist/
-# esbuild bundles (+ blocked-notice copy from lib) — edit src/, load from dist/
-/background.js
-/content.js
-/welcome.js
-/blocked-notice.js
-*.zip
-
-# Store publication assets (screenshots etc.)
+# Publication Assets
 PUBLICATION/*.png
 PUBLICATION/**/*.png
 PUBLICATION/*.jpeg
 PUBLICATION/**/*.jpeg
 PUBLICATION/*.jpg
 PUBLICATION/**/*.jpg
+
+# --- USER-SPECIFIC RULES ------------------------------------------------------
+
+# Personal Working Files
 PUBLICATION/checklist.md
 
-build/
-out/
-.next/
-.nuxt/
-.output/
-*.tsbuildinfo
+# AI and LLM Tools
+.cursor/
+.claude/
 
-# Environment & secrets
+# Temporary Files
+tmp/
+temp/
+temp*.md
+TEMP*.md
+*.local
+
+
+# --- TECHNOLOGY-SPECIFIC RULES ------------------------------------------------
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment and Secrets
 .env
 .env.*
 !.env.example
@@ -40,8 +44,43 @@ out/
 !public-key.key
 credentials.json
 secrets.json
+.envrc
 
-# Logs & debug
+# Build Outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+*.tsbuildinfo
+
+# Browser Extension Bundles
+/background.js
+/content.js
+/welcome.js
+/blocked-notice.js
+
+# Distribution Archives
+*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Tests and Coverage
+coverage/
+.nyc_output/
+
+# Browser Test Artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Logs and Debug
 logs/
 *.log
 npm-debug.log*
@@ -49,20 +88,17 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Test / coverage
-coverage/
-.nyc_output/
+# npm Cache
+.npm-cache/
 
-# Python (if used later)
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-.envrc
 
-# OS & editor
+# --- UNIVERSAL RULES ----------------------------------------------------------
+
+# Operating System Files
 .DS_Store
 Thumbs.db
+
+# Editors
 *.swp
 *.swo
 *~
@@ -71,18 +107,5 @@ Thumbs.db
 !.vscode/extensions.json
 !.vscode/settings.json
 
-# AI LLM
-.cursor/
-.claude/
-
-# Playwright / browser artifacts
-test-results/
-playwright-report/
-blob-report/
-playwright/.cache/
-
-# Misc
+# Caches
 .cache/
-tmp/
-temp/
-*.local
