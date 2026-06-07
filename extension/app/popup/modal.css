@@ -68,7 +68,7 @@
   bottom: calc(100% + 5px);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
+  z-index: 9999;
   padding: 4px 7px;
   border-radius: 5px;
   color: #fff;
@@ -98,7 +98,7 @@
   position: absolute;
   bottom: calc(100% + 5px);
   right: 0;
-  z-index: 10;
+  z-index: 9999;
   padding: 4px 7px;
   border-radius: 5px;
   color: #fff;
@@ -123,7 +123,7 @@
   position: absolute;
   top: calc(100% + 5px);
   right: 0;
-  z-index: 10;
+  z-index: 9999;
   padding: 4px 7px;
   border-radius: 5px;
   color: #fff;
@@ -156,7 +156,7 @@
   position: absolute;
   right: 0;
   bottom: calc(100% + 6px);
-  z-index: 5;
+  z-index: 9999;
   min-width: max-content;
   padding: 5px 7px;
   border-radius: 5px;
