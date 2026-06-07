@@ -73,6 +73,7 @@ See [all user paths](./SPEC/user-path.md) for more details.
 - Position mode depends on the relevant content remaining at the recorded coordinates
 - Website changes may prevent an older macro from completing
 - The extension records and repeats clicks only
+- Simulated clicks may be detected by websites even in Stealth mode — browser-generated events lack the `isTrusted: true` flag that real user interactions carry; sites that check `event.isTrusted` will see through the automation regardless of how the click is dispatched
 
 ## LICENSE
 
