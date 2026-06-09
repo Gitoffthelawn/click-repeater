@@ -9,6 +9,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.0.4
+- Improved click visualization
+
 ### 1.0.3
 - Rebranded from Macros Repeater to Click Repeater
 - Cursor tracker restyled to brand colors with improved UX
