@@ -72,21 +72,46 @@ function buildHumanPath(startPoint, endPoint) {
   const deltaX = to.x - from.x;
   const deltaY = to.y - from.y;
   const distance = Math.hypot(deltaX, deltaY);
-  const segments = clamp(Math.round(distance / 16) + 8, 10, 48);
-  const deviation = clamp(distance * 0.05, 1.5, 8);
-  const path = [];
+  const pointCount = Math.round(2 + 5 * Math.log2(1 + distance / 10));
+  const perpendicularX = distance > 0 ? -deltaY / distance : 0;
+  const perpendicularY = distance > 0 ? deltaX / distance : 0;
+  const curveOffset = randomBetween(-1, 1) * Math.min(distance * 0.08, 32);
+  const controlPoint = {
+    x: (from.x + to.x) / 2 + perpendicularX * curveOffset,
+    y: (from.y + to.y) / 2 + perpendicularY * curveOffset
+  };
+  const sampleCount = Math.max(32, pointCount * 4);
+  const samples = [{ point: from, length: 0 }];
+  let totalLength = 0;
+  let previousSample = from;
 
-  for (let index = 1; index <= segments; index += 1) {
-    const t = index / segments;
-    const ease = t * t * (3 - 2 * t);
-    const waveX = Math.sin(t * Math.PI * 2) * randomBetween(-deviation, deviation);
-    const waveY = Math.cos(t * Math.PI * 2) * randomBetween(-deviation, deviation);
-    path.push(
-      normalizeViewportPoint({
-        x: from.x + deltaX * ease + waveX,
-        y: from.y + deltaY * ease + waveY
-      })
-    );
+  for (let index = 1; index <= sampleCount; index += 1) {
+    const t = index / sampleCount;
+    const inverseT = 1 - t;
+    const point = normalizeViewportPoint({
+      x: inverseT * inverseT * from.x + 2 * inverseT * t * controlPoint.x + t * t * to.x,
+      y: inverseT * inverseT * from.y + 2 * inverseT * t * controlPoint.y + t * t * to.y
+    });
+    totalLength += Math.hypot(point.x - previousSample.x, point.y - previousSample.y);
+    samples.push({ point, length: totalLength });
+    previousSample = point;
+  }
+
+  const path = [];
+  let sampleIndex = 1;
+  for (let index = 1; index <= pointCount; index += 1) {
+    const targetLength = totalLength * (index / pointCount);
+    while (sampleIndex < samples.length - 1 && samples[sampleIndex].length < targetLength) {
+      sampleIndex += 1;
+    }
+    const current = samples[sampleIndex];
+    const previous = samples[sampleIndex - 1];
+    const lengthDelta = current.length - previous.length;
+    const ratio = lengthDelta > 0 ? (targetLength - previous.length) / lengthDelta : 0;
+    path.push(normalizeViewportPoint({
+      x: previous.point.x + (current.point.x - previous.point.x) * ratio,
+      y: previous.point.y + (current.point.y - previous.point.y) * ratio
+    }));
   }
 
   path[path.length - 1] = to;
@@ -179,7 +204,44 @@ function dispatchTargetEntry(target, point, relatedTarget) {
   target.dispatchEvent(buildMouseEvent("mouseenter", { ...init, bubbles: false }));
 }
 
+function dispatchTargetExit(target, point, relatedTarget) {
+  if (!(target instanceof Element)) {
+    return;
+  }
+
+  const normalized = normalizeViewportPoint(point);
+  const init = {
+    bubbles: true,
+    cancelable: true,
+    composed: true,
+    clientX: normalized.x,
+    clientY: normalized.y,
+    screenX: window.screenX + normalized.x,
+    screenY: window.screenY + normalized.y,
+    movementX: 0,
+    movementY: 0,
+    button: 0,
+    buttons: 0,
+    relatedTarget,
+    detail: 1
+  };
+
+  target.dispatchEvent(buildPointerEvent("pointerout", init));
+  target.dispatchEvent(buildMouseEvent("mouseout", init));
+  target.dispatchEvent(buildPointerEvent("pointerleave", { ...init, bubbles: false }));
+  target.dispatchEvent(buildMouseEvent("mouseleave", { ...init, bubbles: false }));
+}
+
+function transitionTarget(previousTarget, nextTarget, point) {
+  if (previousTarget === nextTarget) {
+    return;
+  }
+  dispatchTargetExit(previousTarget, point, nextTarget);
+  dispatchTargetEntry(nextTarget, point, previousTarget);
+}
+
 async function dispatchMouseClick(token, target, point) {
+  const profile = getExecutionSpeedProfile();
   const normalized = normalizeViewportPoint(point);
   const init = {
     bubbles: true,
@@ -196,15 +258,10 @@ async function dispatchMouseClick(token, target, point) {
     detail: 1
   };
 
-  await sleep(randomDelay(HUMAN_BEFORE_DOWN_MIN_DELAY_MS, HUMAN_BEFORE_DOWN_MAX_DELAY_MS));
-  if (shouldStop(token)) {
-    throw new Error("stopped");
-  }
-
   target.dispatchEvent(buildPointerEvent("pointerdown", init));
   target.dispatchEvent(buildMouseEvent("mousedown", init));
 
-  await sleep(randomDelay(HUMAN_HOLD_MIN_DELAY_MS, HUMAN_HOLD_MAX_DELAY_MS));
+  await sleep(randomDelay(profile.holdMinMs, profile.holdMaxMs));
   if (shouldStop(token)) {
     throw new Error("stopped");
   }
@@ -212,7 +269,7 @@ async function dispatchMouseClick(token, target, point) {
   target.dispatchEvent(buildPointerEvent("pointerup", { ...init, buttons: 0 }));
   target.dispatchEvent(buildMouseEvent("mouseup", { ...init, buttons: 0 }));
 
-  await sleep(randomDelay(HUMAN_AFTER_UP_MIN_DELAY_MS, HUMAN_AFTER_UP_MAX_DELAY_MS));
+  await sleep(randomDelay(profile.afterUpMinMs, profile.afterUpMaxMs));
   if (shouldStop(token)) {
     throw new Error("stopped");
   }

@@ -167,7 +167,7 @@ async function startDefaultClickFromTab(tabId) {
     clickName,
     repeats,
     trackMoves: Boolean(click.displayMoves ?? click.trackMoves),
-    executionSpeed: [0.25, 0.5, 1, 2].includes(storedSettings?.executionSpeed) ? storedSettings.executionSpeed : 1,
+    executionSpeed: [0.5, 1, 4, 10].includes(storedSettings?.executionSpeed) ? storedSettings.executionSpeed : 1,
     clickSound: storedSettings?.clickSound !== false,
     steps
   });

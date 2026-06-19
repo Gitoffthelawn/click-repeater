@@ -8,7 +8,7 @@
 - (eye) Visible mode: shows movement and clicks
 - (eye-off) Stealth mode: works without visualisation
 - (repeat-2) Repeats clicks up to 999 times
-- (gauge) Execution speed: 0.25×, 0.5×, 1×, 2×
+- (gauge) Execution speed: 0.5×, 1×, 4×, 10×
 - (star) "Default" clicks can be launched with a shortcut
 - (shield-check) Doesn't use the network
 - (git-fork) Code on GitHub // [https://github.com/md2it/browser-extension-click-repeater](https://github.com/md2it/browser-extension-click-repeater)

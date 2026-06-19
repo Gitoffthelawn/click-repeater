@@ -4,7 +4,7 @@ const SETTINGS_KEY = "popup_settings";
 const clicks = [];
 let defaultClickId = null;
 
-const EXECUTION_SPEED_VALUES = [0.25, 0.5, 1, 2];
+const EXECUTION_SPEED_VALUES = [0.5, 1, 4, 10];
 
 const settings = {
   executionSpeed: 1,

@@ -12,13 +12,13 @@
 	- Minimal switch without an icon
 	- Shows only the setting name and current value
 	- One click cycles to the next value:
-		- `0.25×`
 		- `0.5×`
 		- `1×`
-		- `2×`
+		- `4×`
+		- `10×`
 	- Default value: `1×`
 	- This is an extension-wide setting and applies to all
-	- The setting affects only the additional pacing delay between steps and does not change existing execution intervals
+	- The setting controls cursor movement, target stabilization, button hold, release-to-click pause, and completed-step pause
 	- Specific intervals and their application order: [Execution mode](../functional/execute.md#execution-speed)
 - "Click sound"
 	- Toggler

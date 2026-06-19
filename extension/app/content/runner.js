@@ -71,6 +71,7 @@ function releaseClickSound() {
 }
 
 async function runStep(token, fromPoint, step) {
+  const profile = getExecutionSpeedProfile();
   const stepPoint = resolveStepPoint(step);
   if (!stepPoint) {
     throw new Error("target_not_found");
@@ -87,21 +88,36 @@ async function runStep(token, fromPoint, step) {
 
     const moveResult = dispatchMouseMove(point, previousPoint);
     previousPoint = moveResult.point;
-    await sleep(randomDelay(HUMAN_MOVE_MIN_DELAY_MS, HUMAN_MOVE_MAX_DELAY_MS));
+    await sleep(profile.moveIntervalMs);
   }
 
   if (shouldStop(token)) {
     throw new Error("stopped");
   }
 
-  const clickTarget = getPointTarget(clickPoint);
+  let clickTarget = getPointTarget(clickPoint);
   if (!clickTarget) {
     throw new Error("target_not_found");
   }
 
   if (clickTarget !== executionState.lastTarget) {
-    dispatchTargetEntry(clickTarget, clickPoint, executionState.lastTarget);
+    transitionTarget(executionState.lastTarget, clickTarget, clickPoint);
     executionState.lastTarget = clickTarget;
+  }
+
+  await sleep(randomDelay(profile.beforeDownMinMs, profile.beforeDownMaxMs));
+  if (shouldStop(token)) {
+    throw new Error("stopped");
+  }
+
+  const stabilizedTarget = getPointTarget(clickPoint);
+  if (!stabilizedTarget) {
+    throw new Error("target_not_found");
+  }
+  if (stabilizedTarget !== clickTarget) {
+    transitionTarget(clickTarget, stabilizedTarget, clickPoint);
+    clickTarget = stabilizedTarget;
+    executionState.lastTarget = stabilizedTarget;
   }
 
   await dispatchMouseClick(token, clickTarget, clickPoint);
@@ -109,13 +125,7 @@ async function runStep(token, fromPoint, step) {
     playClickSound();
   }
   if (!shouldStop(token)) {
-    await sleep(randomDelay(HUMAN_STEP_MIN_DELAY_MS, HUMAN_STEP_MAX_DELAY_MS));
-  }
-  if (!shouldStop(token)) {
-    const tempoDelayMs = EXECUTION_SPEED_TEMPO_DELAYS_MS[executionState.executionSpeed] ?? 500;
-    if (tempoDelayMs > 0) {
-      await sleep(tempoDelayMs);
-    }
+    await sleep(randomDelay(profile.stepMinMs, profile.stepMaxMs));
   }
   if (shouldStop(token)) {
     throw new Error("stopped");
@@ -134,7 +144,7 @@ async function runExecution(payload) {
   const repeats = Number.isFinite(Number(payload?.repeats)) && Number(payload.repeats) > 0 ? Math.floor(Number(payload.repeats)) : 1;
   const trackMoves = Boolean(payload?.trackMoves);
   const executionSpeedRaw = Number(payload?.executionSpeed);
-  const executionSpeed = [0.25, 0.5, 1, 2].includes(executionSpeedRaw) ? executionSpeedRaw : 1;
+  const executionSpeed = EXECUTION_SPEED_VALUES.includes(executionSpeedRaw) ? executionSpeedRaw : 1;
   const clickSound = payload?.clickSound !== false;
   const steps = Array.isArray(payload?.steps) ? payload.steps.filter((step) => typeof step === "string" && step.trim()) : [];
   if (steps.length === 0) {
@@ -159,8 +169,14 @@ async function runExecution(payload) {
   const totalSteps = repeats * steps.length;
   let completedSteps = 0;
 
-  const tempoDelayMs = EXECUTION_SPEED_TEMPO_DELAYS_MS[executionSpeed] ?? 500;
-  const msPerStep = HUMAN_STEP_MAX_DELAY_MS + tempoDelayMs;
+  const profile = getExecutionSpeedProfile(executionSpeed);
+  const estimatedMovementPointCount = 19;
+  const msPerStep =
+    estimatedMovementPointCount * profile.moveIntervalMs +
+    (profile.beforeDownMinMs + profile.beforeDownMaxMs) / 2 +
+    (profile.holdMinMs + profile.holdMaxMs) / 2 +
+    (profile.afterUpMinMs + profile.afterUpMaxMs) / 2 +
+    (profile.stepMinMs + profile.stepMaxMs) / 2;
 
   void chrome.runtime.sendMessage({
     type: "execution-progress",

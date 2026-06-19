@@ -9,6 +9,11 @@ Version logic:
 
 ## RELEASES
 
+### 1.0.5
+- Click sound
+- Additional delete button in record card
+- RTL menu will be on the left side too
+
 ### 1.0.4
 - Improved click visualization
 

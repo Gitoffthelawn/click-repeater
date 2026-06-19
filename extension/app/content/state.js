@@ -1,17 +1,53 @@
 
-const EXECUTION_SPEED_TEMPO_DELAYS_MS = { 0.25: 3500, 0.5: 1500, 1: 500, 2: 0 };
+const EXECUTION_SPEED_VALUES = [0.5, 1, 4, 10];
+const EXECUTION_SPEED_PROFILES = {
+  0.5: {
+    moveIntervalMs: 24,
+    beforeDownMinMs: 160,
+    beforeDownMaxMs: 250,
+    holdMinMs: 100,
+    holdMaxMs: 150,
+    afterUpMinMs: 80,
+    afterUpMaxMs: 120,
+    stepMinMs: 700,
+    stepMaxMs: 1000
+  },
+  1: {
+    moveIntervalMs: 12,
+    beforeDownMinMs: 80,
+    beforeDownMaxMs: 140,
+    holdMinMs: 50,
+    holdMaxMs: 90,
+    afterUpMinMs: 25,
+    afterUpMaxMs: 60,
+    stepMinMs: 250,
+    stepMaxMs: 450
+  },
+  4: {
+    moveIntervalMs: 6,
+    beforeDownMinMs: 30,
+    beforeDownMaxMs: 60,
+    holdMinMs: 20,
+    holdMaxMs: 40,
+    afterUpMinMs: 10,
+    afterUpMaxMs: 25,
+    stepMinMs: 70,
+    stepMaxMs: 130
+  },
+  10: {
+    moveIntervalMs: 4,
+    beforeDownMinMs: 15,
+    beforeDownMaxMs: 25,
+    holdMinMs: 8,
+    holdMaxMs: 14,
+    afterUpMinMs: 5,
+    afterUpMaxMs: 10,
+    stepMinMs: 35,
+    stepMaxMs: 50
+  }
+};
 
 const HUMAN_MM_IN_PX = 0.75; // 0.2mm offset radius at 96 DPI
-const HUMAN_STEP_MIN_DELAY_MS = 500;
-const HUMAN_STEP_MAX_DELAY_MS = 1000;
-const HUMAN_MOVE_MIN_DELAY_MS = 8;
-const HUMAN_MOVE_MAX_DELAY_MS = 22;
-const HUMAN_BEFORE_DOWN_MIN_DELAY_MS = 80;
-const HUMAN_BEFORE_DOWN_MAX_DELAY_MS = 250;
-const HUMAN_HOLD_MIN_DELAY_MS = 50;
-const HUMAN_HOLD_MAX_DELAY_MS = 150;
-const HUMAN_AFTER_UP_MIN_DELAY_MS = 20;
-const HUMAN_AFTER_UP_MAX_DELAY_MS = 120;
 const VIEWPORT_EDGE_PADDING = 2;
 const TRACKER_DEFAULT_SIZE = 36;
 const TRACKER_ACTIVE_SIZE = 54;
@@ -77,6 +113,10 @@ function randomDelay(min, max) {
 
   executionState.lastDelayMs = delay;
   return delay;
+}
+
+function getExecutionSpeedProfile(speed = executionState.executionSpeed) {
+  return EXECUTION_SPEED_PROFILES[speed] ?? EXECUTION_SPEED_PROFILES[1];
 }
 
 function sendRuntimeMessage(message) {
