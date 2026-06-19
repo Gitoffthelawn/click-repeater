@@ -320,6 +320,16 @@ refs.cancelEditBtn.addEventListener("click", () => {
   requestCloseEditModal();
 });
 
+refs.deleteEditBtn.addEventListener("click", async () => {
+  const macroId = state.editClickId;
+  if (state.modalMode !== "edit" || !macroId) {
+    return;
+  }
+
+  closeEditModal();
+  await deleteClick(macroId);
+});
+
 refs.closeEditBtn.addEventListener("click", () => {
   requestCloseEditModal();
 });

@@ -17,6 +17,7 @@ for (const button of document.querySelectorAll(".modal-close-btn")) {
   button.innerHTML = iconSet.x;
 }
 
+refs.deleteEditBtn.innerHTML = iconSet.trash;
 refs.clearEditNameBtn.innerHTML = iconSet.x;
 
 function renderLanguageSelector() {

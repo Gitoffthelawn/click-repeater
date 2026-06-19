@@ -51,6 +51,7 @@ const refs = {
   editModeLabel: document.getElementById("edit-mode-label"),
   saveEditBtn: document.getElementById("save-edit-btn"),
   cancelEditBtn: document.getElementById("cancel-edit-btn"),
+  deleteEditBtn: document.getElementById("delete-edit-btn"),
   recordModal: document.getElementById("record-modal"),
   closeRecordModalBtn: document.getElementById("close-record-modal-btn"),
   recordDontShow: document.getElementById("record-dont-show"),

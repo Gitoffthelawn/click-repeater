@@ -28,8 +28,8 @@
       - A dismissible explanation modal is available as described in SPEC/ui/modal-explanations.md
 
 ### Buttons
-- Save and Cancel buttons
-- Located **above** the step list
+- Save and Cancel buttons are located **above** the step list
+- Delete is a red Lucide Trash 2 icon in the modal header, at the opposite end from Close
 
 ### Step lists
 - Read-only

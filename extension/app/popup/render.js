@@ -141,6 +141,7 @@ function openEditModal(macroId, { selectAll = false } = {}) {
 
     state.modalMode = "edit";
     state.editClickId = macro.id;
+    refs.deleteEditBtn.classList.remove("hidden");
     refs.editModalTitle.textContent = t("editTitle");
     refs.editName.value = macro.name;
     refs.editRepeats.value = String(macro.repeats ?? 1);
@@ -160,6 +161,7 @@ function openEditModal(macroId, { selectAll = false } = {}) {
 
   state.modalMode = "create";
   state.editClickId = null;
+  refs.deleteEditBtn.classList.add("hidden");
   refs.editModalTitle.textContent = t("createTitle");
   refs.editName.value = buildDefaultClickName();
   refs.editRepeats.value = "1";
