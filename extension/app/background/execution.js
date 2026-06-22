@@ -136,12 +136,40 @@ async function sendRecordingListenerMessage(tabId, message) {
     return { ok: false, error: "tab_id_required" };
   }
 
+  const send = async () => {
+    try {
+      const response = await ext.tabs.sendMessage(tabId, message);
+      return response?.ok ? { ok: true } : { ok: false, error: response?.error ?? "listener_message_failed" };
+    } catch {
+      return { ok: false, error: "tab_unreachable" };
+    }
+  };
+
+  const initial = await send();
+  if (initial.ok) return initial;
+
   try {
-    const response = await ext.tabs.sendMessage(tabId, message);
-    return response?.ok ? { ok: true } : { ok: false, error: response?.error ?? "listener_message_failed" };
+    await ext.scripting.executeScript({
+      target: { tabId },
+      files: [
+        "lib/icons/lucide/icons.js",
+        "lib/our/api.js",
+        "lib/our/page-operability/probe.js",
+        "lib/our/page-operability/content-probe.js",
+        "app/content/selectors.js",
+        "app/content/state.js",
+        "app/content/tracker.js",
+        "app/content/mouse.js",
+        "app/content/listeners.js",
+        "app/content/runner.js",
+        "app/content/main.js"
+      ]
+    });
   } catch {
-    return { ok: false, error: "tab_unreachable" };
+    return initial;
   }
+
+  return send();
 }
 
 // Scope the temporary popup override to this tab and clear it after opening.

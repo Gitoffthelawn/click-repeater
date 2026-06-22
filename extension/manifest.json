@@ -3,7 +3,7 @@
   "default_locale": "en",
   "name": "Click Repeater",
   "description": "__MSG_extDescription__",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "background": {
     "service_worker": "sw.js",
     "scripts": [
