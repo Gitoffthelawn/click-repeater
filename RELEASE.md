@@ -9,6 +9,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.0.7
+- Improved execution speed timing calculation
+
 ### 1.0.6
 - Fixed recording on pages that were already open when the extension was installed
 

@@ -116,8 +116,7 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const repeats = Number.isFinite(repeatsRaw) && repeatsRaw > 0 ? Math.floor(repeatsRaw) : 1;
       const tabId = Number.isInteger(message.tabId) ? message.tabId : null;
       const trackMoves = Boolean(message.trackMoves);
-      const executionSpeedRaw = Number(message.executionSpeed);
-      const executionSpeed = [0.5, 1, 4, 10].includes(executionSpeedRaw) ? executionSpeedRaw : 1;
+      const executionSpeed = normalizeExecutionSpeed(message.executionSpeed);
       const clickSound = message.clickSound !== false;
       const steps = Array.isArray(message.steps) ? message.steps.filter((step) => typeof step === "string" && step.trim()) : [];
       const result = await startExecutionOnTab({ tabId, clickId, clickName, repeats, trackMoves, executionSpeed, clickSound, steps });

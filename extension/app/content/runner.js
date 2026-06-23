@@ -144,8 +144,7 @@ async function runExecution(payload) {
   const clickName = typeof payload?.clickName === "string" && payload.clickName.trim() ? payload.clickName.trim() : "clicks";
   const repeats = Number.isFinite(Number(payload?.repeats)) && Number(payload.repeats) > 0 ? Math.floor(Number(payload.repeats)) : 1;
   const trackMoves = Boolean(payload?.trackMoves);
-  const executionSpeedRaw = Number(payload?.executionSpeed);
-  const executionSpeed = EXECUTION_SPEED_VALUES.includes(executionSpeedRaw) ? executionSpeedRaw : 1;
+  const executionSpeed = normalizeExecutionSpeed(payload?.executionSpeed);
   const clickSound = payload?.clickSound !== false;
   const steps = Array.isArray(payload?.steps) ? payload.steps.filter((step) => typeof step === "string" && step.trim()) : [];
   if (steps.length === 0) {

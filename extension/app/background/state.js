@@ -28,3 +28,8 @@ let shortcutHintTimerId = null;
 let badgeAnimationIntervalId = null;
 let badgeAnimationFrame = 0;
 let badgeAnimationMode = null;
+
+function normalizeExecutionSpeed(speed) {
+  const value = Number(speed);
+  return Number.isFinite(value) && value > 0 ? value : 1;
+}

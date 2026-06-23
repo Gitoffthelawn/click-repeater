@@ -1,50 +1,13 @@
-
-const EXECUTION_SPEED_VALUES = [0.5, 1, 4, 10];
-const EXECUTION_SPEED_PROFILES = {
-  0.5: {
-    moveIntervalMs: 24,
-    beforeDownMinMs: 160,
-    beforeDownMaxMs: 250,
-    holdMinMs: 100,
-    holdMaxMs: 150,
-    afterUpMinMs: 80,
-    afterUpMaxMs: 120,
-    stepMinMs: 700,
-    stepMaxMs: 1000
-  },
-  1: {
-    moveIntervalMs: 12,
-    beforeDownMinMs: 80,
-    beforeDownMaxMs: 140,
-    holdMinMs: 50,
-    holdMaxMs: 90,
-    afterUpMinMs: 25,
-    afterUpMaxMs: 60,
-    stepMinMs: 250,
-    stepMaxMs: 450
-  },
-  4: {
-    moveIntervalMs: 6,
-    beforeDownMinMs: 30,
-    beforeDownMaxMs: 60,
-    holdMinMs: 20,
-    holdMaxMs: 40,
-    afterUpMinMs: 10,
-    afterUpMaxMs: 25,
-    stepMinMs: 70,
-    stepMaxMs: 130
-  },
-  10: {
-    moveIntervalMs: 4,
-    beforeDownMinMs: 15,
-    beforeDownMaxMs: 25,
-    holdMinMs: 8,
-    holdMaxMs: 14,
-    afterUpMinMs: 5,
-    afterUpMaxMs: 10,
-    stepMinMs: 35,
-    stepMaxMs: 50
-  }
+const BASE_EXECUTION_SPEED_PROFILE = {
+  moveIntervalMs: 12,
+  beforeDownMinMs: 80,
+  beforeDownMaxMs: 140,
+  holdMinMs: 50,
+  holdMaxMs: 90,
+  afterUpMinMs: 25,
+  afterUpMaxMs: 60,
+  stepMinMs: 250,
+  stepMaxMs: 450
 };
 
 const HUMAN_MM_IN_PX = 0.75; // 0.2mm offset radius at 96 DPI
@@ -116,8 +79,28 @@ function randomDelay(min, max) {
   return delay;
 }
 
+function normalizeExecutionSpeed(speed) {
+  const value = Number(speed);
+  return Number.isFinite(value) && value > 0 ? value : 1;
+}
+
+function scaleTimingMs(baseMs, speed) {
+  return Math.max(1, Math.ceil(baseMs / normalizeExecutionSpeed(speed)));
+}
+
 function getExecutionSpeedProfile(speed = executionState.executionSpeed) {
-  return EXECUTION_SPEED_PROFILES[speed] ?? EXECUTION_SPEED_PROFILES[1];
+  const speedMultiplier = normalizeExecutionSpeed(speed);
+  return {
+    moveIntervalMs: scaleTimingMs(BASE_EXECUTION_SPEED_PROFILE.moveIntervalMs, speedMultiplier),
+    beforeDownMinMs: scaleTimingMs(BASE_EXECUTION_SPEED_PROFILE.beforeDownMinMs, speedMultiplier),
+    beforeDownMaxMs: scaleTimingMs(BASE_EXECUTION_SPEED_PROFILE.beforeDownMaxMs, speedMultiplier),
+    holdMinMs: scaleTimingMs(BASE_EXECUTION_SPEED_PROFILE.holdMinMs, speedMultiplier),
+    holdMaxMs: scaleTimingMs(BASE_EXECUTION_SPEED_PROFILE.holdMaxMs, speedMultiplier),
+    afterUpMinMs: scaleTimingMs(BASE_EXECUTION_SPEED_PROFILE.afterUpMinMs, speedMultiplier),
+    afterUpMaxMs: scaleTimingMs(BASE_EXECUTION_SPEED_PROFILE.afterUpMaxMs, speedMultiplier),
+    stepMinMs: scaleTimingMs(BASE_EXECUTION_SPEED_PROFILE.stepMinMs, speedMultiplier),
+    stepMaxMs: scaleTimingMs(BASE_EXECUTION_SPEED_PROFILE.stepMaxMs, speedMultiplier)
+  };
 }
 
 function sendRuntimeMessage(message) {
