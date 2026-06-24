@@ -20,11 +20,11 @@
 	- This is an extension-wide setting and applies to all
 	- The setting controls cursor movement, target stabilization, button hold, release-to-click pause, and completed-step pause
 	- Specific intervals and their application order: [Execution mode](../functional/execute.md#execution-speed)
-- "Click sound"
+- "Sound effects"
 	- Toggler
 	- Default: on
-	- Plays a short mouse-click sound for every executed click
-	- Details: [Click sound](../functional/sound.md)
+	- Plays short sounds for executed clicks and key presses
+	- Details: [Sound effects](../functional/sound.md)
 - "Skip explanations for new recordings"
 	- Toggler
 	- Default: off

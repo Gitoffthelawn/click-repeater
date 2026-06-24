@@ -1,75 +1,3 @@
-
-let clickAudioContext = null;
-let clickAudioBuffer = null;
-let clickAudioKeepAlive = null;
-
-function prepareClickSound() {
-  const AudioContextClass = globalThis.AudioContext || globalThis.webkitAudioContext;
-  if (!AudioContextClass) return false;
-
-  if (clickAudioContext && clickAudioContext.state !== "closed" && clickAudioBuffer) {
-    if (clickAudioContext.state === "suspended") {
-      void clickAudioContext.resume();
-    }
-    return true;
-  }
-
-  clickAudioContext = new AudioContextClass();
-  const duration = 0.035;
-  clickAudioBuffer = clickAudioContext.createBuffer(
-    1,
-    Math.ceil(clickAudioContext.sampleRate * duration),
-    clickAudioContext.sampleRate
-  );
-  const data = clickAudioBuffer.getChannelData(0);
-  for (let index = 0; index < data.length; index += 1) {
-    const elapsed = index / clickAudioContext.sampleRate;
-    const attack = Math.min(1, elapsed / 0.0004);
-    const snap = (Math.random() * 2 - 1) * Math.exp(-elapsed / 0.003);
-    const body = Math.sin(2 * Math.PI * 1600 * elapsed) * Math.exp(-elapsed / 0.005);
-    const mechanism = Math.sin(2 * Math.PI * 850 * elapsed) * Math.exp(-elapsed / 0.012);
-    data[index] = attack * (snap * 0.5 + body * 0.25 + mechanism * 0.25);
-  }
-
-  if (clickAudioContext.state === "suspended") {
-    void clickAudioContext.resume();
-  }
-
-  const keepAlive = clickAudioContext.createOscillator();
-  const keepAliveGain = clickAudioContext.createGain();
-  keepAlive.frequency.value = 30;
-  keepAliveGain.gain.value = 0.000001;
-  keepAlive.connect(keepAliveGain).connect(clickAudioContext.destination);
-  keepAlive.start();
-  clickAudioKeepAlive = keepAlive;
-  return true;
-}
-
-function playClickSound() {
-  if (!prepareClickSound()) return;
-
-  const source = clickAudioContext.createBufferSource();
-  const gain = clickAudioContext.createGain();
-  gain.gain.value = 0.18;
-  source.buffer = clickAudioBuffer;
-  source.connect(gain).connect(clickAudioContext.destination);
-  source.start();
-}
-
-function releaseClickSound() {
-  const context = clickAudioContext;
-  const keepAlive = clickAudioKeepAlive;
-  clickAudioContext = null;
-  clickAudioBuffer = null;
-  clickAudioKeepAlive = null;
-  if (keepAlive) {
-    keepAlive.stop();
-  }
-  if (context && context.state !== "closed") {
-    window.setTimeout(() => void context.close(), 250);
-  }
-}
-
 function normalizeKeyboardAction(step) {
   if (!step || typeof step !== "object" || (step.type !== "keydown" && step.type !== "keyup")) {
     return null;
@@ -233,6 +161,9 @@ async function runKeyboardAction(token, fromPoint, action) {
   }
 
   dispatchKeyboardAction(action);
+  if (executionState.clickSound && action.type === "keydown") {
+    playKeyPressSound();
+  }
   await sleep(randomDelay(profile.stepMinMs, profile.stepMaxMs));
   if (shouldStop(token)) {
     throw new Error("stopped");
@@ -265,6 +196,7 @@ async function runExecution(payload) {
     return { ok: false, error: "empty_steps" };
   }
   const hasClickActions = steps.some(isClickAction);
+  const hasSoundActions = steps.some((step) => isClickAction(step) || step?.type === "keydown");
 
   executionState.isRunning = true;
   executionState.stopRequested = false;
@@ -273,8 +205,8 @@ async function runExecution(payload) {
   executionState.trackMoves = trackMoves;
   executionState.executionSpeed = executionSpeed;
   executionState.clickSound = clickSound;
-  if (clickSound && hasClickActions) {
-    prepareClickSound();
+  if (clickSound && hasSoundActions) {
+    prepareSoundEffects();
   }
   executionState.lastPoint = executionState.lastPoint ?? getInitialPoint();
   executionState.lastTarget = getPointTarget(executionState.lastPoint);
@@ -364,7 +296,7 @@ async function runExecution(payload) {
       }
       stopExecutionClickListener();
       removeTrackerElement();
-      releaseClickSound();
+      releaseSoundEffects();
     }
   })();
 
