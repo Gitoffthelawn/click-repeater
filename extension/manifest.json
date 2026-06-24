@@ -59,6 +59,8 @@
         "app/content/selectors.js",
         "app/content/state.js",
         "app/content/tracker.js",
+        "app/content/editable.js",
+        "app/content/keyboard.js",
         "app/content/mouse.js",
         "app/content/listeners.js",
         "app/content/runner.js",
