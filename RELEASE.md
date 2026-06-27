@@ -9,6 +9,14 @@ Version logic:
 
 ## RELEASES
 
+### 1.1.3
+- Add scenario-specific speed setting
+- Improve sound setting preview
+- Use medium sound volume by default
+- Add sound volume levels
+- Adjust scenario list indicators
+- Keep default clicks in manual order
+
 ### 1.1.2
 - Added compact step display for recorded keyboard input
 - Added detailed step view toggle
