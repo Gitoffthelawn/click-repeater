@@ -7,7 +7,7 @@ FEATURES
 - Run clicks in Position or Element mode,
 - Choose visible or stealth execution,
 - Repeat up to 999 times,
-- Four execution speed settings,
+- Flexible execution speed settings,
 - Launch the default with a keyboard shortcut,
 - Edit, delete, and reorder saved clicks,
 - Light and dark themes.

@@ -26,7 +26,7 @@ Créez une séquence d'actions une fois, configurez son exécution et lancez-la 
 - Exécuter en mode Position ou Élément
 - Exécution visible ou invisible
 - Répéter jusqu'à 999 fois
-- Quatre vitesses d'exécution
+- Réglage de la vitesse d'exécution
 - Définir une option par défaut et la lancer avec un raccourci
 - Modifier, supprimer et réorganiser les clics enregistrés
 - Thèmes clair et sombre

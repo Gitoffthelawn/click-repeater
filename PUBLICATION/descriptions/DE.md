@@ -7,7 +7,7 @@ FUNKTIONEN
 - Im Positions- oder Elementmodus ausführen,
 - Sichtbare oder unsichtbare Ausführung wählen,
 - Bis zu 999-mal wiederholen,
-- Vier Ausführungsgeschwindigkeiten,
+- Einstellbare Ausführungsgeschwindigkeit,
 - Gespeicherte Klicks per Tastenkombination starten,
 - Gespeicherte Klicks bearbeiten, löschen und sortieren,
 - Helles und dunkles Design.

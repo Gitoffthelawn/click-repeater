@@ -26,7 +26,7 @@ Crea una secuencia de acciones una vez, configura cómo debe ejecutarse e iníci
 - Ejecutar en modo Posición o Elemento
 - Ejecución visible o invisible
 - Repetir hasta 999 veces
-- Cuatro velocidades de ejecución
+- Ajuste de velocidad de ejecución
 - Definir una opción predeterminada e iniciarla con un atajo
 - Editar, eliminar y ordenar los clics guardados
 - Temas claro y oscuro

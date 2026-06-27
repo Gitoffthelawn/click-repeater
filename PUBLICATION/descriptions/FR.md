@@ -7,7 +7,7 @@ FONCTIONNALITÉS
 - Exécuter en mode Position ou Élément,
 - Choisir une exécution visible ou invisible,
 - Répéter jusqu'à 999 fois,
-- Quatre vitesses d'exécution,
+- Vitesse d'exécution réglable,
 - Lancer par défaut avec un raccourci clavier,
 - Modifier, supprimer et réorganiser les clics enregistrés,
 - Thèmes clair et sombre.

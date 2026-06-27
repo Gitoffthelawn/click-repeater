@@ -7,7 +7,7 @@ FUNCIONES
 - Ejecutar en modo Posición o Elemento,
 - Elegir entre ejecución visible o invisible,
 - Repetir hasta 999 veces,
-- Cuatro velocidades de ejecución,
+- Velocidad de ejecución ajustable,
 - Iniciar los clics predeterminados con un atajo de teclado,
 - Editar, eliminar y ordenar los clics guardados,
 - Temas claro y oscuro.
