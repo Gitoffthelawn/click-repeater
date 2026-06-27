@@ -9,6 +9,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.1.4
+- Check mode: visualisation without executing
+
 ### 1.1.3
 - Add scenario-specific speed setting
 - Improve sound setting preview
