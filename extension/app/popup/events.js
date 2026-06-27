@@ -453,6 +453,27 @@ refs.settingClickSound.addEventListener("click", async () => {
   const nextIndex = (Math.max(currentIndex, 0) + 1) % SOUND_VOLUME_LEVELS.length;
   settings.soundVolume = SOUND_VOLUME_LEVELS[nextIndex];
   syncSettingsUI();
+  if (state.soundPreviewReleaseTimer) {
+    window.clearTimeout(state.soundPreviewReleaseTimer);
+  }
+  if (state.soundPreviewClickTimer) {
+    window.clearTimeout(state.soundPreviewClickTimer);
+  }
+  if (settings.soundVolume !== "volume") {
+    prepareSoundEffects();
+    state.soundPreviewClickTimer = window.setTimeout(() => {
+      state.soundPreviewClickTimer = null;
+      playClickSound(settings.soundVolume);
+    }, 200);
+  }
+  state.soundPreviewReleaseTimer = window.setTimeout(() => {
+    if (state.soundPreviewClickTimer) {
+      window.clearTimeout(state.soundPreviewClickTimer);
+      state.soundPreviewClickTimer = null;
+    }
+    state.soundPreviewReleaseTimer = null;
+    releaseSoundEffects();
+  }, 1000);
   await persistSettings();
 });
 

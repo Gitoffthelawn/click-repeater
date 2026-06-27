@@ -23,7 +23,9 @@ const state = {
   editMode: "position",
   showDetailedSteps: false,
   pendingDeleteClickId: null,
-  executionPollTimer: null
+  executionPollTimer: null,
+  soundPreviewClickTimer: null,
+  soundPreviewReleaseTimer: null
 };
 
 const refs = {

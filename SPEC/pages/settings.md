@@ -20,8 +20,14 @@
 	- This is an extension-wide setting and applies to all
 	- Timing details: [Velocity](../functional/velocity.md)
 - "Sound effects"
-	- Toggler
-	- Default: on
+	- Icon button
+	- One click cycles to the next value:
+		- `volume`
+		- `volume-1`
+		- `volume-2`
+	- Default: `volume-1`
+	- Selecting `volume-1` or `volume-2` briefly opens the audio channel and plays a click sound preview at the selected level
+	- Selecting `volume` does not play a preview sound
 	- Plays short sounds for executed clicks and key presses
 	- Details: [Sound effects](../functional/sound.md)
 - "Skip explanations for new recordings"

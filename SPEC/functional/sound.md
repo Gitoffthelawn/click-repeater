@@ -6,6 +6,8 @@
 - Sounds are controlled by the extension-wide "Sound effects" setting.
 - The setting is enabled by default at the quiet volume level.
 - Each click on the setting cycles to the next volume level.
+- When the setting changes to `volume-1` or `volume-2`, the extension starts the keep-alive signal, waits briefly for the audio output channel to open, and then plays a click sound preview at the selected level.
+- When the setting changes to `volume`, no preview sound is played.
 - When set to silent, scenario execution sounds are silent.
 - Sounds are generated locally and do not require network access.
 
@@ -39,4 +41,5 @@
 - Closing or navigating the tab also releases the audio context through browser lifecycle cleanup.
 - While a scenario is running, an approximately `-120 dBFS`, 30 Hz keep-alive signal maintains an active Bluetooth audio channel. This is required for reliable system-volume synchronisation with wireless headphones such as AirPods.
 - The keep-alive signal starts with scenario execution and stops when execution ends. It must remain effectively inaudible and must not alter other audio streams or device settings.
+- For sound-setting previews, the keep-alive signal starts before the preview click and stops shortly after the preview finishes.
 - Audible click and key press sounds are separate short transients played through the same audio context.
