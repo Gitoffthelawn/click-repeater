@@ -164,7 +164,7 @@ async function startDefaultClickFromTab(tabId) {
     clickName,
     repeats,
     trackMoves: Boolean(click.displayMoves ?? click.trackMoves),
-    executionSpeed: normalizeExecutionSpeed(storedSettings?.executionSpeed),
+    executionSpeed: normalizeExecutionSpeed(click.speed),
     soundVolume,
     clickSound: soundVolume !== "volume",
     steps

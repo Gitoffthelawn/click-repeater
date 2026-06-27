@@ -147,8 +147,8 @@ function openEditModal(macroId, { selectAll = false } = {}) {
     refs.editModalTitle.textContent = t("editTitle");
     refs.editName.value = macro.name;
     refs.editRepeats.value = String(macro.repeats ?? 1);
+    refs.editSpeed.value = String(normalizeScenarioSpeed(macro.speed));
     setEditDisplayMoves(getDisplayMovesValue(macro));
-    setEditDefault(macro.id === defaultClickId);
     setEditMode(macro.mode ?? "position");
     state.showDetailedSteps = false;
     refs.editStepsDetail.checked = false;
@@ -169,8 +169,8 @@ function openEditModal(macroId, { selectAll = false } = {}) {
   refs.editModalTitle.textContent = t("createTitle");
   refs.editName.value = buildDefaultClickName();
   refs.editRepeats.value = "1";
+  refs.editSpeed.value = "1";
   setEditDisplayMoves(true);
-  setEditDefault(false);
   setEditMode("position");
   state.showDetailedSteps = false;
   refs.editStepsDetail.checked = false;
@@ -296,6 +296,7 @@ async function completeCreateModeIfNeeded() {
     repeats: 1,
     displayMoves: true,
     trackMoves: true,
+    speed: 1,
     mode: "position",
     steps
   };

@@ -4,12 +4,11 @@ const SETTINGS_KEY = "popup_settings";
 const clicks = [];
 let defaultClickId = null;
 
-const EXECUTION_SPEED_VALUES = [0.5, 1, 4, 10];
+const SCENARIO_SPEED_VALUES = [0.1, 0.25, 0.5, 0.75, 1, 2, 4, 8];
 const SOUND_VOLUME_LEVELS = ["volume", "volume-1", "volume-2"];
 const DEFAULT_SOUND_VOLUME = "volume-1";
 
 const settings = {
-  executionSpeed: 1,
   soundVolume: DEFAULT_SOUND_VOLUME,
   skipNewClickExplanation: false,
   skipDisplayMovesExplanation: false,
@@ -44,13 +43,11 @@ const refs = {
   editName: document.getElementById("edit-name"),
   clearEditNameBtn: document.getElementById("clear-edit-name-btn"),
   editRepeats: document.getElementById("edit-repeats"),
+  editSpeed: document.getElementById("edit-speed"),
   editDisplayMovesToggle: document.getElementById("edit-display-moves-toggle"),
   editDisplayMovesIcon: document.getElementById("edit-display-moves-icon"),
   editDisplayMovesLabel: document.getElementById("edit-display-moves-label"),
   editDisplayMoves: document.getElementById("edit-display-moves"),
-  editDefaultToggle: document.getElementById("edit-default-toggle"),
-  editDefaultIcon: document.getElementById("edit-default-icon"),
-  editDefault: document.getElementById("edit-default"),
   editSteps: document.getElementById("edit-steps"),
   editStepsDetailRow: document.getElementById("edit-steps-detail-row"),
   editStepsDetail: document.getElementById("edit-steps-detail"),
@@ -76,7 +73,6 @@ const refs = {
   modeDontShow: document.getElementById("mode-dont-show"),
   modePositionBtn: document.getElementById("mode-position-btn"),
   modeElementBtn: document.getElementById("mode-element-btn"),
-  settingExecutionSpeed: document.getElementById("setting-execution-speed"),
   settingClickSound: document.getElementById("setting-click-sound"),
   languageSelector: document.getElementById("language-selector"),
   settingSkipNewRecording: document.getElementById("setting-skip-new-recording"),

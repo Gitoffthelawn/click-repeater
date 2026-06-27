@@ -136,7 +136,7 @@ async function startExecution(macroId) {
     tabId: activeTab.id,
     steps,
     trackMoves: getDisplayMovesValue(macro),
-    executionSpeed: settings.executionSpeed,
+    executionSpeed: normalizeScenarioSpeed(macro.speed),
     soundVolume: settings.soundVolume
   });
 

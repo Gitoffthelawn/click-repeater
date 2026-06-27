@@ -47,7 +47,7 @@
 - Movement distance:
    - Pixel distance between the start point and target point
 - Movement point interval:
-   - Defined by [Velocity](velocity.md)
+   - Defined by [Speed](speed.md)
 
 ### Calculation
 
@@ -64,9 +64,9 @@
    - `N` is the number of movement points
    - `D` is the movement distance in pixels
 - Do not apply an additional minimum or maximum limit to `N`
-- The interval between movement points is fixed within one velocity option
+- The interval between movement points is fixed within one speed option
 - Do not randomize the interval between individual movement points
-- Different velocity options may define different fixed movement intervals
+- Different speed options may define different fixed movement intervals
 
 ### Events
 
@@ -119,10 +119,10 @@
 - Perform the click with this event sequence:
    1. `pointerdown`
    2. `mousedown`
-   3. Hold for the duration defined by [Velocity](velocity.md)
+   3. Hold for the duration defined by [Speed](speed.md)
    4. `pointerup`
    5. `mouseup`
-   6. Pause for the release-to-click duration defined by [Velocity](velocity.md)
+   6. Pause for the release-to-click duration defined by [Speed](speed.md)
    7. `click`
 
 ---

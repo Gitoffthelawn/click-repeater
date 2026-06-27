@@ -1,4 +1,4 @@
-# VELOCITY
+# SPEED
 
 ---
 
@@ -15,25 +15,30 @@
 
 ## GENERAL RULES
 
-- Velocity defines generated timing during scenario execution
-- Velocity applies to pointer movement, target stabilization, button hold, release-to-click pause, and completed-action pause
+- Speed defines generated timing during scenario execution
+- Speed is configured separately for each scenario
+- Speed applies to pointer movement, target stabilization, button hold, release-to-click pause, and completed-action pause
 - Action-specific behavior is described in [Actions](actions.md)
 
 ---
 
 ## SETTING
 
-- Velocity is controlled by the extension-wide setting: [Settings - Execution speed](../pages/settings.md#settings-page)
-- The setting applies to all generated timing during execution
+- Speed is controlled by the scenario setting: [Editing - Speed](edit.md#settings)
+- The setting applies only to the scenario where it is configured
 - Default value: `1x`
-- Each velocity is a positive multiplier, lower or higher than `1`
-- Velocity lower than `1` slows execution down
-- Velocity higher than `1` speeds execution up
-- Available velocity options:
+- Each speed is a positive multiplier, lower or higher than `1`
+- Speed lower than `1` slows execution down
+- Speed higher than `1` speeds execution up
+- Available speed options:
+   - `0.1x`
+   - `0.25x`
    - `0.5x`
+   - `0.75x`
    - `1x`
+   - `2x`
    - `4x`
-   - `10x`
+   - `8x`
 
 ---
 
@@ -55,14 +60,14 @@
 
 ## CALCULATION
 
-- For any selected velocity, calculate each timing value from the base `1x` value:
+- For any selected speed, calculate each timing value from the base `1x` value:
 
   `W = ceil(V / X)`
 
   Where:
    - `W` is the final timing value in milliseconds
    - `V` is the base timing value at `1x`
-   - `X` is the selected positive velocity multiplier
+   - `X` is the selected positive speed multiplier
 - For ranges, apply the formula to both range boundaries
 - Round calculated values up to whole milliseconds
 - The final value must not be lower than 1 ms
@@ -71,7 +76,7 @@
 
 ## EXAMPLES
 
-  | Base value | Velocity | Calculation | Final value |
+  | Base value | Speed | Calculation | Final value |
   |---:|---:|---:|---:|
   | 100 ms | `4x` | `ceil(100 / 4)` | 25 ms |
   | 100 ms | `0.5x` | `ceil(100 / 0.5)` | 200 ms |

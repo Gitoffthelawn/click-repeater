@@ -39,11 +39,6 @@
             <div class="settings-language">
               <div id="language-selector" class="language-selector" role="group" aria-label="Language" dir="ltr"></div>
             </div>
-            <div class="settings-divider"></div>
-            <div class="settings-row settings-row--btn">
-              <span class="settings-row-label" data-i18n="executionSpeed">Execution speed</span>
-              <button id="setting-execution-speed" class="speed-cycle-btn" type="button"></button>
-            </div>
             <label class="settings-row" for="setting-click-sound">
               <span class="settings-row-label" data-i18n="clickSound">Sound effects</span>
               <span class="settings-toggle-wrap">
@@ -111,7 +106,7 @@
             <li><span class="about-icon" data-about-icon="eye"></span><span data-i18n="aboutVisibleMode">Visible mode: shows movement, clicks, and key playback</span></li>
             <li><span class="about-icon" data-about-icon="eyeOff"></span><span data-i18n="aboutStealthMode">Stealth mode: works without visualisation</span></li>
             <li><span class="about-icon" data-about-icon="repeat2"></span><span data-i18n="aboutRepeats">Repeats recordings up to 999 times</span></li>
-            <li><span class="about-icon" data-about-icon="gauge"></span><span data-i18n="aboutSpeed">Execution speed: 0.5×, 1×, 4×, 10×</span></li>
+            <li><span class="about-icon" data-about-icon="gauge"></span><span data-i18n="aboutSpeed">Scenario speed: 0.1×, 0.25×, 0.5×, 0.75×, 1×, 2×, 4×, 8×</span></li>
             <li><span class="about-icon" data-about-icon="star"></span><span data-i18n="aboutDefaultShortcut">"Default" recordings launch by shortcut</span></li>
             <li><span class="about-icon" data-about-icon="shieldCheck"></span><span data-i18n="noNetwork">Doesn't use the network</span></li>
             <li>
@@ -146,12 +141,6 @@
         </div>
 
         <div class="edit-settings">
-          <button id="edit-default-toggle" class="setting-toggle default-toggle" type="button" aria-pressed="false">
-            <span id="edit-default-icon" class="default-toggle-icon" aria-hidden="true"></span>
-            <span class="setting-toggle-label" data-i18n="default">Default</span>
-          </button>
-          <input id="edit-default" type="checkbox" class="visually-hidden" />
-
           <button id="edit-display-moves-toggle" class="setting-toggle display-moves-toggle" type="button" aria-pressed="false">
             <span id="edit-display-moves-icon" class="display-moves-toggle-icon" aria-hidden="true"></span>
             <span id="edit-display-moves-label" class="display-moves-toggle-label">Visible</span>
@@ -162,6 +151,20 @@
             <span id="edit-mode-icon" class="mode-toggle-icon" aria-hidden="true"></span>
             <span id="edit-mode-label" class="setting-toggle-label">Position</span>
           </button>
+
+          <label class="edit-speed-setting">
+            <span class="speed-prefix" data-i18n="speed">Speed</span>
+            <select id="edit-speed" class="speed-select">
+              <option value="0.1">0.1</option>
+              <option value="0.25">0.25</option>
+              <option value="0.5">0.5</option>
+              <option value="0.75">0.75</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="8">8</option>
+            </select>
+          </label>
 
           <label class="edit-repeat-setting">
             <span class="repeat-prefix" data-i18n="repeat">Repeat</span>

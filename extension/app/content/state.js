@@ -6,6 +6,7 @@ const BASE_EXECUTION_SPEED_PROFILE = {
   stepMinMs: 100,
   stepMaxMs: 200
 };
+const SCENARIO_SPEED_VALUES = [0.1, 0.25, 0.5, 0.75, 1, 2, 4, 8];
 
 const HUMAN_MM_IN_PX = 0.75; // 0.2mm offset radius at 96 DPI
 const VIEWPORT_EDGE_PADDING = 2;
@@ -80,7 +81,7 @@ function randomDelay(min, max) {
 
 function normalizeExecutionSpeed(speed) {
   const value = Number(speed);
-  return Number.isFinite(value) && value > 0 ? value : 1;
+  return SCENARIO_SPEED_VALUES.includes(value) ? value : 1;
 }
 
 function scaleTimingMs(baseMs, speed) {

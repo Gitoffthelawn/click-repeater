@@ -8,7 +8,7 @@
 - (eye) Visible mode: shows movement, clicks, and key playback
 - (eye-off) Stealth mode: works without visualisation
 - (repeat-2) Repeats recordings up to 999 times
-- (gauge) Execution speed: 0.5×, 1×, 4×, 10×
+- (gauge) Scenario speed: 0.1×, 0.25×, 0.5×, 0.75×, 1×, 2×, 4×, 8×
 - (star) "Default" recordings launch by shortcut
 - (shield-check) Doesn't use the network
 - (git-fork) Code on GitHub // [https://github.com/md2it/browser-extension-click-repeater](https://github.com/md2it/browser-extension-click-repeater)

@@ -26,7 +26,6 @@ html.dark-theme .page-title,
 html.dark-theme kbd,
 html.dark-theme .edit-name-input,
 html.dark-theme .setting-toggle,
-html.dark-theme .default-toggle,
 html.dark-theme .display-moves-toggle.display-moves-on,
 html.dark-theme .display-moves-toggle.display-moves-on .display-moves-toggle-icon,
 html.dark-theme .repeat-input {
@@ -75,6 +74,7 @@ html.dark-theme .btn,
 html.dark-theme .icon-btn,
 html.dark-theme .setting-toggle,
 html.dark-theme .edit-repeat-setting,
+html.dark-theme .edit-speed-setting,
 html.dark-theme .speed-cycle-btn,
 html.dark-theme .language-btn {
   border-color: #4b5563;
@@ -176,6 +176,7 @@ html.dark-theme .edit-name-field {
 
 html.dark-theme .edit-name-field:hover,
 html.dark-theme .edit-repeat-setting:hover,
+html.dark-theme .edit-speed-setting:hover,
 html.dark-theme .click-repeats:hover {
   border-color: #7185e8;
   background: #273449;
@@ -184,10 +185,15 @@ html.dark-theme .click-repeats:hover {
 
 html.dark-theme .edit-name-field:focus-within,
 html.dark-theme .edit-repeat-setting:focus-within,
+html.dark-theme .edit-speed-setting:focus-within,
 html.dark-theme .click-repeats:focus {
   border-color: #7185e8;
   background: #1f2937;
   box-shadow: 0 0 0 1px #7185e8;
+}
+
+html.dark-theme .speed-select {
+  color: #d1d5db;
 }
 
 html.dark-theme .edit-name-field.invalid {
@@ -219,7 +225,6 @@ html.dark-theme .status-line--error {
   color: #f87171;
 }
 
-html.dark-theme .default-btn.active,
-html.dark-theme .default-toggle.active .default-toggle-icon {
+html.dark-theme .default-btn.active {
   color: #ffc400;
 }

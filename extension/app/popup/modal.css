@@ -44,8 +44,7 @@
 }
 
 
-.default-btn.active svg,
-.default-toggle.active svg {
+.default-btn.active svg {
   fill: currentColor;
 }
 
@@ -416,17 +415,11 @@
 }
 
 
-.default-btn.active,
-.default-toggle.active .default-toggle-icon {
+.default-btn.active {
   color: #ffc400;
 }
 
-.default-toggle {
-  color: #1a1a1a;
-}
-
 .display-moves-toggle-icon,
-.default-toggle-icon,
 .mode-toggle-icon {
   flex: 0 0 auto;
   display: inline-flex;
@@ -435,7 +428,6 @@
 }
 
 .display-moves-toggle-icon svg,
-.default-toggle-icon svg,
 .mode-toggle-icon svg {
   width: 16px;
   height: 16px;
@@ -453,11 +445,12 @@
   color: #1a1a1a;
 }
 
-.edit-repeat-setting {
+.edit-repeat-setting,
+.edit-speed-setting {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 6px;
   height: 34px;
   min-width: 0;
   overflow: hidden;
@@ -465,7 +458,7 @@
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(6px);
-  padding: 6px 5px 6px 15px;
+  padding: 6px 10px;
   font-size: 13px;
   cursor: text;
   transition:
@@ -474,13 +467,15 @@
     box-shadow 120ms ease;
 }
 
-.edit-repeat-setting:hover {
+.edit-repeat-setting:hover,
+.edit-speed-setting:hover {
   border-color: #8f9fc9;
   background: #fafbff;
   box-shadow: 0 0 5px rgba(19, 25, 48, 0.1);
 }
 
-.repeat-prefix {
+.repeat-prefix,
+.speed-prefix {
   flex: 0 0 auto;
   color: #8f96b3;
   font-size: 13px;
@@ -507,8 +502,8 @@
 }
 
 .edit-repeat-setting .repeat-input {
-  flex: 0 0 32px;
-  width: 32px;
+  flex: 1 1 42px;
+  width: 100%;
   height: 22px;
   min-width: 0;
   border: 0;
@@ -519,7 +514,22 @@
   outline: 0;
 }
 
-.edit-repeat-setting:focus-within {
+.speed-select {
+  flex: 1 1 52px;
+  width: 100%;
+  min-width: 0;
+  height: 22px;
+  border: 0;
+  border-radius: 0;
+  padding: 2px 0;
+  color: #1a1a1a;
+  background: transparent;
+  font-size: 12px;
+  outline: 0;
+}
+
+.edit-repeat-setting:focus-within,
+.edit-speed-setting:focus-within {
   border-color: #012292;
   background: #fff;
   box-shadow: 0 0 0 1px #012292;

@@ -11,6 +11,11 @@ function normalizeRepeats(value) {
   return Math.min(999, Math.max(1, Math.floor(repeats)));
 }
 
+function normalizeScenarioSpeed(value) {
+  const speed = Number(value);
+  return SCENARIO_SPEED_VALUES.includes(speed) ? speed : 1;
+}
+
 function normalizeKeyboardAction(step) {
   if (!step || typeof step !== "object" || (step.type !== "keydown" && step.type !== "keyup")) {
     return null;
@@ -157,17 +162,6 @@ function setEditMode(mode) {
   refs.editModeToggle.setAttribute("aria-pressed", String(state.editMode === "element"));
 }
 
-function setEditDefault(enabled) {
-  const isDefault = Boolean(enabled);
-  refs.editDefault.checked = isDefault;
-  refs.editDefaultIcon.innerHTML = iconSet.star;
-  refs.editDefaultToggle.classList.toggle("active", isDefault);
-  const defaultTitle = t(isDefault ? "defaultOn" : "defaultOff");
-  refs.editDefaultToggle.setAttribute("title", defaultTitle);
-  refs.editDefaultToggle.setAttribute("aria-label", defaultTitle);
-  refs.editDefaultToggle.setAttribute("aria-pressed", String(isDefault));
-}
-
 function buildDefaultClickName() {
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
@@ -214,7 +208,8 @@ async function readClicksFromStorage() {
       .map((item) => ({
         ...item,
         displayMoves: Boolean(item.displayMoves ?? item.trackMoves),
-        trackMoves: Boolean(item.trackMoves)
+        trackMoves: Boolean(item.trackMoves),
+        speed: normalizeScenarioSpeed(item.speed)
       }));
   } catch {
     return [];
@@ -255,9 +250,6 @@ async function readSettingsFromStorage() {
     const data = await ext.storage.local.get(SETTINGS_KEY);
     const stored = data?.[SETTINGS_KEY];
     if (stored && typeof stored === "object") {
-      if (EXECUTION_SPEED_VALUES.includes(stored.executionSpeed)) {
-        settings.executionSpeed = stored.executionSpeed;
-      }
       if (SOUND_VOLUME_LEVELS.includes(stored.soundVolume)) {
         settings.soundVolume = stored.soundVolume;
       } else if (typeof stored.clickSound === "boolean") {
@@ -284,7 +276,6 @@ async function persistSettings() {
 }
 
 function syncSettingsUI() {
-  refs.settingExecutionSpeed.textContent = `${settings.executionSpeed}×`;
   syncSoundVolumeUI();
   refs.settingSkipNewRecording.checked = settings.skipNewClickExplanation;
   refs.settingSkipDisplayMoves.checked = settings.skipDisplayMovesExplanation;

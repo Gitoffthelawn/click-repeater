@@ -228,10 +228,6 @@ refs.editDisplayMovesToggle.addEventListener("click", () => {
   }
 });
 
-refs.editDefaultToggle.addEventListener("click", () => {
-  setEditDefault(!refs.editDefault.checked);
-});
-
 refs.editRepeats.addEventListener("change", () => {
   normalizeRepeatInput(refs.editRepeats);
 });
@@ -266,6 +262,7 @@ refs.saveEditBtn.addEventListener("click", async () => {
   }
 
   const validRepeats = normalizeRepeats(refs.editRepeats.value);
+  const speed = normalizeScenarioSpeed(refs.editSpeed.value);
   const displayMoves = Boolean(refs.editDisplayMoves.checked);
 
   if (state.modalMode === "edit" && state.editClickId) {
@@ -278,6 +275,7 @@ refs.saveEditBtn.addEventListener("click", async () => {
 
     macro.name = name;
     macro.repeats = validRepeats;
+    macro.speed = speed;
     macro.displayMoves = displayMoves;
     macro.trackMoves = displayMoves;
     macro.mode = state.editMode;
@@ -285,11 +283,6 @@ refs.saveEditBtn.addEventListener("click", async () => {
       macro.steps = [];
     }
     await persistClicks();
-    const nextDefaultClickId = refs.editDefault.checked ? macro.id : null;
-    if (defaultClickId === macro.id || nextDefaultClickId === macro.id) {
-      defaultClickId = nextDefaultClickId;
-      await persistDefaultClickId();
-    }
     closeEditModal();
     render();
     setStatus(t("updated"));
@@ -305,6 +298,7 @@ refs.saveEditBtn.addEventListener("click", async () => {
     id: createClickId(),
     name,
     repeats: validRepeats,
+    speed,
     displayMoves,
     trackMoves: displayMoves,
     mode: state.editMode,
@@ -312,10 +306,6 @@ refs.saveEditBtn.addEventListener("click", async () => {
   };
   clicks.unshift(createdClick);
   await persistClicks();
-  if (refs.editDefault.checked) {
-    defaultClickId = createdClick.id;
-    await persistDefaultClickId();
-  }
   closeEditModal();
   render();
   setStatus(t("saved"));
@@ -438,14 +428,6 @@ refs.displayMovesStealthBtn.addEventListener("click", async () => {
   }
   setEditDisplayMoves(false);
   closeDisplayMovesModal();
-});
-
-refs.settingExecutionSpeed.addEventListener("click", async () => {
-  const currentIndex = EXECUTION_SPEED_VALUES.indexOf(settings.executionSpeed);
-  const nextIndex = (currentIndex + 1) % EXECUTION_SPEED_VALUES.length;
-  settings.executionSpeed = EXECUTION_SPEED_VALUES[nextIndex];
-  syncSettingsUI();
-  await persistSettings();
 });
 
 refs.settingClickSound.addEventListener("click", async () => {

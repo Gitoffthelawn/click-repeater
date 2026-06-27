@@ -19,7 +19,7 @@
 
 - Execution mode runs the saved scenario as an ordered list of actions
 - Supported actions and action-specific details are described in [Actions](actions.md)
-- Generated timing is described in [Velocity](velocity.md)
+- Generated timing is described in [Speed](speed.md)
 - Execution mode is responsible for orchestration:
    - Selecting the next action
    - Preparing the action for execution
@@ -47,7 +47,7 @@ Loop:
     3. For key press, apply the key press rules
     4. For key release, apply the key release rules
 3. Complete the action
-    1. Apply the completed-action pause defined by [Velocity](velocity.md)
+    1. Apply the completed-action pause defined by [Speed](speed.md)
 4. Start the loop for the next action if:
     - A next action exists
     - The user has not clicked

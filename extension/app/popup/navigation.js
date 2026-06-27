@@ -52,7 +52,6 @@ function syncPopupLocale() {
   renderLanguageSelector();
   setEditDisplayMoves(refs.editDisplayMoves.checked);
   setEditMode(state.editMode);
-  setEditDefault(refs.editDefault.checked);
   renderEditSteps(getCurrentEditSteps());
   render();
   syncPopupHeight();

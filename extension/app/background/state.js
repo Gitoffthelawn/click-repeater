@@ -23,6 +23,7 @@ const SHORTCUT_HINT_BADGE_TEXT = "M";
 const SHORTCUT_HINT_BADGE_BACKGROUND_COLOR = "#ffffff";
 const SHORTCUT_HINT_BADGE_TEXT_COLOR = "#000000";
 const SHORTCUT_HINT_DURATION_MS = 3000;
+const SCENARIO_SPEED_VALUES = [0.1, 0.25, 0.5, 0.75, 1, 2, 4, 8];
 
 let shortcutHintTimerId = null;
 let badgeAnimationIntervalId = null;
@@ -31,5 +32,5 @@ let badgeAnimationMode = null;
 
 function normalizeExecutionSpeed(speed) {
   const value = Number(speed);
-  return Number.isFinite(value) && value > 0 ? value : 1;
+  return SCENARIO_SPEED_VALUES.includes(value) ? value : 1;
 }
