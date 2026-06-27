@@ -5,12 +5,6 @@
 ## TABLE OF CONTENTS
 
 - [GENERAL RULES](#general-rules)
-- [TIMING](#timing)
-   - [Speed setting](#speed-setting)
-   - [Base timing](#base-timing)
-   - [Speed calculation](#speed-calculation)
-   - [Examples](#examples)
-   - [Runtime variability](#runtime-variability)
 - [POINTER MOVEMENT](#pointer-movement)
    - [Attributes](#attributes)
    - [Calculation](#calculation)
@@ -38,66 +32,6 @@
 
 ---
 
-## TIMING
-
-### Speed setting
-
-- Speed is controlled by the extension-wide setting: [Settings - Execution speed](../pages/settings.md#settings-page)
-- The setting applies to all generated timing during execution
-- Default value: `1x`
-- Each speed is a positive multiplier, lower or higher than `1`
-- Speed lower than `1` slows execution down
-- Speed higher than `1` speeds execution up
-- Available speed options:
-   - `0.5x`
-   - `1x`
-   - `4x`
-   - `10x`
-
-### Base timing
-
-- `1x` is the base timing profile
-- Click action:
-   - Movement point interval: 15 ms between generated pointer movement points before the click
-   - Pause before pressing: 200 ms after target entry and before `pointerdown`
-   - Button hold: 200 ms between `mousedown` and `pointerup`
-   - Release-to-click pause: 1 ms between `mouseup` and `click`
-- Key down action:
-   - No specific pauses
-- Key up action:
-   - No specific pauses
-- Completed-action pause: 100-200 ms after each action
-
-### Speed calculation
-
-- For any selected speed, calculate each timing value from the base `1x` value:
-
-  `W = ceil(V / X)`
-
-  Where:
-   - `W` is the final timing value in milliseconds
-   - `V` is the base timing value at `1x`
-   - `X` is the selected positive speed multiplier
-- For ranges, apply the formula to both range boundaries
-- Round calculated values up to whole milliseconds
-- The final value must not be lower than 1 ms
-
-### Examples
-
-  | Base value | Speed | Calculation | Final value |
-  |---:|---:|---:|---:|
-  | 100 ms | `4x` | `ceil(100 / 4)` | 25 ms |
-  | 100 ms | `0.5x` | `ceil(100 / 0.5)` | 200 ms |
-
-### Runtime variability
-
-- Distance may increase pointer movement duration; the multiplier controls relative pacing but does not guarantee a proportional change in total duration
-- Calculate pauses at runtime
-- Do not repeat timing patterns
-- Avoid a uniform overall pace by varying the curve and non-movement pauses
-
----
-
 ## POINTER MOVEMENT
 
 - Moves the virtual pointer from the current point to the target point
@@ -113,7 +47,7 @@
 - Movement distance:
    - Pixel distance between the start point and target point
 - Movement point interval:
-   - Defined by the selected execution speed
+   - Defined by [Velocity](velocity.md)
 
 ### Calculation
 
@@ -130,9 +64,9 @@
    - `N` is the number of movement points
    - `D` is the movement distance in pixels
 - Do not apply an additional minimum or maximum limit to `N`
-- The interval between movement points is fixed within one speed option
+- The interval between movement points is fixed within one velocity option
 - Do not randomize the interval between individual movement points
-- Different speed options may define different fixed movement intervals
+- Different velocity options may define different fixed movement intervals
 
 ### Events
 
@@ -185,10 +119,10 @@
 - Perform the click with this event sequence:
    1. `pointerdown`
    2. `mousedown`
-   3. Hold for the duration defined by the selected speed
+   3. Hold for the duration defined by [Velocity](velocity.md)
    4. `pointerup`
    5. `mouseup`
-   6. Pause for the release-to-click duration defined by the selected speed
+   6. Pause for the release-to-click duration defined by [Velocity](velocity.md)
    7. `click`
 
 ---

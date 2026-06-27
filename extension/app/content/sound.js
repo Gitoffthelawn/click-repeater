@@ -107,16 +107,16 @@ function playSoundBuffer(getBuffer, volume = 0.18) {
 }
 
 function getSoundVolumeGains(soundVolume) {
-  return SOUND_VOLUME_GAINS[soundVolume] ?? SOUND_VOLUME_GAINS["volume-2"];
+  return SOUND_VOLUME_GAINS[soundVolume] ?? SOUND_VOLUME_GAINS["volume-1"];
 }
 
-function playClickSound(soundVolume = "volume-2") {
+function playClickSound(soundVolume = "volume-1") {
   const { click } = getSoundVolumeGains(soundVolume);
   if (click <= 0) return;
   playSoundBuffer(() => clickAudioBuffer, click);
 }
 
-function playKeyPressSound(soundVolume = "volume-2") {
+function playKeyPressSound(soundVolume = "volume-1") {
   const { keyPress } = getSoundVolumeGains(soundVolume);
   if (keyPress <= 0) return;
   playSoundBuffer(() => keyPressAudioBuffer, keyPress);

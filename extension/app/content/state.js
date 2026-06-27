@@ -28,7 +28,7 @@ const executionState = {
   lastDelayMs: null,
   trackMoves: false,
   executionSpeed: 1,
-  soundVolume: "volume-2",
+  soundVolume: "volume-1",
   clickSound: true
 };
 

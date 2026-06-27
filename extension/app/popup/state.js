@@ -6,7 +6,7 @@ let defaultClickId = null;
 
 const EXECUTION_SPEED_VALUES = [0.5, 1, 4, 10];
 const SOUND_VOLUME_LEVELS = ["volume", "volume-1", "volume-2"];
-const DEFAULT_SOUND_VOLUME = "volume-2";
+const DEFAULT_SOUND_VOLUME = "volume-1";
 
 const settings = {
   executionSpeed: 1,

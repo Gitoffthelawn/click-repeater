@@ -4,7 +4,7 @@
 - Each successfully executed scenario key press plays a short sound imitating a keyboard key press.
 - Key release actions do not play a sound.
 - Sounds are controlled by the extension-wide "Sound effects" setting.
-- The setting is enabled by default at the loud volume level.
+- The setting is enabled by default at the quiet volume level.
 - Each click on the setting cycles to the next volume level.
 - When set to silent, scenario execution sounds are silent.
 - Sounds are generated locally and do not require network access.

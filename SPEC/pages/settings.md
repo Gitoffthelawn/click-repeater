@@ -18,8 +18,7 @@
 		- `10×`
 	- Default value: `1×`
 	- This is an extension-wide setting and applies to all
-	- The setting controls cursor movement, target stabilization, button hold, release-to-click pause, and completed-step pause
-	- Specific intervals and their application order: [Execution mode](../functional/execute.md#execution-speed)
+	- Timing details: [Velocity](../functional/velocity.md)
 - "Sound effects"
 	- Toggler
 	- Default: on

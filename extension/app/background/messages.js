@@ -176,7 +176,7 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const clickSound = message.clickSound !== false;
       const soundVolume = ["volume", "volume-1", "volume-2"].includes(message.soundVolume)
         ? message.soundVolume
-        : (clickSound ? "volume-2" : "volume");
+        : (clickSound ? "volume-1" : "volume");
       const steps = Array.isArray(message.steps) ? message.steps.filter((step) => {
         if (typeof step === "string") {
           return Boolean(step.trim());

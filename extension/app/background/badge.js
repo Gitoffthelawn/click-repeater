@@ -157,7 +157,7 @@ async function startDefaultClickFromTab(tabId) {
   const storedSettings = settingsData?.popup_settings;
   const soundVolume = ["volume", "volume-1", "volume-2"].includes(storedSettings?.soundVolume)
     ? storedSettings.soundVolume
-    : (storedSettings?.clickSound !== false ? "volume-2" : "volume");
+    : (storedSettings?.clickSound !== false ? "volume-1" : "volume");
   return startExecutionOnTab({
     tabId,
     clickId: click.id,
