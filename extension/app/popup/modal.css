@@ -419,6 +419,12 @@
   color: #ffc400;
 }
 
+.check-btn.active {
+  border-color: #0f766e;
+  color: #0f766e;
+  background: rgba(240, 253, 250, 0.92);
+}
+
 .display-moves-toggle-icon,
 .mode-toggle-icon {
   flex: 0 0 auto;

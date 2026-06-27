@@ -25,6 +25,7 @@ importScripts(
   "app/background/storage.js",
   "app/background/execution.js",
   "app/background/badge.js",
+  "app/background/check.js",
   "app/background/messages.js",
   "app/background/context-menu.js",
 );

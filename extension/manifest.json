@@ -23,6 +23,7 @@
       "app/background/storage.js",
       "app/background/execution.js",
       "app/background/badge.js",
+      "app/background/check.js",
       "app/background/messages.js"
     ]
   },
@@ -64,6 +65,7 @@
         "app/content/mouse.js",
         "app/content/listeners.js",
         "app/content/sound.js",
+        "app/content/check-overlay.js",
         "app/content/runner.js",
         "app/content/main.js"
       ],

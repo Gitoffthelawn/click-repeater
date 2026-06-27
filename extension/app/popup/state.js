@@ -22,6 +22,7 @@ const state = {
   editMode: "position",
   showDetailedSteps: false,
   pendingDeleteClickId: null,
+  activeCheckClickId: null,
   executionPollTimer: null,
   soundPreviewClickTimer: null,
   soundPreviewReleaseTimer: null

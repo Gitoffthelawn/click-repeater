@@ -98,6 +98,17 @@ async function syncActionBadge() {
     return;
   }
 
+  const checkState = await readCheckState();
+  if (checkState?.isActive) {
+    clearBadgeAnimation();
+    await ext.action.setBadgeText({ text: "✓" });
+    await ext.action.setBadgeBackgroundColor({ color: CHECK_BADGE_BACKGROUND_COLOR });
+    if (typeof ext.action.setBadgeTextColor === "function") {
+      await ext.action.setBadgeTextColor({ color: BADGE_TEXT_COLOR });
+    }
+    return;
+  }
+
   clearBadgeAnimation();
   await setActionBadgeText("");
 }
@@ -105,7 +116,8 @@ async function syncActionBadge() {
 async function showShortcutHintBadge() {
   const session = await readSession();
   const executionState = await getRuntimeExecutionState();
-  if (session?.isActive || executionState?.isRunning) {
+  const checkState = await readCheckState();
+  if (session?.isActive || executionState?.isRunning || checkState?.isActive) {
     await syncActionBadge();
     return;
   }

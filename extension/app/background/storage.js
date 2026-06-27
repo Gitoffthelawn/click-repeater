@@ -102,6 +102,11 @@ async function readExecutionState() {
   return data?.[EXECUTION_STATE_KEY] ?? null;
 }
 
+async function readCheckState() {
+  const data = await ext.storage.local.get(CHECK_STATE_KEY);
+  return data?.[CHECK_STATE_KEY] ?? null;
+}
+
 async function readClicks() {
   const data = await ext.storage.local.get(CLICKS_STORAGE_KEY);
   const storedClicks = data?.[CLICKS_STORAGE_KEY];
@@ -119,6 +124,14 @@ async function readDefaultClickId() {
 
 async function writeExecutionState(state) {
   await ext.storage.local.set({ [EXECUTION_STATE_KEY]: state });
+}
+
+async function writeCheckState(state) {
+  await ext.storage.local.set({ [CHECK_STATE_KEY]: state });
+}
+
+async function clearCheckState() {
+  await ext.storage.local.remove(CHECK_STATE_KEY);
 }
 
 async function clearExecutionState() {

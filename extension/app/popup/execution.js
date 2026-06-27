@@ -73,6 +73,60 @@ async function refreshExecutionStatus({ silent = false } = {}) {
   return response;
 }
 
+async function refreshCheckStatus() {
+  const activeTab = await getActiveTab();
+  const response = await sendRuntimeMessage({ type: "check-status" });
+  const checkState = response?.state;
+  state.activeCheckClickId = checkState?.isActive && Number.isInteger(activeTab?.id) && activeTab.id === checkState.tabId
+    ? checkState.clickId
+    : null;
+  return response;
+}
+
+async function toggleCheckMode(macroId) {
+  const macro = clicks.find((item) => item.id === macroId);
+  if (!macro) {
+    setStatus(t("notFound"));
+    return;
+  }
+
+  const activeTab = await getActiveTab();
+  if (!activeTab || !Number.isInteger(activeTab.id)) {
+    setStatus(t("activeTabNotFound"));
+    return;
+  }
+
+  const clickMode = macro.mode === "element" ? "element" : "position";
+  const steps = Array.isArray(macro.steps)
+    ? macro.steps
+      .map((step) => normalizeStepForExecution(step, clickMode))
+      .filter(Boolean)
+    : [];
+
+  const response = await sendRuntimeMessage({
+    type: "check-start",
+    clickId: macro.id,
+    clickName: macro.name,
+    tabId: activeTab.id,
+    steps
+  });
+
+  if (!response?.ok) {
+    if (response?.error === "page_blocked") {
+      window.close();
+      return;
+    }
+    setStatus(t("checkFailed"), { error: true });
+    return;
+  }
+
+  state.activeCheckClickId = response.isActive ? macro.id : null;
+  render();
+  setStatus(response.isActive
+    ? t("checkStarted", { name: macro.name })
+    : t("checkStopped", { name: macro.name }));
+}
+
 function describeExecutionEvent(event) {
   if (!event?.kind) {
     return null;

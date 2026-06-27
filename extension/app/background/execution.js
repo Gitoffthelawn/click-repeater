@@ -187,6 +187,7 @@ async function sendRecordingListenerMessage(tabId, message) {
         "app/content/mouse.js",
         "app/content/listeners.js",
         "app/content/sound.js",
+        "app/content/check-overlay.js",
         "app/content/runner.js",
         "app/content/main.js"
       ]

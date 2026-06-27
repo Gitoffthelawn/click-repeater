@@ -8,6 +8,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 
   if (message.type === "execution-run") {
+    removeCheckOverlay();
     void runExecution(message)
       .then((result) => sendResponse(result))
       .catch(() => sendResponse({ ok: false, error: "run_failed" }));
@@ -27,6 +28,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 
   if (message.type === "recording-listener-start") {
+    removeCheckOverlay();
     startRecordingListeners();
     sendResponse({ ok: true });
     return;
@@ -34,6 +36,17 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
   if (message.type === "recording-listener-stop") {
     stopRecordingListeners();
+    sendResponse({ ok: true });
+    return;
+  }
+
+  if (message.type === "check-start") {
+    sendResponse(renderCheckOverlay(message));
+    return;
+  }
+
+  if (message.type === "check-stop") {
+    removeCheckOverlay();
     sendResponse({ ok: true });
     return;
   }

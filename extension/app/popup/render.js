@@ -32,6 +32,7 @@ function render() {
       <div class="click-row">
         <div class="click-main">
           <button class="icon-btn run-btn" type="button" data-action="run" data-id="${macro.id}" data-tooltip="${t("run")}" aria-label="${t("run")}">${iconSet.play}</button>
+          <button class="icon-btn check-btn ${state.activeCheckClickId === macro.id ? "active" : ""}" type="button" data-action="check" data-id="${macro.id}" data-tooltip="${t("check")}" aria-label="${t("check")}" aria-pressed="${state.activeCheckClickId === macro.id}">${iconSet.check}</button>
           ${modeIndicator}
           ${displayMovesIndicator}
           <span class="click-name">${macro.name}</span>

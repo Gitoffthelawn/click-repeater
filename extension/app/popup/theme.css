@@ -228,3 +228,9 @@ html.dark-theme .status-line--error {
 html.dark-theme .default-btn.active {
   color: #ffc400;
 }
+
+html.dark-theme .check-btn.active {
+  border-color: #2dd4bf;
+  color: #5eead4;
+  background: rgba(20, 83, 75, 0.68);
+}

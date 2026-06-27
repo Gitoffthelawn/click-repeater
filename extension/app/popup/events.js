@@ -140,6 +140,11 @@ refs.list.addEventListener("click", (event) => {
     return;
   }
 
+  if (action === "check") {
+    void toggleCheckMode(macroId);
+    return;
+  }
+
   if (action === "edit") {
     openEditModal(macroId);
     return;

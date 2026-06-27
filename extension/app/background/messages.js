@@ -14,6 +14,7 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   if (message.type === "recording-start") {
     (async () => {
+      await stopCheckMode();
       const tabId = Number.isInteger(message.tabId) ? message.tabId : null;
       if (tabId === null) {
         sendResponse({ ok: false, error: "tab_id_required" });
@@ -166,6 +167,7 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   if (message.type === "execution-start") {
     (async () => {
+      await stopCheckMode();
       const clickId = typeof message.clickId === "string" ? message.clickId : "";
       const clickName = typeof message.clickName === "string" && message.clickName.trim() ? message.clickName.trim() : "clicks";
       const repeatsRaw = Number(message.repeats);
@@ -215,6 +217,52 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
       });
       sendResponse({ ok: true, wasRunning: true, stoppedClickName: currentState.clickName });
     })().catch(() => sendResponse({ ok: false, error: "execution_stop_failed" }));
+    return true;
+  }
+  if (message.type === "check-start") {
+    (async () => {
+      const clickId = typeof message.clickId === "string" ? message.clickId : "";
+      const clickName = typeof message.clickName === "string" && message.clickName.trim() ? message.clickName.trim() : "clicks";
+      const tabId = Number.isInteger(message.tabId) ? message.tabId : null;
+      const steps = Array.isArray(message.steps) ? message.steps.filter((step) => {
+        if (typeof step === "string") {
+          return Boolean(step.trim());
+        }
+        if (!step || typeof step !== "object") {
+          return false;
+        }
+        if (step.type === "click") {
+          return typeof step.target === "string" && Boolean(step.target.trim());
+        }
+        return Boolean(normalizeKeyboardAction(step));
+      }) : [];
+      const result = await startCheckModeOnTab({ tabId, clickId, clickName, steps });
+      sendResponse(result);
+    })().catch(() => sendResponse({ ok: false, error: "check_start_failed" }));
+    return true;
+  }
+  if (message.type === "check-stop") {
+    (async () => {
+      const wasActive = await stopCheckMode();
+      sendResponse({ ok: true, wasActive });
+    })().catch(() => sendResponse({ ok: false, error: "check_stop_failed" }));
+    return true;
+  }
+  if (message.type === "check-status") {
+    (async () => {
+      const state = await readCheckState();
+      sendResponse({
+        ok: true,
+        state: state?.isActive
+          ? {
+            isActive: true,
+            clickId: state.clickId ?? null,
+            tabId: Number.isInteger(state.tabId) ? state.tabId : null,
+            renderedCount: Number.isFinite(Number(state.renderedCount)) ? Number(state.renderedCount) : 0
+          }
+          : { isActive: false }
+      });
+    })().catch(() => sendResponse({ ok: false, state: { isActive: false } }));
     return true;
   }
   if (message.type === "execution-progress") {

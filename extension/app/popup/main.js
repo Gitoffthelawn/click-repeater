@@ -7,6 +7,7 @@ async function init() {
   syncPopupLocale();
   await loadClicks();
   const createdClick = await completeCreateModeIfNeeded();
+  await refreshCheckStatus();
   render();
   const executionStatus = await refreshExecutionStatus();
   if (createdClick) {
