@@ -3,7 +3,7 @@
   "default_locale": "en",
   "name": "Click Repeater",
   "description": "__MSG_extDescription__",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "background": {
     "service_worker": "sw.js",
     "scripts": [
@@ -21,6 +21,9 @@
       "app/execution-notice/notice.js",
       "app/background/state.js",
       "app/background/storage.js",
+      "lib/our/support-survey/logic.js",
+      "app/support-survey/constants.js",
+      "app/support-survey/state.js",
       "app/background/execution.js",
       "app/background/badge.js",
       "app/background/check.js",

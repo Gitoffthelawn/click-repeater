@@ -36,6 +36,7 @@ function renderLanguageSelector() {
 
 function syncPopupLocale() {
   applyTranslations();
+  void refreshSupportSurveyAboutStatistic();
   const menuKeys = {
     clicks: "navClicks",
     settings: "navSettings",

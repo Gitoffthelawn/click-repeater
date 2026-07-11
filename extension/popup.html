@@ -98,6 +98,8 @@
         <section class="popup-page about-page hidden" data-page-content="about">
           <h1 class="page-title" data-i18n="aboutTitle">CLICK REPEATER</h1>
           <div class="page-divider"></div>
+          <p id="about-scenario-runs">Your activity: Scenario runs: 0</p>
+          <div class="page-divider"></div>
           <ul class="about-list">
             <li><span class="about-icon" data-about-icon="mousePointer"></span><span data-i18n="aboutRecordsClicks">Records clicks and key input</span></li>
             <li><span class="about-icon" data-about-icon="play"></span><span data-i18n="aboutRepeatsClicks">Replays clicks and key presses</span></li>
@@ -234,7 +236,7 @@
     <div id="support-survey-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="support-survey-title">
       <div class="modal survey-modal">
         <div class="modal-header">
-          <h3 id="support-survey-title" data-i18n="surveyUsefulQuestion">Was this extension useful?</h3>
+          <h3 id="support-survey-title" data-i18n="surveyUsefulQuestion">Do you like the extension?</h3>
           <button id="support-survey-close-btn" class="modal-close-btn" type="button" data-i18n-title="close"></button>
         </div>
 
@@ -299,6 +301,9 @@
     <script src="app/popup/execution.js"></script>
     <script src="app/popup/render.js"></script>
     <script src="app/popup/navigation.js"></script>
+    <script src="lib/our/support-survey/logic.js"></script>
+    <script src="app/support-survey/constants.js"></script>
+    <script src="app/support-survey/state.js"></script>
     <script src="app/popup/support-survey.js"></script>
     <script src="app/popup/events.js"></script>
     <script src="app/popup/main.js"></script>

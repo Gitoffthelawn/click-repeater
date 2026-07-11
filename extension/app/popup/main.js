@@ -5,14 +5,14 @@ async function init() {
   await readSettingsFromStorage();
   syncSettingsUI();
   syncPopupLocale();
+  await refreshSupportSurveyAboutStatistic();
   await loadClicks();
   const createdClick = await completeCreateModeIfNeeded();
   await refreshCheckStatus();
   render();
   const executionStatus = await refreshExecutionStatus();
   if (executionStatus?.lastEvent?.kind === "completed") {
-    const { shouldShow } = await recordSuccessfulCompletion();
-    if (shouldShow) {
+    if (await shouldShowSupportSurvey()) {
       await openSupportSurvey("useful");
     }
   }

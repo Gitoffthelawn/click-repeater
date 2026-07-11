@@ -1,6 +1,8 @@
 # PAGE ABOUT
 
 - Header "CLICK REPEATER"
+- First line: "Your activity: Scenario runs: {count}"
+- Divider below the activity line
 - (mouse-pointer) Records clicks and key input
 - (play) Replays clicks and key presses
 - (crosshair) Position mode: clicks coordinates

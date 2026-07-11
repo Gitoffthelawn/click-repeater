@@ -302,6 +302,7 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ ok: true, ignored: true, reason: "other_tab" });
         return;
       }
+      await recordSuccessfulScenario();
       await stopExecutionWithEvent({
         kind: "completed",
         clickName: currentState.clickName
