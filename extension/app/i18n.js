@@ -203,7 +203,18 @@ const TRANSLATIONS = {
     executionFailed: "No se pudo ejecutar", alreadyRunning: "\"{name}\" ya se está ejecutando.",
     executionStarted: "Se inició \"{name}\".", stopFailed: "No se pudo detener.", noActiveExecution: "No hay ejecución activa.",
     visualisationVisible: "Visualización: Visible", visualisationStealth: "Visualización: Sigiloso",
-    defaultOn: "Predeterminado: sí", defaultOff: "Predeterminado: no"
+    defaultOn: "Predeterminado: sí", defaultOff: "Predeterminado: no",
+    surveyUsefulQuestion: "¿Te resultó útil esta extensión?",
+    surveyAskLater: "Preguntar más tarde",
+    surveyNeverAsk: "No volver a preguntar",
+    surveyNo: "No",
+    surveyYes: "Sí",
+    surveyThankYouTitle: "Gracias. Puedes apoyar el proyecto",
+    surveyLater: "Más tarde",
+    surveyStarGithub: "Marcar en GitHub",
+    surveyRateStore: "Valorar en la tienda",
+    surveySorryTitle: "Lamentamos oírlo. Puedes enviar comentarios",
+    surveySendEmail: "Enviar un correo"
   },
   fr: {
     navClicks: "CLICKS", navSettings: "PARAMÈTRES", navShortcuts: "RACCOURCIS", navAbout: "À PROPOS",
@@ -255,7 +266,18 @@ const TRANSLATIONS = {
     alreadyRunning: "« {name} » est déjà en cours.", executionStarted: "« {name} » démarrée.",
     stopFailed: "Impossible d'arrêter l'exécution.", noActiveExecution: "Aucune exécution active.",
     visualisationVisible: "Visualisation : Visible", visualisationStealth: "Visualisation : Discret",
-    defaultOn: "Par défaut : oui", defaultOff: "Par défaut : non"
+    defaultOn: "Par défaut : oui", defaultOff: "Par défaut : non",
+    surveyUsefulQuestion: "Cette extension vous a-t-elle été utile ?",
+    surveyAskLater: "Me le demander plus tard",
+    surveyNeverAsk: "Ne plus demander",
+    surveyNo: "Non",
+    surveyYes: "Oui",
+    surveyThankYouTitle: "Merci. Vous pouvez soutenir le projet",
+    surveyLater: "Plus tard",
+    surveyStarGithub: "Étoile sur GitHub",
+    surveyRateStore: "Noter dans le store",
+    surveySorryTitle: "Désolé de l'apprendre. Vous pouvez envoyer un avis",
+    surveySendEmail: "Envoyer un e-mail"
   },
   de: {
     navClicks: "KLICKS", navSettings: "EINSTELLUNGEN", navShortcuts: "TASTENKÜRZEL", navAbout: "ÜBER",
@@ -307,7 +329,18 @@ const TRANSLATIONS = {
     alreadyRunning: "„{name}“ läuft bereits.", executionStarted: "„{name}“ gestartet.",
     stopFailed: "Ausführung konnte nicht gestoppt werden.", noActiveExecution: "Keine aktive Ausführung.",
     visualisationVisible: "Visualisierung: Sichtbar", visualisationStealth: "Visualisierung: Unsichtbar",
-    defaultOn: "Standard: an", defaultOff: "Standard: aus"
+    defaultOn: "Standard: an", defaultOff: "Standard: aus",
+    surveyUsefulQuestion: "War diese Erweiterung nützlich?",
+    surveyAskLater: "Später fragen",
+    surveyNeverAsk: "Nicht mehr fragen",
+    surveyNo: "Nein",
+    surveyYes: "Ja",
+    surveyThankYouTitle: "Danke. Sie können das Projekt unterstützen",
+    surveyLater: "Später",
+    surveyStarGithub: "Auf GitHub markieren",
+    surveyRateStore: "Im Store bewerten",
+    surveySorryTitle: "Schade. Sie können Feedback senden",
+    surveySendEmail: "E-Mail senden"
   },
   ru: {
     navClicks: "НАЖАТИЯ", navSettings: "НАСТРОЙКИ", navShortcuts: "СОЧЕТАНИЯ", navAbout: "О ПРОГРАММЕ",
@@ -416,7 +449,18 @@ const TRANSLATIONS = {
     stopped: "已停止", stoppedByUser: "已被用户停止", elementNotFound: "未找到元素：已保存元素不存在或不再匹配选择器",
     hasNoSteps: "没有步骤", executionFailed: "无法运行", alreadyRunning: "「{name}」已在运行。",
     executionStarted: "已启动「{name}」。", stopFailed: "无法停止执行。", noActiveExecution: "没有活动执行。",
-    visualisationVisible: "可视化：可见", visualisationStealth: "可视化：隐身", defaultOn: "默认：是", defaultOff: "默认：否"
+    visualisationVisible: "可视化：可见", visualisationStealth: "可视化：隐身", defaultOn: "默认：是", defaultOff: "默认：否",
+    surveyUsefulQuestion: "这个扩展有用吗？",
+    surveyAskLater: "稍后再问",
+    surveyNeverAsk: "不再询问",
+    surveyNo: "否",
+    surveyYes: "是",
+    surveyThankYouTitle: "谢谢。你可以支持这个项目",
+    surveyLater: "稍后",
+    surveyStarGithub: "在 GitHub 加星",
+    surveyRateStore: "在商店评分",
+    surveySorryTitle: "很遗憾。你可以发送反馈",
+    surveySendEmail: "发送邮件"
   },
   ar: {
     navClicks: "النقرات", navSettings: "الإعدادات", navShortcuts: "الاختصارات", navAbout: "حول",
@@ -467,7 +511,18 @@ const TRANSLATIONS = {
     alreadyRunning: "«{name}» قيد التشغيل بالفعل.", executionStarted: "بدأ تشغيل «{name}».",
     stopFailed: "تعذر إيقاف التنفيذ.", noActiveExecution: "لا يوجد تنفيذ نشط.",
     visualisationVisible: "العرض: مرئي", visualisationStealth: "العرض: خفي",
-    defaultOn: "افتراضي: نعم", defaultOff: "افتراضي: لا"
+    defaultOn: "افتراضي: نعم", defaultOff: "افتراضي: لا",
+    surveyUsefulQuestion: "هل كان هذا الامتداد مفيدًا؟",
+    surveyAskLater: "اسألني لاحقًا",
+    surveyNeverAsk: "لا تسأل مجددًا",
+    surveyNo: "لا",
+    surveyYes: "نعم",
+    surveyThankYouTitle: "شكرًا. يمكنك دعم المشروع",
+    surveyLater: "لاحقًا",
+    surveyStarGithub: "نجمة على GitHub",
+    surveyRateStore: "قيّم في المتجر",
+    surveySorryTitle: "نأسف لسماع ذلك. يمكنك إرسال ملاحظات",
+    surveySendEmail: "إرسال بريد"
   }
 };
 
