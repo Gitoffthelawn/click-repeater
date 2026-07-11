@@ -231,6 +231,40 @@
       </div>
     </div>
 
+    <div id="support-survey-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="support-survey-title">
+      <div class="modal survey-modal">
+        <div class="modal-header">
+          <h3 id="support-survey-title" data-i18n="surveyUsefulQuestion">Was this extension useful?</h3>
+          <button id="support-survey-close-btn" class="modal-close-btn" type="button" data-i18n-title="close"></button>
+        </div>
+
+        <div id="survey-step-useful" class="survey-step">
+          <div class="modal-actions survey-modal-actions">
+            <button id="survey-ask-later-btn" class="btn" type="button" data-i18n="surveyAskLater">Ask me later</button>
+            <button id="survey-never-ask-btn" class="btn" type="button" data-i18n="surveyNeverAsk">Never ask</button>
+            <button id="survey-no-btn" class="btn" type="button" data-i18n="surveyNo">No</button>
+            <button id="survey-yes-btn" class="btn btn-primary" type="button" data-i18n="surveyYes">Yes</button>
+          </div>
+        </div>
+
+        <div id="survey-step-thankyou" class="survey-step hidden">
+          <div class="modal-actions survey-modal-actions">
+            <button id="survey-later-btn" class="btn" type="button" data-i18n="surveyLater">Later</button>
+            <button id="survey-star-github-btn" class="btn" type="button" data-i18n="surveyStarGithub">Star on GitHub</button>
+            <button id="survey-rate-store-btn" class="btn btn-primary" type="button" data-i18n="surveyRateStore">Rate in store</button>
+          </div>
+        </div>
+
+        <div id="survey-step-sorry" class="survey-step hidden">
+          <div class="modal-actions survey-modal-actions">
+            <button id="survey-send-email-btn" class="btn" type="button" data-i18n="surveySendEmail">Send an email</button>
+            <button id="survey-sorry-later-btn" class="btn" type="button" data-i18n="surveyLater">Later</button>
+            <button id="survey-sorry-never-ask-btn" class="btn" type="button" data-i18n="surveyNeverAsk">Never ask</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="mode-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="mode-modal-title">
       <div class="modal">
         <div class="modal-header">
@@ -265,6 +299,7 @@
     <script src="app/popup/execution.js"></script>
     <script src="app/popup/render.js"></script>
     <script src="app/popup/navigation.js"></script>
+    <script src="app/popup/support-survey.js"></script>
     <script src="app/popup/events.js"></script>
     <script src="app/popup/main.js"></script>
   </body>

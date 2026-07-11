@@ -137,7 +137,18 @@ const EN_MESSAGES = {
   visualisationVisible: "Visualization: Visible",
   visualisationStealth: "Visualization: Stealth",
   defaultOn: "Default: on",
-  defaultOff: "Default: off"
+  defaultOff: "Default: off",
+  surveyUsefulQuestion: "Was this extension useful?",
+  surveyAskLater: "Ask me later",
+  surveyNeverAsk: "Never ask",
+  surveyNo: "No",
+  surveyYes: "Yes",
+  surveyThankYouTitle: "Thank you. You can support the project",
+  surveyLater: "Later",
+  surveyStarGithub: "Star on GitHub",
+  surveyRateStore: "Rate in store",
+  surveySorryTitle: "Sorry to hear that. You can send feedback",
+  surveySendEmail: "Send an email"
 };
 
 const TRANSLATIONS = {
@@ -352,7 +363,18 @@ const TRANSLATIONS = {
     alreadyRunning: "Уже выполняется «{name}».", executionStarted: "Запущено выполнение «{name}».",
     stopFailed: "Не удалось остановить выполнение.", noActiveExecution: "Активного выполнения нет.",
     visualisationVisible: "Визуализация: Видимый", visualisationStealth: "Визуализация: Скрытый",
-    defaultOn: "По умолчанию: да", defaultOff: "По умолчанию: нет"
+    defaultOn: "По умолчанию: да", defaultOff: "По умолчанию: нет",
+    surveyUsefulQuestion: "Расширение было полезным?",
+    surveyAskLater: "Спросить позже",
+    surveyNeverAsk: "Больше не спрашивать",
+    surveyNo: "Нет",
+    surveyYes: "Да",
+    surveyThankYouTitle: "Спасибо. Вы можете поддержать проект",
+    surveyLater: "Позже",
+    surveyStarGithub: "Поставить звезду на GitHub",
+    surveyRateStore: "Оценить в магазине",
+    surveySorryTitle: "Жаль это слышать. Вы можете отправить отзыв",
+    surveySendEmail: "Написать на email"
   },
   zh_CN: {
     navClicks: "点击", navSettings: "设置", navShortcuts: "快捷键", navAbout: "关于",

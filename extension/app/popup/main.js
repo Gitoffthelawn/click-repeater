@@ -10,6 +10,13 @@ async function init() {
   await refreshCheckStatus();
   render();
   const executionStatus = await refreshExecutionStatus();
+  if (executionStatus?.lastEvent?.kind === "completed") {
+    const { shouldShow } = await recordSuccessfulCompletion();
+    if (shouldShow) {
+      await openSupportSurvey("useful");
+    }
+  }
+
   if (createdClick) {
     openEditModal(createdClick.id, { selectAll: true });
     setStatus(t("createCompleted"));

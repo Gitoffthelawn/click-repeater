@@ -79,7 +79,23 @@ const refs = {
   settingSkipNewRecording: document.getElementById("setting-skip-new-recording"),
   settingSkipDisplayMoves: document.getElementById("setting-skip-display-moves"),
   settingSkipMode: document.getElementById("setting-skip-mode"),
-  settingDarkTheme: document.getElementById("setting-dark-theme")
+  settingDarkTheme: document.getElementById("setting-dark-theme"),
+  supportSurveyModal: document.getElementById("support-survey-modal"),
+  supportSurveyTitle: document.getElementById("support-survey-title"),
+  supportSurveyCloseBtn: document.getElementById("support-survey-close-btn"),
+  surveyStepUseful: document.getElementById("survey-step-useful"),
+  surveyStepThankYou: document.getElementById("survey-step-thankyou"),
+  surveyStepSorry: document.getElementById("survey-step-sorry"),
+  surveyAskLaterBtn: document.getElementById("survey-ask-later-btn"),
+  surveyNeverAskBtn: document.getElementById("survey-never-ask-btn"),
+  surveyNoBtn: document.getElementById("survey-no-btn"),
+  surveyYesBtn: document.getElementById("survey-yes-btn"),
+  surveyLaterBtn: document.getElementById("survey-later-btn"),
+  surveyStarGithubBtn: document.getElementById("survey-star-github-btn"),
+  surveyRateStoreBtn: document.getElementById("survey-rate-store-btn"),
+  surveySendEmailBtn: document.getElementById("survey-send-email-btn"),
+  surveySorryLaterBtn: document.getElementById("survey-sorry-later-btn"),
+  surveySorryNeverAskBtn: document.getElementById("survey-sorry-never-ask-btn")
 };
 
 const iconSet = globalThis.clickRepeaterLucideIcons;

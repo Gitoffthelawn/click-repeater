@@ -498,6 +498,10 @@ document.addEventListener("keydown", (event) => {
 });
 
 function closeModalByEscape() {
+  if (isSupportSurveyOpen()) {
+    return false;
+  }
+
   if (!refs.modeModal.classList.contains("hidden")) {
     closeModeModal();
     return true;

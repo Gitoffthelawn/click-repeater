@@ -147,3 +147,13 @@ input:checked + .toggle-switch-visual::after {
 .edit-modal-actions > .btn {
   flex: 1 1 0;
 }
+
+.survey-modal-actions {
+  justify-content: stretch;
+  flex-wrap: wrap;
+}
+
+.survey-modal-actions > .btn {
+  flex: 1 1 calc(50% - 4px);
+  min-width: 0;
+}
