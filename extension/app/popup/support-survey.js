@@ -1,18 +1,5 @@
 const surveyUiState = { step: null };
 
-function getSurveyStoreUrl() {
-  if (typeof browser !== "undefined" && typeof chrome !== "undefined" && browser !== chrome) {
-    return SURVEY_FIREFOX_STORE_URL;
-  }
-  return SURVEY_CHROME_STORE_URL;
-}
-
-function getSurveyStoreRateLabel() {
-  return typeof browser !== "undefined" && typeof chrome !== "undefined" && browser !== chrome
-    ? "Rate in Firefox store"
-    : "Rate in Chrome web store";
-}
-
 function openSurveyExternalUrl(url) {
   try { void ext.tabs.create({ url }); } catch {}
 }
