@@ -183,6 +183,16 @@ kbd {
   padding: 0;
 }
 
+.about-page > .about-activity {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 0 0 6px;
+  color: #374151;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .about-list li {
   display: flex;
   align-items: flex-start;

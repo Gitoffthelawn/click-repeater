@@ -72,7 +72,7 @@ async function refreshSupportSurveyAboutStatistic() {
   const target = document.getElementById("about-scenario-runs");
   if (!target) return;
   const state = await readSupportSurveyState();
-  target.textContent = `${t("aboutYourActivity")}: ${t("aboutScenarioRuns", { count: state.actionCount })}`;
+  target.textContent = t("aboutScenarioRuns", { count: state.actionCount });
 }
 
 bindSupportSurveyEvents();

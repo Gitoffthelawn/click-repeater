@@ -9,6 +9,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.2.1
+- Refined activity statistics in About
+
 ### 1.2.0
 - Added optional feedback survey and activity statistics in About
 
