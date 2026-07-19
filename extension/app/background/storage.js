@@ -1,12 +1,22 @@
+import {
+  RECORDING_SESSION_KEY,
+  EXECUTION_STATE_KEY,
+  EXECUTION_LAST_EVENT_KEY,
+  CHECK_STATE_KEY,
+  CLICKS_STORAGE_KEY,
+  DEFAULT_CLICK_ID_KEY,
+} from "./state.js";
 
-function buildClickName(domain) {
+const ext = globalThis.ext;
+
+export function buildClickName(domain) {
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
   const time = now.toTimeString().slice(0, 5);
   return `${domain} ${date} ${time}`;
 }
 
-function getDomainFromUrl(rawUrl) {
+export function getDomainFromUrl(rawUrl) {
   if (typeof rawUrl !== "string" || !rawUrl) {
     return "unknown";
   }
@@ -19,7 +29,7 @@ function getDomainFromUrl(rawUrl) {
   }
 }
 
-function normalizeKeyboardAction(step) {
+export function normalizeKeyboardAction(step) {
   if (!step || typeof step !== "object" || (step.type !== "keydown" && step.type !== "keyup")) {
     return null;
   }
@@ -57,7 +67,7 @@ function normalizeKeyboardAction(step) {
   };
 }
 
-function normalizeStepForExecution(step, clickMode) {
+export function normalizeStepForExecution(step, clickMode) {
   if (typeof step === "string") {
     const target = step.trim();
     return target ? target : null;
@@ -84,30 +94,30 @@ function normalizeStepForExecution(step, clickMode) {
   } : null;
 }
 
-async function readSession() {
+export async function readSession() {
   const data = await ext.storage.local.get(RECORDING_SESSION_KEY);
   return data?.[RECORDING_SESSION_KEY] ?? null;
 }
 
-async function writeSession(session) {
+export async function writeSession(session) {
   await ext.storage.local.set({ [RECORDING_SESSION_KEY]: session });
 }
 
-async function clearSession() {
+export async function clearSession() {
   await ext.storage.local.remove(RECORDING_SESSION_KEY);
 }
 
-async function readExecutionState() {
+export async function readExecutionState() {
   const data = await ext.storage.local.get(EXECUTION_STATE_KEY);
   return data?.[EXECUTION_STATE_KEY] ?? null;
 }
 
-async function readCheckState() {
+export async function readCheckState() {
   const data = await ext.storage.local.get(CHECK_STATE_KEY);
   return data?.[CHECK_STATE_KEY] ?? null;
 }
 
-async function readClicks() {
+export async function readClicks() {
   const data = await ext.storage.local.get(CLICKS_STORAGE_KEY);
   const storedClicks = data?.[CLICKS_STORAGE_KEY];
   if (!Array.isArray(storedClicks)) {
@@ -117,32 +127,32 @@ async function readClicks() {
   return storedClicks.filter((click) => click && typeof click.id === "string");
 }
 
-async function readDefaultClickId() {
+export async function readDefaultClickId() {
   const data = await ext.storage.local.get(DEFAULT_CLICK_ID_KEY);
   return typeof data?.[DEFAULT_CLICK_ID_KEY] === "string" ? data[DEFAULT_CLICK_ID_KEY] : null;
 }
 
-async function writeExecutionState(state) {
+export async function writeExecutionState(state) {
   await ext.storage.local.set({ [EXECUTION_STATE_KEY]: state });
 }
 
-async function writeCheckState(state) {
+export async function writeCheckState(state) {
   await ext.storage.local.set({ [CHECK_STATE_KEY]: state });
 }
 
-async function clearCheckState() {
+export async function clearCheckState() {
   await ext.storage.local.remove(CHECK_STATE_KEY);
 }
 
-async function clearExecutionState() {
+export async function clearExecutionState() {
   await ext.storage.local.remove(EXECUTION_STATE_KEY);
 }
 
-async function writeExecutionLastEvent(event) {
+export async function writeExecutionLastEvent(event) {
   await ext.storage.local.set({ [EXECUTION_LAST_EVENT_KEY]: event });
 }
 
-async function takeExecutionLastEvent() {
+export async function takeExecutionLastEvent() {
   const data = await ext.storage.local.get(EXECUTION_LAST_EVENT_KEY);
   const event = data?.[EXECUTION_LAST_EVENT_KEY] ?? null;
   await ext.storage.local.remove(EXECUTION_LAST_EVENT_KEY);

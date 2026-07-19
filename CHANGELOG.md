@@ -4,6 +4,12 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.6
+- Refactored background to a single modular entry (`app/background/main.js`) for Chrome MV3 and Firefox 121+
+- Goal: one complete background load path instead of a short `background.scripts` list plus a longer `sw.js` `importScripts` list
+- Fixes Firefox loading a thinner background than Chrome (Welcome, context menu, and related modules were missing from `background.scripts`)
+- Declares Firefox minimum version 121.0 to match the service worker + scripts fallback model
+
 ### 1.2.5
 - Widened Welcome and tightened About copy for small screens
 

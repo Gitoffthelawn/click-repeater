@@ -1,3 +1,32 @@
+import {
+  BADGE_ANIMATION_STEPS,
+  BADGE_ANIMATION_STEP_MS,
+  CREATE_BADGE_TEXT_COLORS,
+  RUN_BADGE_TEXT_COLORS,
+  CREATE_BADGE_BACKGROUND_COLOR,
+  RUN_BADGE_BACKGROUND_COLOR,
+  CHECK_BADGE_BACKGROUND_COLOR,
+  BADGE_TEXT_COLOR,
+  ACTIVE_BADGE_TEXT,
+  SHORTCUT_HINT_BADGE_TEXT,
+  SHORTCUT_HINT_BADGE_BACKGROUND_COLOR,
+  SHORTCUT_HINT_BADGE_TEXT_COLOR,
+  SHORTCUT_HINT_DURATION_MS,
+  shortcutHintTimer,
+  normalizeExecutionSpeed,
+} from "./state.js";
+import { readSession, readCheckState, readDefaultClickId, readClicks, normalizeStepForExecution, writeExecutionLastEvent } from "./storage.js";
+// Circular with execution.js (execution.js also imports from this file); safe
+// because these are only referenced inside function bodies below, never at
+// module-evaluation time.
+import { getRuntimeExecutionState, clearShortcutHintTimer, startExecutionOnTab, setActionBadgeText } from "./execution.js";
+
+const ext = globalThis.ext;
+
+// Local to this file: only badge.js reads/mutates the badge animation state.
+let badgeAnimationIntervalId = null;
+let badgeAnimationFrame = 0;
+let badgeAnimationMode = null;
 
 function badgeColorToHex(color) {
   return `#${color.map((channel) => channel.toString(16).padStart(2, "0")).join("")}`;
@@ -79,7 +108,7 @@ function ensureBadgeAnimation(mode) {
   }, BADGE_ANIMATION_STEP_MS);
 }
 
-async function syncActionBadge() {
+export async function syncActionBadge() {
   clearShortcutHintTimer();
 
   const session = await readSession();
@@ -113,7 +142,7 @@ async function syncActionBadge() {
   await setActionBadgeText("");
 }
 
-async function showShortcutHintBadge() {
+export async function showShortcutHintBadge() {
   const session = await readSession();
   const executionState = await getRuntimeExecutionState();
   const checkState = await readCheckState();
@@ -129,13 +158,13 @@ async function showShortcutHintBadge() {
   if (typeof ext.action.setBadgeTextColor === "function") {
     await ext.action.setBadgeTextColor({ color: SHORTCUT_HINT_BADGE_TEXT_COLOR });
   }
-  shortcutHintTimerId = setTimeout(() => {
-    shortcutHintTimerId = null;
+  shortcutHintTimer.id = setTimeout(() => {
+    shortcutHintTimer.id = null;
     void syncActionBadge();
   }, SHORTCUT_HINT_DURATION_MS);
 }
 
-async function startDefaultClickFromTab(tabId) {
+export async function startDefaultClickFromTab(tabId) {
   if (!Number.isInteger(tabId)) {
     return { ok: false, error: "tab_id_required" };
   }

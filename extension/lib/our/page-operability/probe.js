@@ -13,3 +13,6 @@ function probeDocumentOperability() {
     return false;
   }
 }
+
+// Bridge for background-context ES modules; harmless no-op as a classic script.
+globalThis.probeDocumentOperability = probeDocumentOperability;

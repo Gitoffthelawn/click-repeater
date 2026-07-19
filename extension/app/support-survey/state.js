@@ -1,6 +1,13 @@
+// `var` re-declarations: harmless merges with the classic-script globals from
+// lib/our/api.js, lib/our/support-survey/logic.js and app/support-survey/constants.js
+// when sharing a classic script scope (popup page); needed so this file also
+// works when imported as an ES module in the background context.
+var ext = globalThis.ext;
+var createSupportSurveyLogic = globalThis.createSupportSurveyLogic;
+
 const supportSurveyLogic = createSupportSurveyLogic({
-  threshold: SURVEY_THRESHOLD,
-  cooldownMs: SURVEY_COOLDOWN_MS,
+  threshold: globalThis.SURVEY_THRESHOLD,
+  cooldownMs: globalThis.SURVEY_COOLDOWN_MS,
 });
 
 function normalizeSupportSurveyState(raw) {
@@ -16,8 +23,8 @@ function normalizeSupportSurveyState(raw) {
 
 async function readSupportSurveyState() {
   try {
-    const data = await ext.storage.local.get(SURVEY_STORAGE_KEY);
-    return normalizeSupportSurveyState(data?.[SURVEY_STORAGE_KEY]);
+    const data = await ext.storage.local.get(globalThis.SURVEY_STORAGE_KEY);
+    return normalizeSupportSurveyState(data?.[globalThis.SURVEY_STORAGE_KEY]);
   } catch {
     return supportSurveyLogic.createDefaultState();
   }
@@ -26,7 +33,7 @@ async function readSupportSurveyState() {
 async function writeSupportSurveyState(state) {
   try {
     await ext.storage.local.set({
-      [SURVEY_STORAGE_KEY]: normalizeSupportSurveyState(state),
+      [globalThis.SURVEY_STORAGE_KEY]: normalizeSupportSurveyState(state),
     });
     return true;
   } catch {
@@ -65,3 +72,6 @@ async function completeSupportSurvey() {
   const state = await readSupportSurveyState();
   return writeSupportSurveyState(supportSurveyLogic.markCompleted(state));
 }
+
+// Bridge for background-context ES modules; harmless no-op as a classic script.
+globalThis.recordSuccessfulScenario = recordSuccessfulScenario;

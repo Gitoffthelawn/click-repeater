@@ -582,3 +582,12 @@ async function selectLocale(locale) {
   await ext.storage.local.set({ [LOCALE_STORAGE_KEY]: currentLocale });
   applyTranslations();
 }
+
+// Bridge for background-context ES modules (no shared classic script global
+// scope with this file there); harmless no-op when loaded as a classic script.
+globalThis.LOCALE_STORAGE_KEY = LOCALE_STORAGE_KEY;
+globalThis.LOCALES = LOCALES;
+globalThis.LOCALE_LABELS = LOCALE_LABELS;
+globalThis.EN_MESSAGES = EN_MESSAGES;
+globalThis.TRANSLATIONS = TRANSLATIONS;
+globalThis.normalizeLocale = normalizeLocale;

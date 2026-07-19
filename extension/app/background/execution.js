@@ -1,5 +1,15 @@
+import { writeExecutionState, clearExecutionState, readExecutionState, writeExecutionLastEvent } from "./storage.js";
+import { shortcutHintTimer, BADGE_BACKGROUND_COLOR, BADGE_TEXT_COLOR } from "./state.js";
+import { canOperateOnTab } from "../../lib/our/page-operability/can-operate.js";
+import { showRestrictedNotice } from "../page-operability/notice.js";
+// Circular with badge.js (badge.js also imports from this file); safe because
+// syncActionBadge is only referenced inside function bodies below, never at
+// module-evaluation time.
+import { syncActionBadge } from "./badge.js";
 
-async function startExecutionOnTab({ tabId, clickId, clickName, repeats, trackMoves, executionSpeed, soundVolume = "volume-1", clickSound = true, steps }) {
+const ext = globalThis.ext;
+
+export async function startExecutionOnTab({ tabId, clickId, clickName, repeats, trackMoves, executionSpeed, soundVolume = "volume-1", clickSound = true, steps }) {
   const currentState = await getRuntimeExecutionState();
   if (currentState?.isRunning) {
     return { ok: false, error: "already_running", state: currentState };
@@ -79,7 +89,7 @@ async function startExecutionOnTab({ tabId, clickId, clickName, repeats, trackMo
   };
 }
 
-function getExecutionFrameId(steps) {
+export function getExecutionFrameId(steps) {
   if (!Array.isArray(steps)) {
     return null;
   }
@@ -95,7 +105,7 @@ function getExecutionFrameId(steps) {
   return frameIds.every((frameId) => frameId === firstFrameId) ? firstFrameId : null;
 }
 
-async function setActionBadgeText(text) {
+export async function setActionBadgeText(text) {
   await ext.action.setBadgeText({ text });
   if (text) {
     await ext.action.setBadgeBackgroundColor({ color: BADGE_BACKGROUND_COLOR });
@@ -105,14 +115,14 @@ async function setActionBadgeText(text) {
   }
 }
 
-function clearShortcutHintTimer() {
-  if (shortcutHintTimerId !== null) {
-    clearTimeout(shortcutHintTimerId);
-    shortcutHintTimerId = null;
+export function clearShortcutHintTimer() {
+  if (shortcutHintTimer.id !== null) {
+    clearTimeout(shortcutHintTimer.id);
+    shortcutHintTimer.id = null;
   }
 }
 
-async function getRuntimeExecutionState() {
+export async function getRuntimeExecutionState() {
   const state = await readExecutionState();
   if (!state?.isRunning) {
     return null;
@@ -132,7 +142,7 @@ async function getRuntimeExecutionState() {
   };
 }
 
-function resolveStopEventKind(message) {
+export function resolveStopEventKind(message) {
   if (message?.type === "execution-user-click-interrupt") {
     return "user-click";
   }
@@ -150,13 +160,13 @@ function resolveStopEventKind(message) {
   }
 }
 
-async function stopExecutionWithEvent(event) {
+export async function stopExecutionWithEvent(event) {
   await clearExecutionState();
   await writeExecutionLastEvent(event);
   await syncActionBadge();
 }
 
-async function sendRecordingListenerMessage(tabId, message) {
+export async function sendRecordingListenerMessage(tabId, message) {
   if (!Number.isInteger(tabId)) {
     return { ok: false, error: "tab_id_required" };
   }
@@ -200,7 +210,7 @@ async function sendRecordingListenerMessage(tabId, message) {
 }
 
 // Scope the temporary popup override to this tab and clear it after opening.
-async function openMainPopup(tabId, windowId, page) {
+export async function openMainPopup(tabId, windowId, page) {
   if (!ext.action || typeof ext.action.openPopup !== "function") {
     return false;
   }
@@ -230,7 +240,7 @@ async function openMainPopup(tabId, windowId, page) {
   }
 }
 
-async function handleActionClick(tab) {
+export async function handleActionClick(tab) {
   const tabId = Number.isInteger(tab?.id) ? tab.id : null;
   if (tabId === null) {
     return;

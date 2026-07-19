@@ -1,3 +1,39 @@
+import { isBlockedNoticeDismissedMessage } from "../../lib/our/page-operability/messages.js";
+import { canOperateOnTab } from "../../lib/our/page-operability/can-operate.js";
+import { showRestrictedNotice } from "../page-operability/notice.js";
+import { showExecutionErrorNotice } from "../execution-notice/notice.js";
+import {
+  readSession,
+  writeSession,
+  clearSession,
+  readCheckState,
+  writeExecutionState,
+  takeExecutionLastEvent,
+  buildClickName,
+  getDomainFromUrl,
+  normalizeKeyboardAction,
+} from "./storage.js";
+import { SHORTCUT_HINT_BADGE_TEXT, SHORTCUT_HINT_DURATION_MS, normalizeExecutionSpeed } from "./state.js";
+import {
+  startExecutionOnTab,
+  getRuntimeExecutionState,
+  stopExecutionWithEvent,
+  resolveStopEventKind,
+  sendRecordingListenerMessage,
+  openMainPopup,
+  handleActionClick,
+  clearShortcutHintTimer,
+} from "./execution.js";
+import { syncActionBadge, showShortcutHintBadge, startDefaultClickFromTab } from "./badge.js";
+import { stopCheckMode, startCheckModeOnTab } from "./check.js";
+import { watchWelcomePinStatus2, showWelcome } from "../welcome/background.js";
+
+const ext = globalThis.ext;
+// recordSuccessfulScenario comes from app/support-survey/state.js, which is
+// also loaded as a classic script on the popup page, so it bridges this onto
+// globalThis instead of using ES `export`.
+const recordSuccessfulScenario = globalThis.recordSuccessfulScenario;
+
 void syncActionBadge();
 
 ext.action.onClicked.addListener((tab) => {

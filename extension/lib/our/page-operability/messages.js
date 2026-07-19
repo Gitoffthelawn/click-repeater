@@ -1,6 +1,6 @@
 "use strict";
-var BLOCKED_NOTICE_DISMISSED = "BLOCKED_NOTICE_DISMISSED";
-function isBlockedNoticeDismissedMessage(message) {
+export var BLOCKED_NOTICE_DISMISSED = "BLOCKED_NOTICE_DISMISSED";
+export function isBlockedNoticeDismissedMessage(message) {
   if (typeof message !== "object" || message === null) return false;
   const m = message;
   return m.type === BLOCKED_NOTICE_DISMISSED && typeof m.tabId === "number";

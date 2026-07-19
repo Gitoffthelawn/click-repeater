@@ -1,4 +1,5 @@
 "use strict";
+const ext = globalThis.ext;
 // Keep these translations aligned with element-deleter.
 const RESTRICTED_PAGE_NOTICE = {
   en: "Browser extensions don't work on system pages and protected sites. Try another site.",
@@ -11,9 +12,9 @@ const RESTRICTED_PAGE_NOTICE = {
 };
 
 const RESTRICTED_NOTICE_POPUP = "blocked-notice.html";
-const RESTRICTED_NOTICE_MIN_MS = 4000;
+export const RESTRICTED_NOTICE_MIN_MS = 4000;
 const RESTRICTED_NOTICE_SESSION_KEY = "restrictedNotice";
-const RESTRICTED_NOTICE_CONFIG = {
+export const RESTRICTED_NOTICE_CONFIG = {
   popupHtml: RESTRICTED_NOTICE_POPUP,
   sessionKey: RESTRICTED_NOTICE_SESSION_KEY,
   logLabel: "Click Repeater",
@@ -31,7 +32,7 @@ function detectRestrictedNoticeLocale() {
   return RESTRICTED_PAGE_NOTICE[base] ? base : "en";
 }
 
-async function restrictedPageNoticeLocale() {
+export async function restrictedPageNoticeLocale() {
   try {
     const data = await ext.storage.local.get("locale");
     const storedLocale = data?.locale === "zh_CN" ? "zh" : data?.locale;
@@ -42,6 +43,6 @@ async function restrictedPageNoticeLocale() {
   return detectRestrictedNoticeLocale();
 }
 
-function restrictedPageNoticeText(locale) {
+export function restrictedPageNoticeText(locale) {
   return RESTRICTED_PAGE_NOTICE[locale] ?? RESTRICTED_PAGE_NOTICE.en;
 }

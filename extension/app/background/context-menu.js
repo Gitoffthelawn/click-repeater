@@ -1,3 +1,16 @@
+import { openMainPopup } from "./execution.js";
+
+// TRANSLATIONS, EN_MESSAGES, isRtlLocale, normalizeLocale, LOCALE_STORAGE_KEY
+// come from app/i18n.js and lib/our/i18n/rtl.js, which are also loaded as
+// classic scripts on the popup/welcome pages, so they bridge these onto
+// globalThis instead of using ES `export`.
+const ext = globalThis.ext;
+const TRANSLATIONS = globalThis.TRANSLATIONS;
+const EN_MESSAGES = globalThis.EN_MESSAGES;
+const isRtlLocale = globalThis.isRtlLocale;
+const normalizeLocale = globalThis.normalizeLocale;
+const LOCALE_STORAGE_KEY = globalThis.LOCALE_STORAGE_KEY;
+
 const CONTEXT_MENU_CLICKS = "clicks";
 const CONTEXT_MENU_SETTINGS = "settings";
 const CONTEXT_MENU_SHORTCUTS = "shortcuts";

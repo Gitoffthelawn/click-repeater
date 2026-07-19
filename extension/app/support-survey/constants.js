@@ -29,3 +29,8 @@ function getSurveyStoreRateLabel() {
     ? "Rate in Firefox store"
     : "Rate in Chrome web store";
 }
+
+// Bridge for background-context ES modules; harmless no-op as a classic script.
+globalThis.SURVEY_STORAGE_KEY = SURVEY_STORAGE_KEY;
+globalThis.SURVEY_THRESHOLD = SURVEY_THRESHOLD;
+globalThis.SURVEY_COOLDOWN_MS = SURVEY_COOLDOWN_MS;

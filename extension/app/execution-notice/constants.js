@@ -67,15 +67,15 @@ const EXECUTION_ERROR_NOTICE_MESSAGES = {
 };
 
 const EXECUTION_NOTICE_POPUP = "execution-notice.html";
-const EXECUTION_NOTICE_MIN_MS = 4000;
+export const EXECUTION_NOTICE_MIN_MS = 4000;
 const EXECUTION_NOTICE_SESSION_KEY = "executionErrorNotice";
-const EXECUTION_NOTICE_CONFIG = {
+export const EXECUTION_NOTICE_CONFIG = {
   popupHtml: EXECUTION_NOTICE_POPUP,
   sessionKey: EXECUTION_NOTICE_SESSION_KEY,
   logLabel: "Click Repeater",
 };
 
-function executionErrorNoticeText(kind, locale) {
+export function executionErrorNoticeText(kind, locale) {
   const messages = EXECUTION_ERROR_NOTICE_MESSAGES[kind] ?? EXECUTION_ERROR_NOTICE_MESSAGES["failed"];
   return messages[locale] ?? messages.en;
 }

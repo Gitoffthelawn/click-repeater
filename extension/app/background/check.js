@@ -1,3 +1,10 @@
+import { readCheckState, writeCheckState, clearCheckState } from "./storage.js";
+import { canOperateOnTab } from "../../lib/our/page-operability/can-operate.js";
+import { showRestrictedNotice } from "../page-operability/notice.js";
+import { syncActionBadge } from "./badge.js";
+
+const ext = globalThis.ext;
+
 async function sendCheckOverlayMessage(tabId, message, steps = []) {
   if (!Number.isInteger(tabId)) {
     return { ok: false, error: "tab_id_required" };
@@ -60,7 +67,7 @@ function getCheckFrameId(steps) {
   return frameIds.every((frameId) => frameId === firstFrameId) ? firstFrameId : null;
 }
 
-async function stopCheckMode() {
+export async function stopCheckMode() {
   const state = await readCheckState();
   await clearCheckState();
   if (Number.isInteger(state?.tabId)) {
@@ -74,7 +81,7 @@ async function stopCheckMode() {
   return Boolean(state?.isActive);
 }
 
-async function startCheckModeOnTab({ tabId, clickId, clickName, steps }) {
+export async function startCheckModeOnTab({ tabId, clickId, clickName, steps }) {
   const currentState = await readCheckState();
   if (currentState?.isActive && currentState.clickId === clickId && currentState.tabId === tabId) {
     const wasActive = await stopCheckMode();

@@ -1,6 +1,10 @@
 "use strict";
 
-async function showExecutionErrorNotice(tabId, kind, windowId) {
+import { showBlockedNotice } from "../../lib/our/page-operability/show-notice.js";
+import { restrictedPageNoticeLocale } from "../page-operability/constants.js";
+import { executionErrorNoticeText, EXECUTION_NOTICE_MIN_MS, EXECUTION_NOTICE_CONFIG } from "./constants.js";
+
+export async function showExecutionErrorNotice(tabId, kind, windowId) {
   const locale = await restrictedPageNoticeLocale();
   const payload = {
     text: executionErrorNoticeText(kind, locale),

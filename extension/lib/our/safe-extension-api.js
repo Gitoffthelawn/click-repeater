@@ -69,3 +69,7 @@ function createSafeExtensionApi(base, ignoredErrors) {
     },
   });
 }
+
+// Bridge for background-context ES modules, which don't share a classic
+// script global scope: harmless no-op when loaded as a plain classic script.
+globalThis.createSafeExtensionApi = createSafeExtensionApi;
