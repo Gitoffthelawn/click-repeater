@@ -24,7 +24,7 @@ async function showBlockedNotice(tabId, config, payload, windowId) {
     throw new Error("action.openPopup unavailable");
   } catch (err) {
     // Fall back to a tab when the browser cannot open the action popup.
-    console.warn(`[${logLabel}] openPopup notice failed, using tab:`, err);
+    console.debug(`[${logLabel}] openPopup notice failed, using tab:`, err);
     try {
       await ext.tabs.create({
         url: `${noticeUrl}?mode=tab`,

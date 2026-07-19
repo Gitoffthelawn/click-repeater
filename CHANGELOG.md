@@ -4,6 +4,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.11
+- Reduced expected popup fallback logs from warning level to debug level
+
 ### 1.2.10
 - Hardened popup click-list and i18n HTML rendering against unsafe `innerHTML` (DOM API / allowlisted markup)
 
