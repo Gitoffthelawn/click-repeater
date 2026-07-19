@@ -10,18 +10,13 @@ var WELCOME_HEART_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" heig
 
 var WELCOME_GITHUB_URL = "https://github.com/md2it/browser-extension-click-repeater";
 
-var WELCOME_ABOUT_ICON_CLICK = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 4 7.07 17 2.51-7.39L21 11.07z"/></svg>';
-var WELCOME_ABOUT_ICON_PLAY = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>';
-var WELCOME_ABOUT_ICON_CROSSHAIR = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>';
-var WELCOME_ABOUT_ICON_CODE = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>';
-var WELCOME_ABOUT_ICON_EYE = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
-var WELCOME_ABOUT_ICON_EYE_OFF = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>';
-var WELCOME_ABOUT_ICON_REPEAT = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 3-3 3 3"/><path d="M13 18H7a2 2 0 0 1-2-2V6"/><path d="m22 15-3 3-3-3"/><path d="M11 6h6a2 2 0 0 1 2 2v10"/></svg>';
-var WELCOME_ABOUT_ICON_GAUGE = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>';
-var WELCOME_ABOUT_ICON_STAR = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
-var WELCOME_ABOUT_ICON_SHIELD = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>';
-var WELCOME_ABOUT_ICON_FORK = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9a6 6 0 0 1-6 6"/><path d="M6 9a6 6 0 0 0 6 6"/></svg>';
-var WELCOME_ABOUT_ICON_HEART = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>';
+var WELCOME_ABOUT_SECTION_ICONS = {
+  overview: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
+  capabilities: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11 12 14 22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+  privacy: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>',
+  code: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m4 17 6-6-6-6M12 19h8"/></svg>',
+  statistics: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 17V9M18 17V5M8 17v-3M3 17v-1M3 21h18"/></svg>'
+};
 
 async function getLocaleForWelcome() {
   try {
@@ -44,21 +39,14 @@ function buildWelcomeLocalePayload(locale) {
     pinStep1: tl("welcomePinStep1"),
     pinStep2: tl("welcomePinStep2"),
     pinStep3: tl("welcomePinStep3"),
-    aboutHeading: tl("navAbout"),
-    aboutItems: [
-      { iconHtml: WELCOME_ABOUT_ICON_CLICK, iconKind: "bool", text: tl("aboutRecordsClicks") },
-      { iconHtml: WELCOME_ABOUT_ICON_PLAY, iconKind: "bool", text: tl("aboutRepeatsClicks") },
-      { iconHtml: WELCOME_ABOUT_ICON_CROSSHAIR, iconKind: "bool", text: tl("aboutPositionMode") },
-      { iconHtml: WELCOME_ABOUT_ICON_CODE, iconKind: "bool", text: tl("aboutElementMode") },
-      { iconHtml: WELCOME_ABOUT_ICON_EYE, iconKind: "bool", text: tl("aboutVisibleMode") },
-      { iconHtml: WELCOME_ABOUT_ICON_EYE_OFF, iconKind: "bool", text: tl("aboutStealthMode") },
-      { iconHtml: WELCOME_ABOUT_ICON_REPEAT, iconKind: "bool", text: tl("aboutRepeats") },
-      { iconHtml: WELCOME_ABOUT_ICON_GAUGE, iconKind: "bool", text: tl("aboutSpeed") },
-      { iconHtml: WELCOME_ABOUT_ICON_STAR, iconKind: "bool", text: tl("aboutDefaultShortcut") },
-      { iconHtml: WELCOME_ABOUT_ICON_SHIELD, iconKind: "bool", text: tl("noNetwork") },
-      { iconHtml: WELCOME_ABOUT_ICON_FORK, iconKind: "bool", text: tl("codeOnGithub"), href: WELCOME_GITHUB_URL },
-      { iconHtml: WELCOME_ABOUT_ICON_HEART, iconKind: "bool", text: tl("credits") }
+    aboutSections: [
+      { heading: tl("aboutOverviewHeading"), iconHtml: WELCOME_ABOUT_SECTION_ICONS.overview, items: [{ text: tl("aboutOverview") }] },
+      { heading: tl("aboutCapabilitiesHeading"), iconHtml: WELCOME_ABOUT_SECTION_ICONS.capabilities, items: ["aboutRecordsClicks", "aboutRepeatsClicks", "aboutPositionMode", "aboutVisibleMode", "aboutRepeats", "aboutSpeed", "aboutDefaultShortcut"].map((key) => ({ text: tl(key) })) },
+      { heading: tl("aboutPrivacyHeading"), iconHtml: WELCOME_ABOUT_SECTION_ICONS.privacy, items: ["noNetwork", "noCollection"].map((key) => ({ text: tl(key) })) },
+      { heading: tl("aboutCodeHeading"), iconHtml: WELCOME_ABOUT_SECTION_ICONS.code, items: [{ text: tl("codeOnGithub"), href: WELCOME_GITHUB_URL }, { text: tl("credits") }] },
+      { heading: tl("aboutStatisticsHeading"), iconHtml: WELCOME_ABOUT_SECTION_ICONS.statistics, items: [{ text: tl("aboutScenarioRuns").replace("{count}", "0") }] }
     ],
+    aboutFooter: { productName: "Click Repeater", author: "md2it" },
     langAriaLabel: tl("language")
   };
 }
@@ -87,8 +75,8 @@ function buildWelcomeData(locale, extensionName, options) {
     pinHintIcon: welcomeStepIcon(WELCOME_PIN_SVG, 48),
     heartIcon: welcomeStepIcon(WELCOME_HEART_SVG, 56),
     isPinned,
-    aboutHeading: current.aboutHeading,
-    aboutItems: current.aboutItems,
+    aboutSections: current.aboutSections,
+    aboutFooter: current.aboutFooter,
     hasAbout: true,
     hasLocales: true,
     locales: [...LOCALES],
