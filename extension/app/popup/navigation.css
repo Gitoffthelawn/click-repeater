@@ -178,9 +178,9 @@ kbd {
 }
 
 .about-list {
-  list-style: none;
+  list-style: disc;
   margin: 0;
-  padding: 0;
+  padding-left: 18px;
 }
 
 .about-section {
@@ -208,9 +208,7 @@ kbd {
 }
 
 .about-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
+  display: list-item;
   margin-bottom: 3px;
   color: #374151;
   font-size: 13px;
@@ -229,16 +227,6 @@ kbd {
   height: 16px;
 }
 
-.about-list .about-icon,
-.about-list .about-icon svg {
-  width: 12px;
-  height: 12px;
-  flex-basis: 12px;
-}
-
-.about-list .about-icon {
-  margin-top: 2px;
-}
 
 .about-list a {
   color: inherit;

@@ -9,6 +9,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.2.3
+- Refined the About page layout
+
 ### 1.2.2
 - Delayed Stop button appearance on scenario start to avoid a brief red flash
 
