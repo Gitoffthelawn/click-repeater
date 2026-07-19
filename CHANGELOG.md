@@ -4,6 +4,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.9
+- Aligned Step mode and Visible / Stealth explanation copy across locales with the English meaning
+
 ### 1.2.8
 - Centralized content-script injection files and added an extension structure consistency check
 
