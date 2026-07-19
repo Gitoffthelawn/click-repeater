@@ -1,7 +1,33 @@
+function appendStaticSvg(parent, svgHtml) {
+  if (!svgHtml) {
+    return;
+  }
+
+  const parsed = new DOMParser().parseFromString(svgHtml, "image/svg+xml");
+  const svg = parsed.documentElement;
+  if (svg?.localName === "svg" && !parsed.querySelector("parsererror")) {
+    parent.append(document.importNode(svg, true));
+  }
+}
+
+function createIconButton({ className, action, id, tooltip, ariaLabel, ariaPressed, svgHtml }) {
+  const button = document.createElement("button");
+  button.className = className;
+  button.type = "button";
+  button.dataset.action = action;
+  button.dataset.id = id;
+  button.dataset.tooltip = tooltip;
+  button.setAttribute("aria-label", ariaLabel);
+  if (ariaPressed !== undefined) {
+    button.setAttribute("aria-pressed", String(ariaPressed));
+  }
+  appendStaticSvg(button, svgHtml);
+  return button;
+}
 
 function render() {
   clearDeleteConfirmation();
-  refs.list.innerHTML = "";
+  refs.list.replaceChildren();
 
   if (clicks.length === 0) {
     const emptyRow = document.createElement("li");
@@ -15,36 +41,126 @@ function render() {
   for (const macro of clicks) {
     const displayMovesEnabled = getDisplayMovesValue(macro);
     const isElementMode = (macro.mode ?? "position") === "element";
-    const modeIndicator = isElementMode
-      ? `<span class="click-mode-icon" aria-hidden="true" data-tooltip="${t("modeElement")}">${iconSet.code}</span>`
-      : "";
-    const displayMovesIndicator = displayMovesEnabled
-      ? ""
-      : `<span class="click-display-moves-icon display-moves-off" aria-hidden="true" data-tooltip="${t("displayMovesOff")}">${iconSet.eyeOff}</span>`;
     const isDefault = macro.id === defaultClickId;
     const defaultTitle = t(isDefault ? "defaultLabel" : "makeDefault");
     const defaultDetail = t(isDefault ? "worksByShortcut" : "enableShortcut");
+    const runLabel = t("run");
+    const checkLabel = t("check");
+    const editLabel = t("edit");
+    const deleteLabel = t("delete");
+    const repeatLabel = t("repeat");
+
     const row = document.createElement("li");
     row.className = "click-item";
     row.dataset.clickId = macro.id;
-    row.innerHTML = `
-      <span class="drag-handle" data-action="drag-handle" aria-hidden="true">${iconSet.gripVertical}</span>
-      <div class="click-row">
-        <div class="click-main">
-          <button class="icon-btn run-btn" type="button" data-action="run" data-id="${macro.id}" data-tooltip="${t("run")}" aria-label="${t("run")}">${iconSet.play}</button>
-          <button class="icon-btn check-btn ${state.activeCheckClickId === macro.id ? "active" : ""}" type="button" data-action="check" data-id="${macro.id}" data-tooltip="${t("check")}" aria-label="${t("check")}" aria-pressed="${state.activeCheckClickId === macro.id}">${iconSet.check}</button>
-          ${modeIndicator}
-          ${displayMovesIndicator}
-          <span class="click-name">${macro.name}</span>
-        </div>
-        <div class="click-actions">
-          <button class="icon-btn default-btn ${isDefault ? "active" : ""}" type="button" data-action="set-default" data-id="${macro.id}" data-tooltip="${defaultTitle}" data-tooltip-detail="${defaultDetail}" aria-label="${defaultTitle}. ${defaultDetail}" aria-pressed="${isDefault}">${iconSet.star}</button>
-          <span class="repeat-field" data-tooltip="${t("repeat")}"><input class="click-repeats repeat-input" type="number" min="1" max="999" step="1" inputmode="numeric" value="${normalizeRepeats(macro.repeats)}" data-action="set-repeats" data-id="${macro.id}" aria-label="${t("repeat")}" /></span>
-          <button class="icon-btn" type="button" data-action="edit" data-id="${macro.id}" data-tooltip="${t("edit")}" aria-label="${t("edit")}">${iconSet.squarePen}</button>
-          <button class="icon-btn delete-btn" type="button" data-action="delete" data-id="${macro.id}" data-tooltip="${t("delete")}" aria-label="${t("delete")}">${iconSet.trash}</button>
-        </div>
-      </div>
-    `;
+
+    const dragHandle = document.createElement("span");
+    dragHandle.className = "drag-handle";
+    dragHandle.dataset.action = "drag-handle";
+    dragHandle.setAttribute("aria-hidden", "true");
+    appendStaticSvg(dragHandle, iconSet.gripVertical);
+
+    const clickRow = document.createElement("div");
+    clickRow.className = "click-row";
+
+    const clickMain = document.createElement("div");
+    clickMain.className = "click-main";
+    clickMain.append(
+      createIconButton({
+        className: "icon-btn run-btn",
+        action: "run",
+        id: macro.id,
+        tooltip: runLabel,
+        ariaLabel: runLabel,
+        svgHtml: iconSet.play
+      }),
+      createIconButton({
+        className: `icon-btn check-btn${state.activeCheckClickId === macro.id ? " active" : ""}`,
+        action: "check",
+        id: macro.id,
+        tooltip: checkLabel,
+        ariaLabel: checkLabel,
+        ariaPressed: state.activeCheckClickId === macro.id,
+        svgHtml: iconSet.check
+      })
+    );
+
+    if (isElementMode) {
+      const modeIndicator = document.createElement("span");
+      modeIndicator.className = "click-mode-icon";
+      modeIndicator.setAttribute("aria-hidden", "true");
+      modeIndicator.dataset.tooltip = t("modeElement");
+      appendStaticSvg(modeIndicator, iconSet.code);
+      clickMain.append(modeIndicator);
+    }
+
+    if (!displayMovesEnabled) {
+      const displayMovesIndicator = document.createElement("span");
+      displayMovesIndicator.className = "click-display-moves-icon display-moves-off";
+      displayMovesIndicator.setAttribute("aria-hidden", "true");
+      displayMovesIndicator.dataset.tooltip = t("displayMovesOff");
+      appendStaticSvg(displayMovesIndicator, iconSet.eyeOff);
+      clickMain.append(displayMovesIndicator);
+    }
+
+    const name = document.createElement("span");
+    name.className = "click-name";
+    name.textContent = macro.name;
+    clickMain.append(name);
+
+    const clickActions = document.createElement("div");
+    clickActions.className = "click-actions";
+
+    const defaultBtn = createIconButton({
+      className: `icon-btn default-btn${isDefault ? " active" : ""}`,
+      action: "set-default",
+      id: macro.id,
+      tooltip: defaultTitle,
+      ariaLabel: `${defaultTitle}. ${defaultDetail}`,
+      ariaPressed: isDefault,
+      svgHtml: iconSet.star
+    });
+    defaultBtn.dataset.tooltipDetail = defaultDetail;
+
+    const repeatField = document.createElement("span");
+    repeatField.className = "repeat-field";
+    repeatField.dataset.tooltip = repeatLabel;
+    const repeatInput = document.createElement("input");
+    repeatInput.className = "click-repeats repeat-input";
+    repeatInput.type = "number";
+    repeatInput.min = "1";
+    repeatInput.max = "999";
+    repeatInput.step = "1";
+    repeatInput.inputMode = "numeric";
+    repeatInput.value = String(normalizeRepeats(macro.repeats));
+    repeatInput.dataset.action = "set-repeats";
+    repeatInput.dataset.id = macro.id;
+    repeatInput.setAttribute("aria-label", repeatLabel);
+    repeatField.append(repeatInput);
+
+    clickActions.append(
+      defaultBtn,
+      repeatField,
+      createIconButton({
+        className: "icon-btn",
+        action: "edit",
+        id: macro.id,
+        tooltip: editLabel,
+        ariaLabel: editLabel,
+        svgHtml: iconSet.squarePen
+      }),
+      createIconButton({
+        className: "icon-btn delete-btn",
+        action: "delete",
+        id: macro.id,
+        tooltip: deleteLabel,
+        ariaLabel: deleteLabel,
+        svgHtml: iconSet.trash
+      })
+    );
+
+    clickRow.append(clickMain, clickActions);
+    row.append(dragHandle, clickRow);
     refs.list.append(row);
   }
 
@@ -317,7 +433,7 @@ function getCurrentEditSteps() {
 }
 
 function renderEditSteps(steps) {
-  refs.editSteps.innerHTML = "";
+  refs.editSteps.replaceChildren();
   refs.editStepsDetailRow.classList.toggle("hidden", steps.length === 0);
   refs.editStepsDetail.checked = state.showDetailedSteps;
   refs.editStepsDetailLabel.textContent = t(state.showDetailedSteps ? "hideDetailedSteps" : "showDetailedSteps");

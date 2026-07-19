@@ -556,6 +556,32 @@ function t(key, params = {}) {
   return String(template).replace(/\{(\w+)\}/g, (_, name) => String(params[name] ?? ""));
 }
 
+const I18N_HTML_ALLOWED_TAGS = new Set(["STRONG", "KBD"]);
+
+function setI18nHtml(element, html) {
+  element.replaceChildren();
+  const parsed = new DOMParser().parseFromString(`<body>${html}</body>`, "text/html");
+  const transfer = (source, target) => {
+    for (const node of source.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        target.append(document.createTextNode(node.textContent));
+        continue;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) {
+        continue;
+      }
+      if (I18N_HTML_ALLOWED_TAGS.has(node.tagName)) {
+        const child = document.createElement(node.tagName.toLowerCase());
+        transfer(node, child);
+        target.append(child);
+        continue;
+      }
+      transfer(node, target);
+    }
+  };
+  transfer(parsed.body, element);
+}
+
 function applyTranslations() {
   document.documentElement.lang = currentLocale.replace("_", "-");
   document.documentElement.dir = currentLocale === "ar" ? "rtl" : "ltr";
@@ -563,7 +589,7 @@ function applyTranslations() {
     element.textContent = t(element.dataset.i18n);
   }
   for (const element of document.querySelectorAll("[data-i18n-html]")) {
-    element.innerHTML = t(element.dataset.i18nHtml);
+    setI18nHtml(element, t(element.dataset.i18nHtml));
   }
   for (const element of document.querySelectorAll("[data-i18n-title]")) {
     const text = t(element.dataset.i18nTitle);

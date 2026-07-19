@@ -4,6 +4,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.10
+- Hardened popup click-list and i18n HTML rendering against unsafe `innerHTML` (DOM API / allowlisted markup)
+
 ### 1.2.9
 - Aligned Step mode and Visible / Stealth explanation copy across locales with the English meaning
 
