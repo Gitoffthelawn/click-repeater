@@ -22,6 +22,10 @@
 
 Load the entire [`extension`](./extension) directory as an unpacked extension.
 
+### GitHub Release
+
+Pushing a version tag that matches `manifest.json` (for example, `v1.2.11`) creates a GitHub Release with the packaged extension.
+
 ## DESCRIPTION
 
 Click Repeater records clicks and keyboard input on a web page and repeats them later.
