@@ -24,7 +24,10 @@ Load the entire [`extension`](./extension) directory as an unpacked extension.
 
 ### GitHub Release
 
-Pushing a version tag that matches `manifest.json` (for example, `v1.2.11`) creates a GitHub Release with the packaged extension.
+Download the latest release ZIP for local install:
+[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
+
+Unpack the archive and load the folder as an unpacked extension.
 
 ## DESCRIPTION
 

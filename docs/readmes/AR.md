@@ -22,6 +22,13 @@
 
 حمّل مجلد [`extension`](../extension) بالكامل كإضافة غير مضغوطة.
 
+### GitHub Release
+
+نزّل أحدث ملف ZIP للتثبيت المحلي:
+[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
+
+فُك ضغط الأرشيف وحمّل المجلد كإضافة غير مضغوطة.
+
 ## الوصف
 
 يسجل Click Repeater النقرات وإدخال لوحة المفاتيح على صفحة ويب ويكررها لاحقًا.

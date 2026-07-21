@@ -22,6 +22,13 @@
 
 Chargez l'intégralité du répertoire [`extension`](../extension) comme extension non empaquetée.
 
+### GitHub Release
+
+Téléchargez le ZIP de la dernière version pour une installation locale :
+[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
+
+Décompressez l'archive et chargez le dossier comme extension non empaquetée.
+
 ## DESCRIPTION
 
 Click Repeater enregistre les clics et les saisies au clavier effectués sur une page web et les répète ultérieurement.

@@ -22,6 +22,13 @@
 
 将整个 [`extension`](../extension) 目录作为未打包的扩展程序加载。
 
+### GitHub Release
+
+下载最新版本的 ZIP 进行本地安装：
+[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
+
+解压归档后，将该文件夹作为未打包的扩展程序加载。
+
 ## 说明
 
 Click Repeater 可以记录网页上的点击和键盘输入，并在之后重复执行。

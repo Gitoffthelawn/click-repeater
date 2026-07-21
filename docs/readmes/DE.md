@@ -22,6 +22,13 @@
 
 Laden Sie das gesamte Verzeichnis [`extension`](../extension) als entpackte Erweiterung.
 
+### GitHub Release
+
+Laden Sie das aktuelle Release-ZIP für die lokale Installation herunter:
+[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
+
+Entpacken Sie das Archiv und laden Sie den Ordner als entpackte Erweiterung.
+
 ## BESCHREIBUNG
 
 Click Repeater zeichnet Klicks und Tastatureingaben auf einer Webseite auf und wiederholt sie später.

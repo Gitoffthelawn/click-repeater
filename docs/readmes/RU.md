@@ -22,6 +22,13 @@
 
 Загрузите весь каталог [`extension`](../extension) как распакованное расширение.
 
+### GitHub Release
+
+Скачайте ZIP последней версии для локальной установки:
+[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
+
+Распакуйте архив и загрузите папку как распакованное расширение.
+
 ## ОПИСАНИЕ
 
 Click Repeater записывает нажатия и ввод с клавиатуры на веб-странице и повторяет их позже.

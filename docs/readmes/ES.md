@@ -22,6 +22,13 @@
 
 Carga el directorio completo [`extension`](../extension) como una extensión descomprimida.
 
+### GitHub Release
+
+Descarga el ZIP de la última versión para instalación local:
+[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
+
+Descomprime el archivo y carga la carpeta como una extensión descomprimida.
+
 ## DESCRIPCIÓN
 
 Click Repeater graba clics y entradas de teclado en una página web y los repite posteriormente.
