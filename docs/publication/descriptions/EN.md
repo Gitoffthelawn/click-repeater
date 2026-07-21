@@ -19,7 +19,7 @@ SECURITY
 - Clicks, keyboard input, and settings are stored locally in the browser.
 
 INTERFACE LANGUAGES
-English, Russian, Spanish, French, German, Simplified Chinese, Arabic.
+English, French, German, Spanish, Russian, Arabic, Simplified Chinese.
 
 MADE WITH CARE
 - Create an action sequence once and reuse it instead of repeating the same actions manually;

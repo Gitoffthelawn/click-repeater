@@ -4,6 +4,12 @@
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../../README.md">EN</a> | <a href="./ES.md">ES</a> | FR | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## DESCRIPTION
+
+Click Repeater enregistre les clics et les saisies au clavier effectués sur une page web et les répète ultérieurement.
+
+Créez une séquence d'actions une fois, configurez son exécution et lancez-la depuis la fenêtre de l'extension ou avec un raccourci clavier. Les clics peuvent utiliser des coordonnées enregistrées ou des éléments de la page.
+
 <p align="center">
   <a href="../publication/screenshots/FR-0.png"><img src="../publication/screenshots/FR-0.png" width="180" alt="Click Repeater screenshot 1"></a>
   <a href="../publication/screenshots/FR-1.png"><img src="../publication/screenshots/FR-1.png" width="180" alt="Click Repeater screenshot 2"></a>
@@ -18,22 +24,14 @@
 - [Chrome Web Store](https://chromewebstore.google.com/detail/click-repeater/ojdgninjdijhhclanjlhaipehopjjmoo)
 - [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/click-repeater/)
 
-### Mode développement
+### Installation manuelle
 
-Chargez l'intégralité du répertoire [`extension`](../extension) comme extension non empaquetée.
+- **GitHub Release.** Téléchargez le ZIP de la dernière version pour une installation locale :
+  [click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
 
-### GitHub Release
+  Décompressez l'archive et chargez le dossier comme extension non empaquetée.
 
-Téléchargez le ZIP de la dernière version pour une installation locale :
-[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
-
-Décompressez l'archive et chargez le dossier comme extension non empaquetée.
-
-## DESCRIPTION
-
-Click Repeater enregistre les clics et les saisies au clavier effectués sur une page web et les répète ultérieurement.
-
-Créez une séquence d'actions une fois, configurez son exécution et lancez-la depuis la fenêtre de l'extension ou avec un raccourci clavier. Les clics peuvent utiliser des coordonnées enregistrées ou des éléments de la page.
+- **Mode développement.** Chargez l'intégralité du répertoire [`extension`](../extension) comme extension non empaquetée.
 
 ## FONCTIONNALITÉS PRINCIPALES
 
@@ -46,23 +44,6 @@ Créez une séquence d'actions une fois, configurez son exécution et lancez-la 
 - Définir une option par défaut et la lancer avec un raccourci
 - Modifier, supprimer et réorganiser les clics enregistrés
 - Thèmes clair et sombre
-
-## CONFIDENTIALITÉ
-
-- Aucune collecte de données
-- Aucun suivi
-- Aucune requête réseau
-- Les clics et les paramètres sont enregistrés localement dans le navigateur
-
-## LANGUES DE L'INTERFACE
-
-- Anglais
-- Russe
-- Espagnol
-- Français
-- Allemand
-- Chinois simplifié
-- Arabe
 
 ## UTILISATION
 
@@ -94,6 +75,23 @@ Consultez [tous les parcours utilisateur](../../docs/spec/user-path.md) pour plu
 - La lecture de Delete / Backspace ne fonctionne pas dans Google Docs
 - La saisie au clavier dans les cellules Google Sheets ne fonctionne pas
 - Les clics simulés peuvent être détectés par les sites web même en mode Stealth — les événements générés par le navigateur ne portent pas l'indicateur `isTrusted: true` propre aux interactions utilisateur réelles ; les sites qui vérifient `event.isTrusted` détecteront l'automatisation quelle que soit la méthode utilisée pour déclencher le clic
+
+## CONFIDENTIALITÉ
+
+- Aucune collecte de données
+- Aucun suivi
+- Aucune requête réseau
+- Les clics et les paramètres sont enregistrés localement dans le navigateur
+
+## LANGUES DE L'INTERFACE
+
+- Anglais
+- Français
+- Allemand
+- Espagnol
+- Russe
+- Arabe
+- Chinois simplifié
 
 ## LICENCE
 

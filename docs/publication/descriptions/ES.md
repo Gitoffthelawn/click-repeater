@@ -19,7 +19,7 @@ SEGURIDAD
 - Los clics, las entradas de teclado y los ajustes se guardan localmente en el navegador.
 
 IDIOMAS DE LA INTERFAZ
-Inglés, ruso, español, francés, alemán, chino simplificado, árabe.
+Inglés, francés, alemán, español, ruso, árabe, chino simplificado.
 
 HECHO CON CUIDADO
 - Crea una secuencia de acciones una vez y reutilízala en lugar de repetir manualmente las mismas acciones;

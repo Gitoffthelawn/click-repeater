@@ -19,7 +19,7 @@ SICHERHEIT
 - Klicks, Tastatureingaben und Einstellungen werden lokal im Browser gespeichert.
 
 OBERFLÄCHENSPRACHEN
-Englisch, Russisch, Spanisch, Französisch, Deutsch, vereinfachtes Chinesisch, Arabisch.
+Englisch, Französisch, Deutsch, Spanisch, Russisch, Arabisch, vereinfachtes Chinesisch.
 
 MIT SORGFALT ENTWICKELT
 - Erstellen Sie eine Aktionsfolge einmal und verwenden Sie sie erneut, statt dieselben Aktionen manuell zu wiederholen;

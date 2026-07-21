@@ -19,7 +19,7 @@ SÉCURITÉ
 - Les clics, les saisies au clavier et les paramètres sont enregistrés localement dans le navigateur.
 
 LANGUES DE L'INTERFACE
-Anglais, russe, espagnol, français, allemand, chinois simplifié, arabe.
+Anglais, français, allemand, espagnol, russe, arabe, chinois simplifié.
 
 CONÇU AVEC SOIN
 - Créez une séquence d'actions une seule fois et réutilisez-la au lieu de répéter manuellement les mêmes actions ;

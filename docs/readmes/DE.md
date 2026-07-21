@@ -4,6 +4,12 @@
 =-=-=-=-=-=-=-=-= | DE | <a href="../../README.md">EN</a> | <a href="./ES.md">ES</a> | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## BESCHREIBUNG
+
+Click Repeater zeichnet Klicks und Tastatureingaben auf einer Webseite auf und wiederholt sie später.
+
+Erstellen Sie einmal eine Aktionsfolge, konfigurieren Sie die Ausführung und starten Sie sie über das Erweiterungsfenster oder eine Tastenkombination. Klicks können aufgezeichnete Koordinaten oder Seitenelemente verwenden.
+
 <p align="center">
   <a href="../publication/screenshots/DE-0.png"><img src="../publication/screenshots/DE-0.png" width="180" alt="Click Repeater screenshot 1"></a>
   <a href="../publication/screenshots/DE-1.png"><img src="../publication/screenshots/DE-1.png" width="180" alt="Click Repeater screenshot 2"></a>
@@ -18,22 +24,14 @@
 - [Chrome Web Store](https://chromewebstore.google.com/detail/click-repeater/ojdgninjdijhhclanjlhaipehopjjmoo)
 - [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/click-repeater/)
 
-### Entwicklungsmodus
+### Manuelle Installation
 
-Laden Sie das gesamte Verzeichnis [`extension`](../extension) als entpackte Erweiterung.
+- **GitHub Release.** Laden Sie das aktuelle Release-ZIP für die lokale Installation herunter:
+  [click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
 
-### GitHub Release
+  Entpacken Sie das Archiv und laden Sie den Ordner als entpackte Erweiterung.
 
-Laden Sie das aktuelle Release-ZIP für die lokale Installation herunter:
-[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
-
-Entpacken Sie das Archiv und laden Sie den Ordner als entpackte Erweiterung.
-
-## BESCHREIBUNG
-
-Click Repeater zeichnet Klicks und Tastatureingaben auf einer Webseite auf und wiederholt sie später.
-
-Erstellen Sie einmal eine Aktionsfolge, konfigurieren Sie die Ausführung und starten Sie sie über das Erweiterungsfenster oder eine Tastenkombination. Klicks können aufgezeichnete Koordinaten oder Seitenelemente verwenden.
+- **Entwicklungsmodus.** Laden Sie das gesamte Verzeichnis [`extension`](../extension) als entpackte Erweiterung.
 
 ## HAUPTFUNKTIONEN
 
@@ -46,23 +44,6 @@ Erstellen Sie einmal eine Aktionsfolge, konfigurieren Sie die Ausführung und st
 - Per Tastenkombination starten
 - Gespeicherte Klicks bearbeiten, löschen und sortieren
 - Helles und dunkles Design
-
-## DATENSCHUTZ
-
-- Keine Datenerfassung
-- Kein Tracking
-- Keine Netzwerkanfragen
-- Klicks und Einstellungen werden lokal im Browser gespeichert
-
-## OBERFLÄCHENSPRACHEN
-
-- Englisch
-- Russisch
-- Spanisch
-- Französisch
-- Deutsch
-- Vereinfachtes Chinesisch
-- Arabisch
 
 ## VERWENDUNG
 
@@ -94,6 +75,23 @@ Weitere Informationen finden Sie unter [alle Benutzerpfade](../../docs/spec/user
 - Die Wiedergabe von Delete / Backspace funktioniert in Google Docs nicht
 - Tastatureingaben in Google-Sheets-Zellen funktionieren nicht
 - Simulierte Klicks können von Websites auch im Stealth-Modus erkannt werden — browsergenerierte Ereignisse tragen nicht das Flag `isTrusted: true`, das echten Nutzerinteraktionen vorbehalten ist; Seiten, die `event.isTrusted` prüfen, erkennen die Automatisierung unabhängig davon, wie der Klick ausgelöst wurde
+
+## DATENSCHUTZ
+
+- Keine Datenerfassung
+- Kein Tracking
+- Keine Netzwerkanfragen
+- Klicks und Einstellungen werden lokal im Browser gespeichert
+
+## OBERFLÄCHENSPRACHEN
+
+- Englisch
+- Französisch
+- Deutsch
+- Spanisch
+- Russisch
+- Arabisch
+- Vereinfachtes Chinesisch
 
 ## LIZENZ
 

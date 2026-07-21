@@ -4,6 +4,12 @@
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../../README.md">EN</a> | <a href="./ES.md">ES</a> | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | عربي | =-=-=-=-=-=-=-=-=
 </p>
 
+## الوصف
+
+يسجل Click Repeater النقرات وإدخال لوحة المفاتيح على صفحة ويب ويكررها لاحقًا.
+
+أنشئ تسلسل إجراءات مرة واحدة، واضبط طريقة تشغيله، ثم شغّله من نافذة الإضافة أو باستخدام اختصار لوحة المفاتيح. يمكن للنقرات استخدام الإحداثيات المسجلة أو عناصر الصفحة.
+
 <p align="center">
   <a href="../publication/screenshots/AR-0.png"><img src="../publication/screenshots/AR-0.png" width="180" alt="Click Repeater screenshot 1"></a>
   <a href="../publication/screenshots/AR-1.png"><img src="../publication/screenshots/AR-1.png" width="180" alt="Click Repeater screenshot 2"></a>
@@ -18,22 +24,14 @@
 - [Chrome Web Store](https://chromewebstore.google.com/detail/click-repeater/ojdgninjdijhhclanjlhaipehopjjmoo)
 - [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/click-repeater/)
 
-### وضع التطوير
+### التثبيت اليدوي
 
-حمّل مجلد [`extension`](../extension) بالكامل كإضافة غير مضغوطة.
+- **GitHub Release.** نزّل أحدث ملف ZIP للتثبيت المحلي:
+  [click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
 
-### GitHub Release
+  فُك ضغط الأرشيف وحمّل المجلد كإضافة غير مضغوطة.
 
-نزّل أحدث ملف ZIP للتثبيت المحلي:
-[click-repeater.zip](https://github.com/md2it/click-repeater/releases/latest/download/click-repeater.zip)
-
-فُك ضغط الأرشيف وحمّل المجلد كإضافة غير مضغوطة.
-
-## الوصف
-
-يسجل Click Repeater النقرات وإدخال لوحة المفاتيح على صفحة ويب ويكررها لاحقًا.
-
-أنشئ تسلسل إجراءات مرة واحدة، واضبط طريقة تشغيله، ثم شغّله من نافذة الإضافة أو باستخدام اختصار لوحة المفاتيح. يمكن للنقرات استخدام الإحداثيات المسجلة أو عناصر الصفحة.
+- **وضع التطوير.** حمّل مجلد [`extension`](../extension) بالكامل كإضافة غير مضغوطة.
 
 ## الميزات الرئيسية
 
@@ -46,23 +44,6 @@
 - تعيين نقرات افتراضية وتشغيلها باختصار
 - تعديل النقرات المحفوظة وحذفها وترتيبها
 - سمة فاتحة وأخرى داكنة
-
-## الخصوصية
-
-- لا يتم جمع البيانات
-- لا يوجد تتبع
-- لا توجد طلبات شبكة
-- تُحفظ النقرات والإعدادات محليًا في المتصفح
-
-## لغات الواجهة
-
-- الإنجليزية
-- الروسية
-- الإسبانية
-- الفرنسية
-- الألمانية
-- الصينية المبسطة
-- العربية
 
 ## الاستخدام
 
@@ -94,6 +75,23 @@
 - لا يعمل تشغيل Delete / Backspace في Google Docs
 - لا يعمل إدخال لوحة المفاتيح في خلايا Google Sheets
 - قد تكتشف المواقع النقرات المحاكاة حتى في وضع Stealth — الأحداث التي يُنشئها المتصفح لا تحمل العلامة `isTrusted: true` التي تنفرد بها تفاعلات المستخدم الحقيقية؛ فالمواقع التي تتحقق من `event.isTrusted` ستكشف الأتمتة بصرف النظر عن طريقة إرسال النقرة
+
+## الخصوصية
+
+- لا يتم جمع البيانات
+- لا يوجد تتبع
+- لا توجد طلبات شبكة
+- تُحفظ النقرات والإعدادات محليًا في المتصفح
+
+## لغات الواجهة
+
+- الإنجليزية
+- الفرنسية
+- الألمانية
+- الإسبانية
+- الروسية
+- العربية
+- الصينية المبسطة
 
 ## الترخيص
 
