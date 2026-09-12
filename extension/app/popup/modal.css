@@ -41,16 +41,12 @@
   box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
-.default-btn.active svg {
-  fill: currentColor;
-}
-
-.icon-btn:not(.default-btn),
+.icon-btn,
 .modal-close-btn {
   position: relative;
 }
 
-body:not(.viewport-tooltips-ready) .icon-btn:not(.default-btn)[data-tooltip]::after {
+body:not(.viewport-tooltips-ready) .icon-btn[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 5px);
@@ -70,8 +66,8 @@ body:not(.viewport-tooltips-ready) .icon-btn:not(.default-btn)[data-tooltip]::af
   visibility: hidden;
 }
 
-body:not(.viewport-tooltips-ready) .icon-btn:not(.default-btn):hover[data-tooltip]::after,
-body:not(.viewport-tooltips-ready) .icon-btn:not(.default-btn):focus-visible[data-tooltip]::after {
+body:not(.viewport-tooltips-ready) .icon-btn:hover[data-tooltip]::after,
+body:not(.viewport-tooltips-ready) .icon-btn:focus-visible[data-tooltip]::after {
   opacity: 1;
   visibility: visible;
 }
@@ -99,41 +95,6 @@ body:not(.viewport-tooltips-ready) .modal-close-btn:hover[data-tooltip]::after,
 body:not(.viewport-tooltips-ready) .modal-close-btn:focus-visible[data-tooltip]::after {
   opacity: 1;
   visibility: visible;
-}
-
-.default-btn {
-  position: relative;
-}
-
-body:not(.viewport-tooltips-ready) .default-btn::after {
-  content: attr(data-tooltip) "\A" attr(data-tooltip-detail);
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 6px);
-  z-index: 9999;
-  min-width: max-content;
-  padding: 5px 7px;
-  border-radius: 5px;
-  color: #fff;
-  background: #111827;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.35;
-  text-align: left;
-  white-space: pre;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-}
-
-body:not(.viewport-tooltips-ready) .default-btn:hover::after,
-body:not(.viewport-tooltips-ready) .default-btn:focus-visible::after {
-  opacity: 1;
-  visibility: visible;
-}
-
-.default-btn.active {
-  color: #ffc400;
 }
 
 .viewport-tooltip {

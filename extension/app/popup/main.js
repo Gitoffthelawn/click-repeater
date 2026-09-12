@@ -1,6 +1,6 @@
 
 async function init() {
-  await cleanupLegacyTrackMovesSetting();
+  await cleanupLegacySettings();
   await initializeLocale();
   await readSettingsFromStorage();
   syncSettingsUI();

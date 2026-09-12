@@ -1,8 +1,5 @@
 {
   "extDescription": {
     "message": "Klicks und Tastatureingaben auf Webseiten aufzeichnen und bei Bedarf wiedergeben."
-  },
-  "commandRunDefaultClick": {
-    "message": "Run default"
   }
 }

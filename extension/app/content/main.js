@@ -26,12 +26,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     return;
   }
 
-  if (message.type === "shortcut-prefix-command") {
-    startWaitingForShortcutAction();
-    sendResponse({ ok: true });
-    return;
-  }
-
   if (message.type === "execution-stop") {
     if (!executionState.isRunning) {
       sendResponse({ ok: true, wasRunning: false });
@@ -88,20 +82,11 @@ document.addEventListener(
     if (event.key === "Escape") {
       if (executionState.isRunning) {
         executionState.stopRequested = true;
-        void sendRuntimeMessage({ type: "shortcut-stop-execution" });
+        void sendRuntimeMessage({ type: "execution-stop-request" });
       }
       return;
     }
 
-    if (isPrefixShortcut(event)) {
-      shortcutState.isPrefixDown = true;
-      return;
-    }
-
-    if (shortcutState.isWaitingForAction && isPrefixActionKey(event)) {
-      stopWaitingForShortcutAction();
-      void sendRuntimeMessage({ type: "shortcut-run-default" });
-    }
   },
   true
 );
@@ -127,23 +112,3 @@ window.addEventListener("pagehide", () => {
   executionState.unloadDuringRun = true;
   executionState.stopRequested = true;
 });
-document.addEventListener(
-  "keyup",
-  (event) => {
-    if (!event.isTrusted) {
-      return;
-    }
-
-    if (!shortcutState.isPrefixDown) {
-      return;
-    }
-    // On macOS, keyup for the letter is suppressed while Cmd is held,
-    // so wait for the modifiers to be released instead.
-    if (isPrefixChordHeld(event)) {
-      return;
-    }
-    shortcutState.isPrefixDown = false;
-    startWaitingForShortcutAction();
-  },
-  true
-);

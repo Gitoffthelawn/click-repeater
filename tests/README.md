@@ -17,7 +17,6 @@ Coverage map:
 - `mode-execute`: execution normalization, keyboard playback, speed profile, pointer path sizing
 - `mode-check`: overlay grouping and non-interactive rendering
 - `actions`: click/keyboard normalization and coordinate parsing
-- `shortcuts`: prefix/action chord detection and hint messaging
 - `support-survey`: threshold, deferral, cooldown, and store detection
 - `page-operability`: document probe and probe message contract
 - `extension structure`: manifest permissions and content-script inventory
@@ -26,4 +25,4 @@ Add each test file to `index.html` after the shared harness. The page exposes it
 
 The suite loads the production content-script files needed by the scenarios and replaces only `chrome.runtime.sendMessage` with a local capture stub. It deliberately does not emulate extension storage, tabs, service workers, permissions, or popup lifecycle.
 
-Deferred browser/e2e coverage: real `chrome.storage.local` persistence and migration, active-tab operability, cross-frame injection, same-origin navigation resume, toolbar/command shortcuts, and popup-to-background messaging. These require an installed extension and therefore do not belong in this lightweight browser suite.
+Deferred browser/e2e coverage: real `chrome.storage.local` persistence and migration, active-tab operability, cross-frame injection, same-origin navigation resume, and popup-to-background messaging. These require an installed extension and therefore do not belong in this lightweight browser suite.

@@ -1,8 +1,5 @@
 {
   "extDescription": {
     "message": "在网页上录制点击和键盘输入，并在需要时重复执行。"
-  },
-  "commandRunDefaultClick": {
-    "message": "Run default"
   }
 }

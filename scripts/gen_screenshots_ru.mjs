@@ -9,7 +9,7 @@
  *   - Browser bar shows https://www.md2it.com/click-repeater/ (no locale, universal)
  *   - Click trace: page content → Chrome button → Firefox button
  *
- * Storage keys match post-rebranding code (clicks_list, default_click_id).
+ * Storage keys match post-rebranding code (clicks_list and popup_settings).
  */
 
 import { chromium } from 'playwright';
@@ -26,8 +26,6 @@ const OUT_DIR = path.resolve(__dirname, '../docs/publication/screenshots');
 const W = 1280, H = 800;
 
 // ── Mock data ──────────────────────────────────────────────────────────────────
-
-const MOCK_DEFAULT_ID = 'click-001';
 
 const MOCK_CLICKS = [
   {
@@ -78,12 +76,11 @@ const MOCK_SETTINGS_LIGHT = {
 
 const MOCK_SETTINGS_DARK = { ...MOCK_SETTINGS_LIGHT, darkTheme: true };
 
-function buildInitScript(clicks, defaultId, settings) {
+function buildInitScript(clicks, settings) {
   return `
     (() => {
       const STORAGE = {
         clicks_list: ${JSON.stringify(clicks)},
-        default_click_id: ${JSON.stringify(defaultId)},
         popup_settings: ${JSON.stringify(settings)},
         locale: 'ru'
       };
@@ -374,7 +371,7 @@ async function main() {
   async function renderPopup(settings, pageParam) {
     const ctx  = await browser.newContext();
     const page = await ctx.newPage();
-    await page.addInitScript(buildInitScript(MOCK_CLICKS, MOCK_DEFAULT_ID, settings));
+    await page.addInitScript(buildInitScript(MOCK_CLICKS, settings));
     const url = pageParam ? `${popupUrl}?page=${pageParam}` : popupUrl;
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(400);

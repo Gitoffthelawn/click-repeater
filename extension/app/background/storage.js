@@ -4,7 +4,6 @@ import {
   EXECUTION_LAST_EVENT_KEY,
   CHECK_STATE_KEY,
   CLICKS_STORAGE_KEY,
-  DEFAULT_CLICK_ID_KEY,
 } from "./state.js";
 import { ext } from "../api.js";
 
@@ -136,11 +135,6 @@ export async function readClicks() {
   }
 
   return storedClicks.filter((click) => click && typeof click.id === "string");
-}
-
-export async function readDefaultClickId() {
-  const data = await ext.storage.local.get(DEFAULT_CLICK_ID_KEY);
-  return typeof data?.[DEFAULT_CLICK_ID_KEY] === "string" ? data[DEFAULT_CLICK_ID_KEY] : null;
 }
 
 export async function writeExecutionState(state) {

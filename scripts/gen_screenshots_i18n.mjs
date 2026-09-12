@@ -67,8 +67,6 @@ const LOCALE_CONFIGS = [
   },
 ];
 
-const MOCK_DEFAULT_ID = 'click-001';
-
 function buildClicks(customTitle, firstClick) {
   return [
     {
@@ -110,12 +108,11 @@ function buildClicks(customTitle, firstClick) {
   ];
 }
 
-function buildInitScript(clicks, defaultId, settings, locale) {
+function buildInitScript(clicks, settings, locale) {
   return `
     (() => {
       const STORAGE = {
         macros_list: ${JSON.stringify(clicks)},
-        default_macro_id: ${JSON.stringify(defaultId)},
         popup_settings: ${JSON.stringify(settings)},
         locale: ${JSON.stringify(locale)}
       };
@@ -406,7 +403,7 @@ async function main() {
     async function renderPopup(settings, pageParam) {
       const ctx = await browser.newContext();
       const page = await ctx.newPage();
-      await page.addInitScript(buildInitScript(clicks, MOCK_DEFAULT_ID, settings, locale));
+      await page.addInitScript(buildInitScript(clicks, settings, locale));
       const url = pageParam ? `${popupUrl}?page=${pageParam}` : popupUrl;
       await page.goto(url, { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(400);

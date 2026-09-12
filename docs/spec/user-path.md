@@ -25,6 +25,3 @@
 - Any user click in the browser interrupts execution
 - Switching to another OS window outside the browser does not affect execution
 - Clicks outside the browser do not affect execution
-
-### Launch by shortcut
-- If a default is set, the shortcut starts it. Step 1 is omitted, step 2 is the shortcut itself, and the remaining steps are unchanged

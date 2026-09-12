@@ -8,7 +8,7 @@
  *
  * Browser bar on slide-1 always shows https://www.md2it.com/click-repeater/  (no locale — universal).
  *
- * Storage keys use post-rebranding names: clicks_list, default_click_id, popup_settings.
+ * Storage keys use post-rebranding names: clicks_list and popup_settings.
  *
  * Supported locales: EN ES FR DE ZH AR  (+ RU handled separately by gen_screenshots_ru.mjs)
  * Run with:  node scripts/gen_screenshots_all.mjs
@@ -103,8 +103,6 @@ const LOCALE_CONFIGS = [
   },
 ];
 
-const MOCK_DEFAULT_ID = 'click-001';
-
 function buildClicks(records) {
   return [
     {
@@ -153,12 +151,11 @@ const BASE_SETTINGS = {
   skipModeExplanation: false,
 };
 
-function buildInitScript(clicks, defaultId, settings, storageLocale, siteLocale) {
+function buildInitScript(clicks, settings, storageLocale, siteLocale) {
   return `
     (() => {
       const STORAGE = {
         clicks_list:      ${JSON.stringify(clicks)},
-        default_click_id: ${JSON.stringify(defaultId)},
         popup_settings:   ${JSON.stringify(settings)},
         locale:           ${JSON.stringify(storageLocale)}
       };
@@ -453,7 +450,7 @@ async function main() {
     async function renderPopup(settings, pageParam) {
       const bCtx = await browser.newContext();
       const page = await bCtx.newPage();
-      const script = buildInitScript(clicks, MOCK_DEFAULT_ID, settings, cfg.storageLocale, cfg.sitePath);
+      const script = buildInitScript(clicks, settings, cfg.storageLocale, cfg.sitePath);
       await page.addInitScript(script);
       const url = pageParam ? `${popupUrl}?page=${pageParam}` : popupUrl;
       await page.goto(url, { waitUntil: 'domcontentloaded' });

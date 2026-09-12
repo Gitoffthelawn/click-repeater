@@ -26,7 +26,6 @@
 - **Drag handle** — The control used to reorder scenario entries.
 - **Repeat count** — The number of times a scenario runs.
 - **Speed** — The scenario setting that changes generated action timing.
-- **Default scenario** — The scenario launched by the shortcut, when one is set.
 
 ## Modes and views
 

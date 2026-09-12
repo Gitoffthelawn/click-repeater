@@ -14,9 +14,6 @@ const TRACKER_DEFAULT_COLOR = "#012292";
 const TRACKER_ACTIVE_COLOR = "#012292";
 const TRACKER_ACTIVE_DURATION_MS = 50;
 const TRACKER_ELEMENT_ID = "__click_repeater_tracker";
-const SHORTCUT_PREFIX_CODE = "KeyX";
-const SHORTCUT_RUN_DEFAULT_CODE = "KeyM";
-const SHORTCUT_HINT_DURATION_MS = 3000;
 
 const executionState = {
   isRunning: false,
@@ -35,12 +32,6 @@ const trackerState = {
   motionElement: null,
   element: null,
   pulseTimerId: null
-};
-
-const shortcutState = {
-  isPrefixDown: false,
-  isWaitingForAction: false,
-  hintTimerId: null
 };
 
 const recordingState = {
@@ -90,50 +81,4 @@ function sendRuntimeMessage(message) {
       resolve(response ?? { ok: false });
     });
   });
-}
-
-function isMacPlatform() {
-  return (
-    /Mac|iPhone|iPad|iPod/.test(navigator.userAgent) ||
-    navigator.platform.toUpperCase().includes("MAC")
-  );
-}
-
-function isPrefixShortcut(event) {
-  const hasPlatformModifier = isMacPlatform() ? event.metaKey : event.ctrlKey;
-  return event.code === SHORTCUT_PREFIX_CODE && event.shiftKey && hasPlatformModifier;
-}
-
-function isPrefixChordHeld(event) {
-  const hasPlatformModifier = isMacPlatform() ? event.metaKey : event.ctrlKey;
-  return hasPlatformModifier && event.shiftKey;
-}
-
-function isPrefixActionKey(event) {
-  if (event.ctrlKey || event.metaKey || event.altKey) {
-    return false;
-  }
-  return event.code === SHORTCUT_RUN_DEFAULT_CODE;
-}
-
-function clearShortcutHintTimer() {
-  if (shortcutState.hintTimerId !== null) {
-    window.clearTimeout(shortcutState.hintTimerId);
-    shortcutState.hintTimerId = null;
-  }
-}
-
-function stopWaitingForShortcutAction() {
-  clearShortcutHintTimer();
-  shortcutState.isWaitingForAction = false;
-}
-
-function startWaitingForShortcutAction() {
-  clearShortcutHintTimer();
-  shortcutState.isWaitingForAction = true;
-  shortcutState.hintTimerId = window.setTimeout(() => {
-    shortcutState.isWaitingForAction = false;
-    shortcutState.hintTimerId = null;
-  }, SHORTCUT_HINT_DURATION_MS);
-  void sendRuntimeMessage({ type: "shortcut-prefix-activated" });
 }

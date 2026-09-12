@@ -609,12 +609,7 @@ async function deleteClick(macroId) {
     return;
   }
 
-  const [deletedClick] = clicks.splice(index, 1);
-  if (deletedClick.id === defaultClickId) {
-    defaultClickId = null;
-    await persistDefaultClickId();
-  }
-
+  clicks.splice(index, 1);
   await persistClicks();
   render();
   setStatus(t("deleted"));

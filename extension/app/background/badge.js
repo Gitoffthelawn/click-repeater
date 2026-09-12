@@ -1,8 +1,8 @@
-import { readSession, readCheckState, readDefaultClickId, readClicks, normalizeStepForExecution, writeExecutionLastEvent } from "./storage.js";
+import { readSession, readCheckState } from "./storage.js";
 // Circular with execution.js (execution.js also imports from this file); safe
 // because these are only referenced inside function bodies below, never at
 // module-evaluation time.
-import { getRuntimeExecutionState, clearShortcutHintTimer, startExecutionOnTab, setActionBadgeText } from "./execution.js";
+import { getRuntimeExecutionState, setActionBadgeText } from "./execution.js";
 import { ext } from "../api.js";
 import {
   BADGE_ANIMATION_STEPS,
@@ -14,12 +14,6 @@ import {
   CHECK_BADGE_BACKGROUND_COLOR,
   BADGE_TEXT_COLOR,
   ACTIVE_BADGE_TEXT,
-  SHORTCUT_HINT_BADGE_TEXT,
-  SHORTCUT_HINT_BADGE_BACKGROUND_COLOR,
-  SHORTCUT_HINT_BADGE_TEXT_COLOR,
-  SHORTCUT_HINT_DURATION_MS,
-  shortcutHintTimer,
-  normalizeExecutionSpeed,
 } from "./state.js";
 
 // Local to this file: only badge.js reads/mutates the badge animation state.
@@ -126,8 +120,6 @@ function ensureBadgeAnimation(mode) {
 }
 
 export async function syncActionBadge() {
-  clearShortcutHintTimer();
-
   const session = await readSession();
   if (session?.isActive) {
     ensureBadgeAnimation("create");
@@ -155,72 +147,4 @@ export async function syncActionBadge() {
 
   clearBadgeAnimation();
   await setActionBadgeText("");
-}
-
-export async function showShortcutHintBadge() {
-  const session = await readSession();
-  const executionState = await getRuntimeExecutionState();
-  const checkState = await readCheckState();
-  if (session?.isActive || executionState?.isRunning || checkState?.isActive) {
-    await syncActionBadge();
-    return;
-  }
-
-  clearShortcutHintTimer();
-  clearBadgeAnimation();
-  await ext.action.setBadgeText({ text: SHORTCUT_HINT_BADGE_TEXT });
-  await ext.action.setBadgeBackgroundColor({ color: SHORTCUT_HINT_BADGE_BACKGROUND_COLOR });
-  await setBadgeTextColor({ color: SHORTCUT_HINT_BADGE_TEXT_COLOR });
-  shortcutHintTimer.id = setTimeout(() => {
-    shortcutHintTimer.id = null;
-    void syncActionBadge();
-  }, SHORTCUT_HINT_DURATION_MS);
-}
-
-export async function startDefaultClickFromTab(tabId) {
-  if (!Number.isInteger(tabId)) {
-    return { ok: false, error: "tab_id_required" };
-  }
-
-  const defaultClickId = await readDefaultClickId();
-  if (!defaultClickId) {
-    return { ok: false, error: "default_click_missing" };
-  }
-
-  const clicks = await readClicks();
-  const click = clicks.find((item) => item.id === defaultClickId);
-  if (!click) {
-    return { ok: false, error: "default_click_missing" };
-  }
-
-  const clickMode = click.mode === "element" ? "element" : "position";
-  const steps = Array.isArray(click.steps)
-    ? click.steps
-      .map((step) => normalizeStepForExecution(step, clickMode))
-      .filter(Boolean)
-    : [];
-  const clickName = typeof click.name === "string" && click.name.trim() ? click.name.trim() : "clicks";
-  if (!steps.length) {
-    // Preserve the failure so the popup can report a shortcut-triggered run.
-    await writeExecutionLastEvent({ kind: "empty-steps", clickName });
-    return { ok: false, error: "empty_steps" };
-  }
-  const repeatsRaw = Number(click.repeats);
-  const repeats = Number.isFinite(repeatsRaw) && repeatsRaw > 0 ? Math.floor(repeatsRaw) : 1;
-  const settingsData = await ext.storage.local.get("popup_settings");
-  const storedSettings = settingsData?.popup_settings;
-  const soundVolume = ["volume", "volume-1", "volume-2"].includes(storedSettings?.soundVolume)
-    ? storedSettings.soundVolume
-    : (storedSettings?.clickSound !== false ? "volume-1" : "volume");
-  return startExecutionOnTab({
-    tabId,
-    clickId: click.id,
-    clickName,
-    repeats,
-    trackMoves: Boolean(click.displayMoves ?? click.trackMoves),
-    executionSpeed: normalizeExecutionSpeed(click.speed),
-    soundVolume,
-    clickSound: soundVolume !== "volume",
-    steps
-  });
 }

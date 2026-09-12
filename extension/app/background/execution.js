@@ -1,5 +1,5 @@
 import { writeExecutionState, clearExecutionState, readExecutionState, writeExecutionLastEvent, getOriginFromUrl } from "./storage.js";
-import { shortcutHintTimer, BADGE_BACKGROUND_COLOR, BADGE_TEXT_COLOR } from "./state.js";
+import { BADGE_BACKGROUND_COLOR, BADGE_TEXT_COLOR } from "./state.js";
 import { canOperateOnTab } from "../page-operability/can-operate.js";
 import { showRestrictedNotice } from "../page-operability/notice.js";
 import { ext } from "../api.js";
@@ -198,13 +198,6 @@ export async function setActionBadgeText(text) {
         // Badge text color is cosmetic and is not supported by every browser.
       }
     }
-  }
-}
-
-export function clearShortcutHintTimer() {
-  if (shortcutHintTimer.id !== null) {
-    clearTimeout(shortcutHintTimer.id);
-    shortcutHintTimer.id = null;
   }
 }
 

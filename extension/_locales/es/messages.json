@@ -1,8 +1,5 @@
 {
   "extDescription": {
     "message": "Graba clics y entradas de teclado en páginas web, y repítelos cuando lo necesites."
-  },
-  "commandRunDefaultClick": {
-    "message": "Run default"
   }
 }

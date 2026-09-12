@@ -11,7 +11,6 @@
 - Recording mode starts only from the button in the popup
 - Execution mode starts:
    - From the button for a specific entry in the popup
-   - From the shortcut for the default
 
 ---
 

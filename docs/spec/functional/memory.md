@@ -10,7 +10,6 @@
 ### Persistent
 
 - Saved clicks and settings: name, repeat count, steps, and display mode
-- Which is the default
 
 ### Temporary (for the session)
 
@@ -20,7 +19,7 @@
 
 ## DELETED DATA
 
-- Deleting an entry removes all of its data, including default status if assigned
+- Deleting an entry removes all of its data
 - Recording session data is removed when recording ends
 - Execution session data is removed when execution ends
 - Obsolete settings from previous extension versions are removed automatically

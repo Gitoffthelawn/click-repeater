@@ -193,33 +193,14 @@ async function readClicksFromStorage() {
   }
 }
 
-async function readDefaultClickIdFromStorage() {
-  try {
-    const data = await ext.storage.local.get(DEFAULT_CLICK_ID_KEY);
-    return typeof data?.[DEFAULT_CLICK_ID_KEY] === "string" ? data[DEFAULT_CLICK_ID_KEY] : null;
-  } catch {
-    return null;
-  }
-}
-
 async function persistClicks() {
   await ext.storage.local.set({ [STORAGE_KEY]: clicks });
-}
-
-async function persistDefaultClickId() {
-  await ext.storage.local.set({ [DEFAULT_CLICK_ID_KEY]: defaultClickId });
 }
 
 async function loadClicks() {
   const storedClicks = await readClicksFromStorage();
   clicks.length = 0;
   clicks.push(...storedClicks);
-
-  defaultClickId = await readDefaultClickIdFromStorage();
-  if (defaultClickId && !clicks.some((macro) => macro.id === defaultClickId)) {
-    defaultClickId = null;
-    await persistDefaultClickId();
-  }
 }
 
 async function readSettingsFromStorage() {
@@ -279,19 +260,6 @@ function syncSoundVolumeUI() {
   refs.settingClickSound.innerHTML = iconByLevel[soundVolume];
 }
 
-async function cleanupLegacyTrackMovesSetting() {
-  await ext.storage.local.remove("track_moves_enabled");
-}
-
-async function setDefaultClick(macroId, enabled = true) {
-  const macro = clicks.find((item) => item.id === macroId);
-  if (!macro) {
-    setStatus(t("notFound"));
-    return;
-  }
-
-  defaultClickId = enabled ? macroId : null;
-  await persistDefaultClickId();
-  render();
-  setStatus(enabled ? t("defaultSet", { name: macro.name }) : t("defaultUnset"));
+async function cleanupLegacySettings() {
+  await ext.storage.local.remove(["track_moves_enabled", "default_click_id", "default_macro_id"]);
 }

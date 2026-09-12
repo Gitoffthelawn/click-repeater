@@ -19,4 +19,3 @@
    - "Manage" button (Lucide `ellipsis-vertical`), which opens the [Manage menu](../ui/manage-menu.md)
    - Has a tooltip as described in [Interface - Tooltips](../ui/common.md#tooltips)
 - No mode or visibility indicator icons are shown inline in the row; the current mode and visibility are only shown inside the Manage menu
-- No favorite/default control is shown in the row; see [Default](../functional/default.md)

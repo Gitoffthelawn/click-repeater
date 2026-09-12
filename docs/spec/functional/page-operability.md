@@ -5,7 +5,7 @@
 ## CHECK
 
 - Use the local modules in `extension/app/page-operability/`
-- Check the active tab when the extension icon is clicked and when launch is requested by shortcut
+- Check the active tab when the extension icon is clicked
 - Check again immediately before recording or executing
 - A check failure, content-script injection failure, or communication failure means the page is unavailable
 - State is determined separately for each tab and is not cached after navigation to another page

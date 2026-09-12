@@ -201,10 +201,6 @@ html.dark-theme .status-line--error {
   color: #f87171;
 }
 
-html.dark-theme .default-btn.active {
-  color: #ffc400;
-}
-
 html.dark-theme .clicks-list > li.click-row {
   border-color: #374151;
   background: rgba(31, 41, 55, 0.82);

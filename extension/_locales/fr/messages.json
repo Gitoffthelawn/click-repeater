@@ -1,8 +1,5 @@
 {
   "extDescription": {
     "message": "Enregistrez des clics et des saisies clavier sur des pages web, puis rejouez-les quand vous en avez besoin."
-  },
-  "commandRunDefaultClick": {
-    "message": "Run default"
   }
 }

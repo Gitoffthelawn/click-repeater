@@ -15,7 +15,7 @@ import {
   normalizeKeyboardAction,
   readExecutionState,
 } from "./storage.js";
-import { SHORTCUT_HINT_BADGE_TEXT, SHORTCUT_HINT_DURATION_MS, normalizeExecutionSpeed } from "./state.js";
+import { normalizeExecutionSpeed } from "./state.js";
 import {
   startExecutionOnTab,
   getRuntimeExecutionState,
@@ -24,14 +24,12 @@ import {
   sendRecordingListenerMessage,
   openMainPopup,
   handleActionClick,
-  clearShortcutHintTimer,
 } from "./execution.js";
-import { syncActionBadge, showShortcutHintBadge, startDefaultClickFromTab } from "./badge.js";
+import { syncActionBadge } from "./badge.js";
 import { stopCheckMode, startCheckModeOnTab } from "./check.js";
 import { watchWelcomePinStatus, showWelcome } from "../welcome/background.js";
 import { recordSuccessfulScenario } from "../support-survey/state.js";
 import { ext } from "../api.js";
-import { ensureContentScripts } from "./inject.js";
 import "./navigation.js";
 
 void syncActionBadge();
@@ -386,26 +384,7 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
     })().catch(() => sendResponse({ ok: false, state: { isRunning: false } }));
     return true;
   }
-  if (message.type === "shortcut-prefix-activated") {
-    (async () => {
-      await showShortcutHintBadge();
-      sendResponse({ ok: true, hint: SHORTCUT_HINT_BADGE_TEXT, timeoutMs: SHORTCUT_HINT_DURATION_MS });
-    })().catch(() => sendResponse({ ok: false, error: "shortcut_hint_failed" }));
-    return true;
-  }
-  if (message.type === "shortcut-run-default") {
-    (async () => {
-      clearShortcutHintTimer();
-      const tabId = Number.isInteger(sender?.tab?.id) ? sender.tab.id : null;
-      const result = await startDefaultClickFromTab(tabId);
-      if (!result?.ok) {
-        await syncActionBadge();
-      }
-      sendResponse(result);
-    })().catch(() => sendResponse({ ok: false, error: "shortcut_run_default_failed" }));
-    return true;
-  }
-  if (message.type === "shortcut-stop-execution") {
+  if (message.type === "execution-stop-request") {
     (async () => {
       const currentState = await getRuntimeExecutionState();
       if (!currentState?.isRunning) {
@@ -423,7 +402,7 @@ ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
       await stopExecutionWithEvent({ kind: "stopped", clickName: currentState.clickName });
       void showExecutionErrorNotice(currentState.tabId, "stopped");
       sendResponse({ ok: true, wasRunning: true, stoppedClickName: currentState.clickName });
-    })().catch(() => sendResponse({ ok: false, error: "shortcut_stop_failed" }));
+    })().catch(() => sendResponse({ ok: false, error: "execution_stop_failed" }));
     return true;
   }
   if (message.type === "WATCH_PIN_STATUS") {
@@ -439,46 +418,3 @@ ext.runtime.onInstalled.addListener((details) => {
     void showWelcome();
   }
 });
-
-async function handleShortcutPrefixCommand(tab) {
-  const tabId = Number.isInteger(tab?.id) ? tab.id : null;
-  if (tabId === null) {
-    return;
-  }
-
-  if (!(await canOperateOnTab(tabId))) {
-    await showRestrictedNotice(tabId, tab.windowId);
-    return;
-  }
-
-  if (!await ensureContentScripts(tabId)) {
-    await showRestrictedNotice(tabId, tab.windowId);
-    return;
-  }
-
-  try {
-    await ext.tabs.sendMessage(tabId, { type: "shortcut-prefix-command" });
-  } catch {
-    await showRestrictedNotice(tabId, tab.windowId);
-  }
-}
-
-if (ext.commands && typeof ext.commands.onCommand?.addListener === "function") {
-  ext.commands.onCommand.addListener((command, tab) => {
-    if (command !== "clicks-prefix") {
-      return;
-    }
-    void (async () => {
-      let targetTab = tab;
-      if (!Number.isInteger(targetTab?.id)) {
-        try {
-          const tabs = await ext.tabs.query({ active: true, currentWindow: true });
-          targetTab = tabs[0];
-        } catch {
-          return;
-        }
-      }
-      await handleShortcutPrefixCommand(targetTab);
-    })();
-  });
-}

@@ -16,7 +16,6 @@ const OUT_DIR = path.resolve(__dirname, '../docs/publication/screenshots');
 const W = 1280, H = 800;
 
 // Mock data
-const MOCK_DEFAULT_ID = 'click-001';
 const MOCK_CLICKS = [
   {
     id: 'click-001',
@@ -70,12 +69,11 @@ const MOCK_SETTINGS_DARK = {
 };
 
 // Script injected before any extension JS runs — mocks the chrome API
-function buildInitScript(clicks, defaultId, settings, locale) {
+function buildInitScript(clicks, settings, locale) {
   return `
     (() => {
       const STORAGE = {
         macros_list: ${JSON.stringify(clicks)},
-        default_macro_id: ${JSON.stringify(defaultId)},
         popup_settings: ${JSON.stringify(settings)},
         locale: ${JSON.stringify(locale)}
       };
@@ -364,11 +362,11 @@ async function main() {
 
   const popupUrl = `file://${EXT_DIR}/popup.html`;
 
-  async function renderPopup(clicks, defaultId, settings, locale, page_param) {
+  async function renderPopup(clicks, settings, locale, page_param) {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await page.addInitScript(buildInitScript(clicks, defaultId, settings, locale));
+    await page.addInitScript(buildInitScript(clicks, settings, locale));
 
     const url = page_param ? `${popupUrl}?page=${page_param}` : popupUrl;
     await page.goto(url, { waitUntil: 'domcontentloaded' });
@@ -381,8 +379,8 @@ async function main() {
 
   // ── EN-1: light theme ──────────────────────────────────────────────────────
   console.log('Rendering EN-1 (light)…');
-  const lightList = await renderPopup(MOCK_CLICKS, MOCK_DEFAULT_ID, MOCK_SETTINGS_LIGHT, 'en', null);
-  const lightSettings = await renderPopup(MOCK_CLICKS, MOCK_DEFAULT_ID, MOCK_SETTINGS_LIGHT, 'en', 'settings');
+  const lightList = await renderPopup(MOCK_CLICKS, MOCK_SETTINGS_LIGHT, 'en', null);
+  const lightSettings = await renderPopup(MOCK_CLICKS, MOCK_SETTINGS_LIGHT, 'en', 'settings');
 
   const tmpLM = path.join(OUT_DIR, '_tmp_lm.png');
   const tmpLS = path.join(OUT_DIR, '_tmp_ls.png');
@@ -392,8 +390,8 @@ async function main() {
 
   // ── EN-2: dark theme ───────────────────────────────────────────────────────
   console.log('Rendering EN-2 (dark)…');
-  const darkList = await renderPopup(MOCK_CLICKS, MOCK_DEFAULT_ID, MOCK_SETTINGS_DARK, 'en', null);
-  const darkSettings = await renderPopup(MOCK_CLICKS, MOCK_DEFAULT_ID, MOCK_SETTINGS_DARK, 'en', 'settings');
+  const darkList = await renderPopup(MOCK_CLICKS, MOCK_SETTINGS_DARK, 'en', null);
+  const darkSettings = await renderPopup(MOCK_CLICKS, MOCK_SETTINGS_DARK, 'en', 'settings');
 
   const tmpDM = path.join(OUT_DIR, '_tmp_dm.png');
   const tmpDS = path.join(OUT_DIR, '_tmp_ds.png');

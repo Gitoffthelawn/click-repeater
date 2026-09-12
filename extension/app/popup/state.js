@@ -1,8 +1,6 @@
 const STORAGE_KEY = "clicks_list";
-const DEFAULT_CLICK_ID_KEY = "default_click_id";
 const SETTINGS_KEY = "popup_settings";
 const clicks = [];
-let defaultClickId = null;
 
 const SCENARIO_SPEED_VALUES = [0.1, 0.25, 0.5, 0.75, 1, 1.5, 2, 4, 8];
 const SOUND_VOLUME_LEVELS = ["volume", "volume-1", "volume-2"];

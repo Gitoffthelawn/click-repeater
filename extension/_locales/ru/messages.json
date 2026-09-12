@@ -1,8 +1,5 @@
 {
   "extDescription": {
     "message": "Записывайте клики и ввод с клавиатуры на веб-страницах и воспроизводите их когда нужно."
-  },
-  "commandRunDefaultClick": {
-    "message": "Run default"
   }
 }
