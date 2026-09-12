@@ -14,6 +14,11 @@ const EN_MESSAGES = {
   navClicks: "CLICKS",
   navSettings: "SETTINGS",
   navAbout: "ABOUT",
+  navRecommend: "RECOMMEND",
+  recommendIntro: "If the extension may be useful to someone else, share a link. If you like it, you can leave a rating in the store.",
+  recommendOpenAction: "Open page", recommendCopyAction: "Copy link", recommendShareAction: "Share",
+  recommendShareMessage: "This extension may be useful to you.", recommendCopied: "Link copied",
+  recommendCopyFailed: "Couldn't copy the link", recommendShareFailed: "Couldn't open sharing",
   aboutTitle: "CLICK REPEATER",
   aboutOverviewHeading: "Overview",
   aboutCapabilitiesHeading: "Capabilities",
@@ -146,7 +151,8 @@ const EN_MESSAGES = {
 const TRANSLATIONS = {
   en: EN_MESSAGES,
   es: {
-    navClicks: "CLICKS", navSettings: "AJUSTES", navAbout: "ACERCA DE",
+    navClicks: "CLICKS", navSettings: "AJUSTES", navAbout: "ACERCA DE", navRecommend: "RECOMENDAR",
+    recommendIntro: "Si la extensión puede ser útil para otra persona, comparte el enlace. Si te gusta, puedes valorarla en la tienda.", recommendOpenAction: "Abrir página", recommendCopyAction: "Copiar enlace", recommendShareAction: "Compartir", recommendShareMessage: "Esta extensión puede resultarte útil.", recommendCopied: "Enlace copiado", recommendCopyFailed: "No se pudo copiar el enlace", recommendShareFailed: "No se pudo abrir el menú para compartir",
     aboutTitle: "CLICK REPEATER", aboutOverviewHeading: "Resumen", aboutCapabilitiesHeading: "Funciones", aboutPrivacyHeading: "Privacidad", aboutCodeHeading: "Código", aboutStatisticsHeading: "Estadísticas", aboutOverview: "Graba y reproduce acciones en páginas web", aboutRecordsClicks: "Graba clics y entrada de teclado",
     aboutRepeatsClicks: "Reproduce clics y pulsaciones de teclas", aboutPositionMode: "Selección del elemento por coordenadas o código",
     aboutElementMode: "Modo Elemento: clic en elementos",
@@ -205,7 +211,8 @@ const TRANSLATIONS = {
     surveySendEmail: "Enviar un correo"
   },
   fr: {
-    navClicks: "CLICKS", navSettings: "PARAMÈTRES", navAbout: "À PROPOS",
+    navClicks: "CLICKS", navSettings: "PARAMÈTRES", navAbout: "À PROPOS", navRecommend: "RECOMMANDER",
+    recommendIntro: "Si l’extension peut être utile à quelqu’un, partagez le lien. Si elle vous plaît, vous pouvez la noter dans le store.", recommendOpenAction: "Ouvrir la page", recommendCopyAction: "Copier le lien", recommendShareAction: "Partager", recommendShareMessage: "Cette extension pourrait vous être utile.", recommendCopied: "Lien copié", recommendCopyFailed: "Impossible de copier le lien", recommendShareFailed: "Impossible d’ouvrir le partage",
     aboutTitle: "CLICK REPEATER", aboutOverviewHeading: "Aperçu", aboutCapabilitiesHeading: "Fonctionnalités", aboutPrivacyHeading: "Confidentialité", aboutCodeHeading: "Code", aboutStatisticsHeading: "Statistiques", aboutOverview: "Enregistre et rejoue des actions sur les pages web", aboutRecordsClicks: "Enregistre les clics et les saisies au clavier",
     aboutRepeatsClicks: "Rejoue les clics et les touches", aboutPositionMode: "Sélection de l'élément par coordonnées ou code",
     aboutElementMode: "Mode Élément : clique sur les éléments",
@@ -265,7 +272,8 @@ const TRANSLATIONS = {
     surveySendEmail: "Envoyer un e-mail"
   },
   de: {
-    navClicks: "KLICKS", navSettings: "EINSTELLUNGEN", navAbout: "ÜBER",
+    navClicks: "KLICKS", navSettings: "EINSTELLUNGEN", navAbout: "ÜBER", navRecommend: "EMPFEHLEN",
+    recommendIntro: "Wenn die Erweiterung jemand anderem helfen könnte, teilen Sie den Link. Wenn sie Ihnen gefällt, können Sie sie im Store bewerten.", recommendOpenAction: "Seite öffnen", recommendCopyAction: "Link kopieren", recommendShareAction: "Teilen", recommendShareMessage: "Diese Erweiterung könnte für Sie nützlich sein.", recommendCopied: "Link kopiert", recommendCopyFailed: "Link konnte nicht kopiert werden", recommendShareFailed: "Teilen konnte nicht geöffnet werden",
     aboutTitle: "CLICK REPEATER", aboutOverviewHeading: "Überblick", aboutCapabilitiesHeading: "Funktionen", aboutPrivacyHeading: "Datenschutz", aboutCodeHeading: "Code", aboutStatisticsHeading: "Statistiken", aboutOverview: "Zeichnet Aktionen auf Webseiten auf und spielt sie ab", aboutRecordsClicks: "Zeichnet Klicks und Tasteneingaben auf",
     aboutRepeatsClicks: "Spielt Klicks und Tastendrücke ab", aboutPositionMode: "Elementauswahl nach Koordinaten oder Code",
     aboutElementMode: "Elementmodus: klickt Elemente",
@@ -325,7 +333,8 @@ const TRANSLATIONS = {
     surveySendEmail: "E-Mail senden"
   },
   ru: {
-    navClicks: "НАЖАТИЯ", navSettings: "НАСТРОЙКИ", navAbout: "О РАСШИРЕНИИ",
+    navClicks: "НАЖАТИЯ", navSettings: "НАСТРОЙКИ", navAbout: "О РАСШИРЕНИИ", navRecommend: "РЕКОМЕНДОВАТЬ",
+    recommendIntro: "Если расширение может быть полезно кому-то ещё, поделитесь ссылкой. Если вам нравится расширение, вы можете оставить оценку в магазине.", recommendOpenAction: "Открыть страницу", recommendCopyAction: "Копировать ссылку", recommendShareAction: "Поделиться", recommendShareMessage: "Возможно, это расширение будет вам полезно.", recommendCopied: "Ссылка скопирована", recommendCopyFailed: "Не удалось скопировать ссылку", recommendShareFailed: "Не удалось открыть меню отправки",
     aboutTitle: "CLICK REPEATER", aboutOverviewHeading: "Обзор", aboutCapabilitiesHeading: "Возможности", aboutPrivacyHeading: "Приватность", aboutCodeHeading: "Код", aboutStatisticsHeading: "Статистика", aboutOverview: "Записывает и воспроизводит действия на веб-страницах", aboutRecordsClicks: "Записывает клики и ввод с клавиатуры",
     aboutRepeatsClicks: "Воспроизводит клики и нажатия клавиш", aboutPositionMode: "Настройка выбора элемента по координатам или коду",
     aboutElementMode: "Режим Элемент: кликает по элементам",
@@ -387,7 +396,8 @@ const TRANSLATIONS = {
     surveySendEmail: "Написать на email"
   },
   zh_CN: {
-    navClicks: "点击", navSettings: "设置", navAbout: "关于",
+    navClicks: "点击", navSettings: "设置", navAbout: "关于", navRecommend: "推荐",
+    recommendIntro: "如果这个扩展程序可能对其他人有用，请分享链接。如果您喜欢它，也可以在商店中评分。", recommendOpenAction: "打开页面", recommendCopyAction: "复制链接", recommendShareAction: "分享", recommendShareMessage: "这个扩展程序可能对您有用。", recommendCopied: "链接已复制", recommendCopyFailed: "无法复制链接", recommendShareFailed: "无法打开分享功能",
     aboutTitle: "CLICK REPEATER", aboutOverviewHeading: "概览", aboutCapabilitiesHeading: "功能", aboutPrivacyHeading: "隐私", aboutCodeHeading: "代码", aboutStatisticsHeading: "统计", aboutOverview: "录制并重放网页上的操作", aboutRecordsClicks: "记录点击和键盘输入",
     aboutRepeatsClicks: "重放点击和按键", aboutPositionMode: "按坐标或代码选择元素",
     aboutElementMode: "元素模式：点击元素", aboutVisualisation: "可视化设置",
@@ -439,7 +449,8 @@ const TRANSLATIONS = {
     surveySendEmail: "发送邮件"
   },
   ar: {
-    navClicks: "النقرات", navSettings: "الإعدادات", navAbout: "حول",
+    navClicks: "النقرات", navSettings: "الإعدادات", navAbout: "حول", navRecommend: "التوصية",
+    recommendIntro: "إذا كانت الإضافة قد تفيد شخصًا آخر، فشارك الرابط. وإذا أعجبتك، يمكنك تقييمها في المتجر.", recommendOpenAction: "فتح الصفحة", recommendCopyAction: "نسخ الرابط", recommendShareAction: "مشاركة", recommendShareMessage: "قد تكون هذه الإضافة مفيدة لك.", recommendCopied: "تم نسخ الرابط", recommendCopyFailed: "تعذر نسخ الرابط", recommendShareFailed: "تعذر فتح المشاركة",
     aboutTitle: "CLICK REPEATER", aboutOverviewHeading: "نظرة عامة", aboutCapabilitiesHeading: "الإمكانات", aboutPrivacyHeading: "الخصوصية", aboutCodeHeading: "الكود", aboutStatisticsHeading: "الإحصاءات", aboutOverview: "يسجل الإجراءات على صفحات الويب ويعيد تشغيلها", aboutRecordsClicks: "يسجل النقرات وإدخال المفاتيح",
     aboutRepeatsClicks: "يعيد تشغيل النقرات وضغطات المفاتيح", aboutPositionMode: "اختيار العنصر بالإحداثيات أو الرمز",
     aboutElementMode: "وضع العنصر: ينقر العناصر",

@@ -16,6 +16,7 @@
         <button class="popup-menu-btn active" type="button" data-page="clicks" aria-current="page"></button>
         <button class="popup-menu-btn" type="button" data-page="settings"></button>
         <button class="popup-menu-btn" type="button" data-page="about"></button>
+        <button class="popup-menu-btn" type="button" data-page="recommend"></button>
       </nav>
 
       <div class="popup-content">
@@ -110,6 +111,16 @@
             <p>Click Repeater</p>
             <p>© <a href="https://www.md2it.com/" target="_blank" rel="noopener noreferrer">md2it</a></p>
           </footer>
+        </section>
+        <section class="popup-page recommend-page hidden" data-page-content="recommend">
+          <h1 class="page-title" data-i18n="navRecommend">RECOMMEND</h1>
+          <div class="page-divider"></div>
+          <p class="recommend-intro" data-i18n="recommendIntro"></p>
+          <div class="recommend-store-list">
+            <section class="recommend-store-row" data-store="chrome"><span>Chrome</span><div class="recommend-store-actions"></div></section>
+            <section class="recommend-store-row" data-store="firefox"><span>Firefox</span><div class="recommend-store-actions"></div></section>
+          </div>
+          <p id="recommend-status" class="recommend-status" role="status" aria-live="polite"></p>
         </section>
       </div>
     </main>
@@ -244,6 +255,7 @@
     <script src="app/popup/execution.js"></script>
     <script src="app/popup/render.js"></script>
     <script src="app/popup/navigation.js"></script>
+    <script src="app/popup/recommend.js"></script>
     <script src="app/popup/tooltip.js"></script>
     <script src="app/support-survey/logic-core.classic.js"></script>
     <script src="app/support-survey/constants.classic.js"></script>

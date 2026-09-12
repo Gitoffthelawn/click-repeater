@@ -1,7 +1,8 @@
 const menuIcons = {
   clicks: iconSet.play,
   settings: iconSet.settings,
-  about: iconSet.info
+  about: iconSet.info,
+  recommend: iconSet.heartHandshake
 };
 
 for (const button of refs.menuButtons) {
@@ -37,7 +38,8 @@ function syncPopupLocale() {
   const menuKeys = {
     clicks: "navClicks",
     settings: "navSettings",
-    about: "navAbout"
+    about: "navAbout",
+    recommend: "navRecommend"
   };
   for (const button of refs.menuButtons) {
     const label = t(menuKeys[button.dataset.page]);
@@ -46,6 +48,7 @@ function syncPopupLocale() {
   }
   refs.list.setAttribute("aria-label", t("clicksList"));
   refs.languageSelector.setAttribute("aria-label", t("language"));
+  globalThis.syncRecommendPage?.();
   renderLanguageSelector();
   render();
   syncPopupHeight();
@@ -80,7 +83,7 @@ refs.menu.addEventListener("click", (event) => {
   }
 });
 
-const VALID_POPUP_PAGES = new Set(["clicks", "settings", "about"]);
+const VALID_POPUP_PAGES = new Set(["clicks", "settings", "about", "recommend"]);
 
 function applyInitialPage() {
   const page = new URLSearchParams(location.search).get("page");

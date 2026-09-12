@@ -11,4 +11,5 @@
    - Automatically when execution mode starts, as described in [Execution mode](../functional/mode-execute.md)
    - Automatically when check mode starts, as described in [Check mode](../functional/mode-check.md)
 - A vertical menu is displayed on the left
+  - Recommend uses the heart-handshake icon and is always the last item
 - Contains one of the PAGES, except WELCOME, which opens in a separate tab
