@@ -8,6 +8,7 @@ Regular SemVer logic. Review the [release requirements](RELEASE.md).
 - Added a Recommend page with direct Chrome and Firefox store actions to open, copy, or share the extension link.
 - Added Recommend as the last item in the extension panel and toolbar context menus.
 - Removed the hidden shortcut launch and default scenario data.
+- Fixed navigation-menu tooltips so they appear beside their icons.
 
 ### 1.4.1
 - Made popup tooltips compact and readable across languages, with balanced wrapping and stable positioning when their text changes.

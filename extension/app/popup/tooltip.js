@@ -26,6 +26,30 @@
     const tooltipRect = tooltip.getBoundingClientRect();
     const viewportWidth = document.documentElement.clientWidth;
     const viewportHeight = document.documentElement.clientHeight;
+    const isMenuButton = activeTrigger.classList.contains("popup-menu-btn");
+    const isRtl = document.documentElement.dir === "rtl";
+
+    if (isMenuButton) {
+      const preferredLeft = isRtl
+        ? triggerRect.left - OFFSET - tooltipRect.width
+        : triggerRect.right + OFFSET;
+      const left = Math.max(
+        VIEWPORT_GAP,
+        Math.min(preferredLeft, viewportWidth - tooltipRect.width - VIEWPORT_GAP)
+      );
+      const top = Math.max(
+        VIEWPORT_GAP,
+        Math.min(
+          triggerRect.top + (triggerRect.height - tooltipRect.height) / 2,
+          viewportHeight - tooltipRect.height - VIEWPORT_GAP
+        )
+      );
+
+      tooltip.style.top = `${top}px`;
+      tooltip.style.left = `${left}px`;
+      return;
+    }
+
     const canShowAbove = triggerRect.top - OFFSET - tooltipRect.height >= VIEWPORT_GAP;
     const preferredTop = canShowAbove
       ? triggerRect.top - OFFSET - tooltipRect.height
