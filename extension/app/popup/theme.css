@@ -127,12 +127,6 @@ html.dark-theme .click-row .run-btn--stop {
   background: #c83232;
 }
 
-html.dark-theme .click-card.click-card--running {
-  border-color: #012292;
-  background: #012292;
-  color: #fff;
-}
-
 html.dark-theme .btn-danger {
   border-color: #dc4c4c;
   color: #fff;

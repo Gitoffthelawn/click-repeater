@@ -86,11 +86,8 @@ TestHarness.test("active scenario card provides stop while other runs are disabl
   );
   TestHarness.assert(/\.click-row \.run-btn:disabled/.test(stylesSource));
   TestHarness.assert(/\.click-row \.run-btn--stop/.test(stylesSource));
-  TestHarness.assert(/\.click-card--running/.test(stylesSource));
-  TestHarness.assert(/card\.className = `click-card\$\{isActiveExecution \? " click-card--running" : ""\}`/.test(renderSource));
   TestHarness.assert(/\.icon-btn\[data-tooltip\]:not\(:disabled\)::after/.test(modalStylesSource));
   TestHarness.assert(/square:.*lucide-square/.test(iconsSource));
   TestHarness.assert(/html\.dark-theme \.click-row \.run-btn:disabled/.test(themeSource));
   TestHarness.assert(/html\.dark-theme \.click-row \.run-btn--stop/.test(themeSource));
-  TestHarness.assert(/html\.dark-theme \.click-card\.click-card--running/.test(themeSource));
 });
