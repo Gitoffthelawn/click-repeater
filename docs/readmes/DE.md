@@ -48,6 +48,7 @@ Erstellen Sie einmal eine Aktionsfolge, konfigurieren Sie die Ausführung und st
 - Im Positions- oder Elementmodus ausführen
 - Sichtbare oder unsichtbare Ausführung
 - Bis zu 999-mal wiederholen
+- Zähler für verbleibende Zyklen
 - Einstellbare Ausführungsgeschwindigkeit
 - Gespeicherte Klicks bearbeiten, löschen und sortieren
 - Helles und dunkles Design

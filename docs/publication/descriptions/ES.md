@@ -8,6 +8,7 @@ FUNCIONES
 - Ejecutar en modo Posición o Elemento,
 - Ejecución visible u oculta,
 - Repetir hasta 999 veces,
+- Contador de ciclos restantes,
 - Ajuste de la velocidad de ejecución,
 - Temas claro y oscuro.
 

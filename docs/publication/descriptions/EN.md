@@ -8,6 +8,7 @@ FEATURES
 - Run in Position or Element mode,
 - Visible or stealth execution,
 - Repeat up to 999 times,
+- Remaining cycle counter,
 - Execution speed settings,
 - Light and dark themes.
 

@@ -8,6 +8,7 @@ FONCTIONNALITÉS
 - Exécuter en mode Position ou Élément,
 - Exécution visible ou masquée,
 - Répéter jusqu'à 999 fois,
+- Compteur de cycles restants,
 - Réglage de la vitesse d'exécution,
 - Thèmes clair et sombre.
 

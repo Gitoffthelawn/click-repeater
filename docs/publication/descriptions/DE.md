@@ -8,6 +8,7 @@ FUNKTIONEN
 - Im Positions- oder Elementmodus ausführen,
 - Sichtbare oder unsichtbare Ausführung,
 - Bis zu 999-mal wiederholen,
+- Zähler für verbleibende Zyklen,
 - Einstellung der Ausführungsgeschwindigkeit,
 - Helles und dunkles Design.
 

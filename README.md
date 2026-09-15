@@ -48,6 +48,7 @@ Create an action sequence once, configure how it should run, and launch it from 
 - Run clicks in Position or Element mode
 - Visible and Stealth execution
 - Repeat up to 999 times
+- Remaining cycle counter
 - Agile execution speed settings
 - Edit, delete, and reorder saved clicks
 - Light and dark themes
