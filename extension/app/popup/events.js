@@ -157,6 +157,11 @@ refs.list.addEventListener("click", (event) => {
     return;
   }
 
+  if (action === "stop") {
+    void stopExecution();
+    return;
+  }
+
   if (action === "manage") {
     if (state.manageMenuClickId === macroId) {
       closeManageMenu();

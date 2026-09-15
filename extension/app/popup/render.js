@@ -41,8 +41,11 @@ function render() {
 
   for (const macro of clicks) {
     const runLabel = t("run");
+    const stopLabel = t("stop");
     const manageLabel = t("manage");
     const isManageOpen = state.manageMenuClickId === macro.id;
+    const isExecutionRunning = state.activeExecutionClickId !== null;
+    const isActiveExecution = state.activeExecutionClickId === macro.id;
 
     const row = document.createElement("li");
     row.className = "click-item";
@@ -67,14 +70,16 @@ function render() {
     clickMain.className = "click-main";
     clickMain.append(
       createIconButton({
-        className: "icon-btn run-btn",
-        action: "run",
+        className: `icon-btn run-btn${isActiveExecution ? " run-btn--stop" : ""}`,
+        action: isActiveExecution ? "stop" : "run",
         id: macro.id,
-        tooltip: runLabel,
-        ariaLabel: runLabel,
-        svgHtml: iconSet.play
+        tooltip: isActiveExecution ? stopLabel : runLabel,
+        ariaLabel: isActiveExecution ? stopLabel : runLabel,
+        svgHtml: isActiveExecution ? iconSet.square : iconSet.play
       })
     );
+    const runButton = clickMain.querySelector(".run-btn");
+    runButton.disabled = isExecutionRunning && !isActiveExecution;
 
     const name = document.createElement("span");
     name.className = "click-name";

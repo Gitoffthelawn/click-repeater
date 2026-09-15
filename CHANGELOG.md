@@ -4,6 +4,10 @@ Regular SemVer logic. Review the [release requirements](RELEASE.md).
 
 ## RELEASES
 
+### Unreleased
+- Replaced Record with Stop during playback and added Stop to the active scenario card
+- Marked other scenario start buttons unavailable during playback
+
 ### 1.5.0
 - Added a Recommend page with direct Chrome and Firefox store actions to open, copy, or share the extension link.
 - Added Recommend as the last item in the extension panel and toolbar context menus.

@@ -23,8 +23,8 @@ const state = {
   pendingDisplayMovesClickId: null,
   pendingModeClickId: null,
   activeCheckClickId: null,
+  activeExecutionClickId: null,
   executionPollTimer: null,
-  stopButtonShowTimer: null,
   soundPreviewClickTimer: null,
   soundPreviewReleaseTimer: null,
   nameSavePromise: Promise.resolve()

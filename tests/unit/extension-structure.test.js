@@ -35,3 +35,46 @@ TestHarness.test("extension manifest and injected content script inventory stay 
     "temporary execution popups must restore the native popup after a run",
   );
 });
+
+TestHarness.test("playback stop replaces the record button above the scenario list", async () => {
+  const popupResponse = await fetch("/extension/popup.html");
+  TestHarness.assert(popupResponse.ok, "popup.html must be reachable");
+  const popupDocument = new DOMParser().parseFromString(await popupResponse.text(), "text/html");
+  const recordButton = popupDocument.getElementById("record-btn");
+  const stopButton = popupDocument.getElementById("stop-execution-btn");
+  const scenarioList = popupDocument.getElementById("clicks-list");
+
+  TestHarness.assert(recordButton, "Record button must exist");
+  TestHarness.assert(stopButton, "Stop button must exist");
+  TestHarness.assertEqual(recordButton.nextElementSibling, stopButton);
+  TestHarness.assert(
+    recordButton.compareDocumentPosition(scenarioList) & Node.DOCUMENT_POSITION_FOLLOWING,
+    "Playback controls must stay above the scenario list",
+  );
+});
+
+TestHarness.test("active scenario card provides stop while other runs are disabled", async () => {
+  const [renderResponse, executionResponse, stylesResponse] = await Promise.all([
+    fetch("/extension/app/popup/render.js"),
+    fetch("/extension/app/popup/execution.js"),
+    fetch("/extension/app/popup/base.css")
+  ]);
+  TestHarness.assert(renderResponse.ok, "popup renderer must be reachable");
+  TestHarness.assert(executionResponse.ok, "popup execution controls must be reachable");
+  TestHarness.assert(stylesResponse.ok, "popup styles must be reachable");
+
+  const [renderSource, executionSource, stylesSource] = await Promise.all([
+    renderResponse.text(),
+    executionResponse.text(),
+    stylesResponse.text()
+  ]);
+  TestHarness.assert(/action: isActiveExecution \? "stop" : "run"/.test(renderSource));
+  TestHarness.assert(/runButton\.disabled = isExecutionRunning && !isActiveExecution/.test(renderSource));
+  TestHarness.assert(/state\.activeExecutionClickId = nextClickId/.test(executionSource));
+  TestHarness.assert(
+    /async function stopExecution\(\) \{[\s\S]*?clearExecutionPolling\(\);\s*setActiveExecutionClickId\(null\);/.test(executionSource),
+    "Stopping playback must restore the scenario cards",
+  );
+  TestHarness.assert(/\.click-row \.run-btn:disabled/.test(stylesSource));
+  TestHarness.assert(/\.click-row \.run-btn--stop/.test(stylesSource));
+});
