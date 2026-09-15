@@ -116,6 +116,23 @@ html.dark-theme .btn.btn-primary:hover {
   background: #4967d6;
 }
 
+html.dark-theme .click-row .run-btn:disabled {
+  border-color: #6b7280;
+  background: #6b7280;
+  color: #e5e7eb;
+}
+
+html.dark-theme .click-row .run-btn--stop {
+  border-color: #dc4c4c;
+  background: #c83232;
+}
+
+html.dark-theme .click-card.click-card--running {
+  border-color: #012292;
+  background: #012292;
+  color: #fff;
+}
+
 html.dark-theme .btn-danger {
   border-color: #dc4c4c;
   color: #fff;

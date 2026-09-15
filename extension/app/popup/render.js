@@ -61,7 +61,7 @@ function render() {
     appendStaticSvg(dragHandle, iconSet.gripVertical);
 
     const card = document.createElement("div");
-    card.className = "click-card";
+    card.className = `click-card${isActiveExecution ? " click-card--running" : ""}`;
 
     const clickRow = document.createElement("div");
     clickRow.className = "click-row";

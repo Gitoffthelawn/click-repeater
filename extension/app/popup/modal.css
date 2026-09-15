@@ -46,7 +46,7 @@
   position: relative;
 }
 
-body:not(.viewport-tooltips-ready) .icon-btn[data-tooltip]::after {
+body:not(.viewport-tooltips-ready) .icon-btn[data-tooltip]:not(:disabled)::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 5px);

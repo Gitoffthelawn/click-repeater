@@ -54,19 +54,28 @@ TestHarness.test("playback stop replaces the record button above the scenario li
 });
 
 TestHarness.test("active scenario card provides stop while other runs are disabled", async () => {
-  const [renderResponse, executionResponse, stylesResponse] = await Promise.all([
+  const [renderResponse, executionResponse, stylesResponse, themeResponse, modalStylesResponse, iconsResponse] = await Promise.all([
     fetch("/extension/app/popup/render.js"),
     fetch("/extension/app/popup/execution.js"),
-    fetch("/extension/app/popup/base.css")
+    fetch("/extension/app/popup/base.css"),
+    fetch("/extension/app/popup/theme.css"),
+    fetch("/extension/app/popup/modal.css"),
+    fetch("/extension/vendor/lucide.js")
   ]);
   TestHarness.assert(renderResponse.ok, "popup renderer must be reachable");
   TestHarness.assert(executionResponse.ok, "popup execution controls must be reachable");
   TestHarness.assert(stylesResponse.ok, "popup styles must be reachable");
+  TestHarness.assert(themeResponse.ok, "popup theme must be reachable");
+  TestHarness.assert(modalStylesResponse.ok, "popup modal styles must be reachable");
+  TestHarness.assert(iconsResponse.ok, "popup icon set must be reachable");
 
-  const [renderSource, executionSource, stylesSource] = await Promise.all([
+  const [renderSource, executionSource, stylesSource, themeSource, modalStylesSource, iconsSource] = await Promise.all([
     renderResponse.text(),
     executionResponse.text(),
-    stylesResponse.text()
+    stylesResponse.text(),
+    themeResponse.text(),
+    modalStylesResponse.text(),
+    iconsResponse.text()
   ]);
   TestHarness.assert(/action: isActiveExecution \? "stop" : "run"/.test(renderSource));
   TestHarness.assert(/runButton\.disabled = isExecutionRunning && !isActiveExecution/.test(renderSource));
@@ -77,4 +86,11 @@ TestHarness.test("active scenario card provides stop while other runs are disabl
   );
   TestHarness.assert(/\.click-row \.run-btn:disabled/.test(stylesSource));
   TestHarness.assert(/\.click-row \.run-btn--stop/.test(stylesSource));
+  TestHarness.assert(/\.click-card--running/.test(stylesSource));
+  TestHarness.assert(/card\.className = `click-card\$\{isActiveExecution \? " click-card--running" : ""\}`/.test(renderSource));
+  TestHarness.assert(/\.icon-btn\[data-tooltip\]:not\(:disabled\)::after/.test(modalStylesSource));
+  TestHarness.assert(/square:.*lucide-square/.test(iconsSource));
+  TestHarness.assert(/html\.dark-theme \.click-row \.run-btn:disabled/.test(themeSource));
+  TestHarness.assert(/html\.dark-theme \.click-row \.run-btn--stop/.test(themeSource));
+  TestHarness.assert(/html\.dark-theme \.click-card\.click-card--running/.test(themeSource));
 });
