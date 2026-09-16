@@ -4,9 +4,12 @@ Regular SemVer logic. Review the [release requirements](RELEASE.md).
 
 ## RELEASES
 
-### Unreleased
+### 1.6.0
 - Replaced Record with Stop during playback and added Stop to the active scenario card
 - Marked other scenario start buttons unavailable during playback
+- Highlighted the active scenario card during playback
+- Replaced the scenario name in the running status with remaining/total repeats and elapsed time
+- Suppressed tooltips on disabled run buttons during playback
 
 ### 1.5.0
 - Added a Recommend page with direct Chrome and Firefox store actions to open, copy, or share the extension link.
