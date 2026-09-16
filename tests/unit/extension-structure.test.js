@@ -54,12 +54,13 @@ TestHarness.test("playback stop replaces the record button above the scenario li
 });
 
 TestHarness.test("active scenario card provides stop while other runs are disabled", async () => {
-  const [renderResponse, executionResponse, stylesResponse, themeResponse, modalStylesResponse, iconsResponse] = await Promise.all([
+  const [renderResponse, executionResponse, stylesResponse, themeResponse, modalStylesResponse, tooltipResponse, iconsResponse] = await Promise.all([
     fetch("/extension/app/popup/render.js"),
     fetch("/extension/app/popup/execution.js"),
     fetch("/extension/app/popup/base.css"),
     fetch("/extension/app/popup/theme.css"),
     fetch("/extension/app/popup/modal.css"),
+    fetch("/extension/app/popup/tooltip.js"),
     fetch("/extension/vendor/lucide.js")
   ]);
   TestHarness.assert(renderResponse.ok, "popup renderer must be reachable");
@@ -67,18 +68,21 @@ TestHarness.test("active scenario card provides stop while other runs are disabl
   TestHarness.assert(stylesResponse.ok, "popup styles must be reachable");
   TestHarness.assert(themeResponse.ok, "popup theme must be reachable");
   TestHarness.assert(modalStylesResponse.ok, "popup modal styles must be reachable");
+  TestHarness.assert(tooltipResponse.ok, "popup tooltip script must be reachable");
   TestHarness.assert(iconsResponse.ok, "popup icon set must be reachable");
 
-  const [renderSource, executionSource, stylesSource, themeSource, modalStylesSource, iconsSource] = await Promise.all([
+  const [renderSource, executionSource, stylesSource, themeSource, modalStylesSource, tooltipSource, iconsSource] = await Promise.all([
     renderResponse.text(),
     executionResponse.text(),
     stylesResponse.text(),
     themeResponse.text(),
     modalStylesResponse.text(),
+    tooltipResponse.text(),
     iconsResponse.text()
   ]);
   TestHarness.assert(/action: isActiveExecution \? "stop" : "run"/.test(renderSource));
   TestHarness.assert(/runButton\.disabled = isExecutionRunning && !isActiveExecution/.test(renderSource));
+  TestHarness.assert(/delete runButton\.dataset\.tooltip/.test(renderSource));
   TestHarness.assert(/state\.activeExecutionClickId = nextClickId/.test(executionSource));
   TestHarness.assert(
     /async function stopExecution\(\) \{[\s\S]*?clearExecutionPolling\(\);\s*setActiveExecutionClickId\(null\);/.test(executionSource),
@@ -87,7 +91,27 @@ TestHarness.test("active scenario card provides stop while other runs are disabl
   TestHarness.assert(/\.click-row \.run-btn:disabled/.test(stylesSource));
   TestHarness.assert(/\.click-row \.run-btn--stop/.test(stylesSource));
   TestHarness.assert(/\.icon-btn\[data-tooltip\]:not\(:disabled\)::after/.test(modalStylesSource));
+  TestHarness.assert(/\.icon-btn:not\(:disabled\):hover\[data-tooltip\]::after/.test(modalStylesSource));
+  TestHarness.assert(/trigger\.matches\(":disabled"\)/.test(tooltipSource));
   TestHarness.assert(/square:.*lucide-square/.test(iconsSource));
   TestHarness.assert(/html\.dark-theme \.click-row \.run-btn:disabled/.test(themeSource));
   TestHarness.assert(/html\.dark-theme \.click-row \.run-btn--stop/.test(themeSource));
+});
+
+TestHarness.test("running status shows fixed-width repeat counter and elapsed time", async () => {
+  const [executionResponse, i18nResponse] = await Promise.all([
+    fetch("/extension/app/popup/execution.js"),
+    fetch("/extension/app/i18n.js")
+  ]);
+  TestHarness.assert(executionResponse.ok, "popup execution controls must be reachable");
+  TestHarness.assert(i18nResponse.ok, "popup i18n must be reachable");
+
+  const [executionSource, i18nSource] = await Promise.all([
+    executionResponse.text(),
+    i18nResponse.text()
+  ]);
+  TestHarness.assert(/function formatCycleCounter\(executionState\)/.test(executionSource));
+  TestHarness.assert(/setStatus\(t\("running", \{ cycles, time \}\)\)/.test(executionSource));
+  TestHarness.assert(/`\$\{remainingCycles\}\/\$\{totalRepeats\}`/.test(executionSource));
+  TestHarness.assert(/running: "Remaining: \{cycles\} \| \{time\}"/.test(i18nSource));
 });

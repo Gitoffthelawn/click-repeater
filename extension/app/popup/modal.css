@@ -66,8 +66,8 @@ body:not(.viewport-tooltips-ready) .icon-btn[data-tooltip]:not(:disabled)::after
   visibility: hidden;
 }
 
-body:not(.viewport-tooltips-ready) .icon-btn:hover[data-tooltip]::after,
-body:not(.viewport-tooltips-ready) .icon-btn:focus-visible[data-tooltip]::after {
+body:not(.viewport-tooltips-ready) .icon-btn:not(:disabled):hover[data-tooltip]::after,
+body:not(.viewport-tooltips-ready) .icon-btn:not(:disabled):focus-visible[data-tooltip]::after {
   opacity: 1;
   visibility: visible;
 }

@@ -58,6 +58,25 @@ function formatRemainingMs(remainingMs) {
   return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
+function getExecutionCycleCounts(executionState) {
+  const totalRepeats = Math.min(999, Math.max(1, Number(executionState.repeats) || 1));
+  const stepsPerCycleRaw = Number(executionState.stepsPerCycle);
+  const stepsPerCycle = Number.isFinite(stepsPerCycleRaw) && stepsPerCycleRaw > 0
+    ? stepsPerCycleRaw
+    : (Number(executionState.totalSteps) > 0
+      ? Math.max(1, Math.floor(Number(executionState.totalSteps) / totalRepeats))
+      : 1);
+  const completedSteps = Math.max(0, Number(executionState.completedSteps) || 0);
+  const completedCycles = Math.min(totalRepeats, Math.floor(completedSteps / stepsPerCycle));
+  const remainingCycles = Math.max(0, totalRepeats - completedCycles);
+  return { remainingCycles, totalRepeats };
+}
+
+function formatCycleCounter(executionState) {
+  const { remainingCycles, totalRepeats } = getExecutionCycleCounts(executionState);
+  return `${remainingCycles}/${totalRepeats}`;
+}
+
 function renderExecutionStatus(executionState) {
   if (!executionState?.isRunning) {
     setActiveExecutionClickId(null);
@@ -67,8 +86,9 @@ function renderExecutionStatus(executionState) {
   }
 
   setActiveExecutionClickId(executionState);
-  const remaining = formatRemainingMs(executionState.remainingMs ?? 0);
-  setStatus(t("running", { name: executionState.clickName, remaining }));
+  const cycles = formatCycleCounter(executionState);
+  const time = formatRemainingMs(executionState.remainingMs ?? 0);
+  setStatus(t("running", { cycles, time }));
   showStopExecutionButton();
 }
 

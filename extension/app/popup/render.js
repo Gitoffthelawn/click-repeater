@@ -80,6 +80,9 @@ function render() {
     );
     const runButton = clickMain.querySelector(".run-btn");
     runButton.disabled = isExecutionRunning && !isActiveExecution;
+    if (runButton.disabled) {
+      delete runButton.dataset.tooltip;
+    }
 
     const name = document.createElement("span");
     name.className = "click-name";

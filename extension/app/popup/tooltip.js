@@ -71,7 +71,7 @@
   }
 
   function show(trigger) {
-    if (!trigger) return;
+    if (!trigger || trigger.matches(":disabled")) return;
     const label = trigger.dataset.tooltip;
     if (!label) return;
     activeTrigger = trigger;
@@ -92,7 +92,11 @@
   }
 
   function findTrigger(target) {
-    return target instanceof Element ? target.closest("[data-tooltip]") : null;
+    const trigger = target instanceof Element ? target.closest("[data-tooltip]") : null;
+    if (!trigger || trigger.matches(":disabled")) {
+      return null;
+    }
+    return trigger;
   }
 
   document.addEventListener("pointerover", (event) => show(findTrigger(event.target)));
