@@ -37,9 +37,9 @@
 ## Implementation
 
 - Sounds are generated with the Web Audio API and routed to the current system output.
-- One audio context is reused for the complete scenario and released after completion, user interruption, or an execution error.
-- Closing or navigating the tab also releases the audio context through browser lifecycle cleanup.
-- While a scenario is running, an approximately `-120 dBFS`, 30 Hz keep-alive signal maintains an active Bluetooth audio channel. This is required for reliable system-volume synchronisation with wireless headphones such as AirPods.
-- The keep-alive signal starts with scenario execution and stops when execution ends. It must remain effectively inaudible and must not alter other audio streams or device settings.
-- For sound-setting previews, the keep-alive signal starts before the preview click and stops shortly after the preview finishes.
+- One audio context per document (tab page or popup) is created on first use and reused across runs. It is not closed after each scenario; keeping it open preserves Firefox user-gesture audio permission for the next run on the same tab.
+- Closing or navigating the tab (or closing the popup) releases the audio context through browser lifecycle cleanup.
+- A trusted user gesture on the page (pointer down or key down) may warm the audio context before the first scenario; this is required for reliable playback in Firefox.
+- An approximately `-120 dBFS`, 30 Hz keep-alive signal starts with the audio context and stays active while it is open. This maintains an active Bluetooth audio channel for reliable system-volume synchronisation with wireless headphones such as AirPods. It must remain effectively inaudible and must not alter other audio streams or device settings.
+- For sound-setting previews, the keep-alive signal starts before the preview click plays.
 - Audible click and key press sounds are separate short transients played through the same audio context.
